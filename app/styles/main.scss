@@ -1,0 +1,127 @@
+$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
+
+@import 'sass-bootstrap/lib/bootstrap';
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+
+@mixin transform($value...) {
+    -webkit-transform: $value;
+    -moz-transform: $value;
+    -o-transform: $value;
+    transform: $value;
+}
+
+.tesuji-grid {
+    position: relative;
+    margin: 12px;
+    background-color: #ffcc66;
+    height: 600px;
+    width: 600px;
+
+    table {
+        position: absolute;
+        z-index: 0;
+        left: 30px;
+        top: 30px;
+        border: 1px solid black;
+        
+        td {
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+        }
+    }
+
+    .label {
+        position: absolute;
+        z-index: 1;
+        font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+        font-size: 9px;
+        text-align: center;  
+        color: black;
+        padding: 0px;
+    }
+
+    @for $i from 0 through 18 {
+      $offset-x: 555 - (30 * $i) + px;
+      $offset-y: 15 + (30 * $i) + px;
+
+      .label-top-#{$i} {
+        @extend .label;
+        height: 15px;
+        width: 30px;
+        padding-top: 2px;
+        @include transform(translate($offset-y, 0px));
+      }
+      .label-bottom-#{$i} {
+        @extend .label;
+        height: 15px;
+        width: 30px;
+        @include transform(translate($offset-y, 585px));
+      }
+      .label-left-#{$i} {
+        @extend .label;
+        height: 30px;
+        width: 15px;
+        padding-top: 10px;
+        @include transform(translate(0px, $offset-x));
+      }
+      .label-right-#{$i} {
+        @extend .label;
+        height: 30px;
+        width: 15px;
+        padding-top: 10px;
+        @include transform(translate(585px, $offset-x));
+      }
+    }
+    
+    .intersection {
+      position: absolute;
+      z-index: 1;
+      height: 30px;
+      width: 30px;
+      
+      .stone {
+        position: absolute;
+        z-index: 2;
+        top: 2px;
+        left: 2px;
+        height: 26px;
+        width: 26px;
+        border-radius: 50%;
+        &.black {
+          background-color: black;
+        }
+        &.white {
+          border: 1px solid black;
+          background-color: white;
+        }
+      }
+    }
+    .dot {
+      position: absolute;
+      top: 13px;
+      left: 13px;
+      height: 5px;
+      width: 5px;
+      background-color: black;
+    }
+    
+    @for $i from 0 through 18 {
+      @for $j from 0 through 18 {
+        $offset-x: 15 + (30 * $i) + px;
+        $offset-y: 555 - (30 * $j) + px;
+        
+        .intersection-#{$i}-#{$j} {
+          @extend .intersection;
+          @include transform(translate($offset-x, $offset-y));
+        }
+      }
+    }
+
+}
