@@ -6,14 +6,13 @@
  
 'use strict';
 
-// var React = require('react');
-// var Grid = require('./Grid.jsx');
-
+var React = require('react');
+var Grid = require('./grid.jsx');
 
 var BLACK = 0;
 var WHITE = 1;
 
-var BoardView = React.createClass({
+var Board = React.createClass({
   
   propTypes: {
     onClick: React.PropTypes.func.isRequired
@@ -36,4 +35,4 @@ var BoardView = React.createClass({
 });
 
 
-// module.exports = Board
+module.exports = Board

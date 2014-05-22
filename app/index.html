@@ -31,14 +31,13 @@
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/underscore/underscore.js"></script>
-        <script src="bower_components/react/react.js"></script>
+        <script src="scripts/vendor.js"></script>
+        <script src="bower_components/jquery/jquery.js"></script>      
         <!-- endbower -->
         <!-- endbuild -->
         
-        <!-- TODO: figure out how to declare dev only dependencies ... -->
-        <script src="bower_components/react/JSXTransformer.js"></script>
+        <!-- TODO: shim jquery ... -->
+        <script src="bower_components/jquery/jquery.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -50,16 +49,9 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-        <!-- build:jsx scripts/app.js -->
-        <script type="text/jsx" src="scripts/components/Board.jsx"></script>
-        <script type="text/jsx" src="scripts/components/Grid.jsx"></script>
-        <script type="text/jsx" src="scripts/components/Intersection.jsx"></script>
-        <script type="text/jsx" src="scripts/components/TesujiApp.jsx"></script>
-
-        <!-- endbuild -->
-        
         <!-- build:js scripts/app.js -->
-        <script type="text/jsx" src="scripts/main.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/main.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->

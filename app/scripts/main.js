@@ -6,7 +6,7 @@
 
 'use strict';
 
-// var React = require('../bower_components/react/react.js');
-// var TesujiApp = require('./components/TesujiApp.jsx');
+var React = require('react');
+var TesujiApp = require('tesuji_app');
 
-// React.renderComponent(TesujiApp(), document.getElementById('tesuji_app'));
+React.renderComponent(TesujiApp(), document.getElementById('tesuji_app'));

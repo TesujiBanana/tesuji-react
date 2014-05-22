@@ -6,7 +6,7 @@
 
 'use strict';
 
-// var React = require('react');
+var React = require('react');
 
 var Intersection = React.createClass({
 
@@ -43,4 +43,4 @@ var Stone = React.createClass({
   }
 });
 
-// module.exports = Intersection;
+module.exports = Intersection;

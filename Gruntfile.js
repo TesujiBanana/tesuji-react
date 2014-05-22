@@ -23,13 +23,13 @@ module.exports = function (grunt) {
             // Configurable paths
             app: 'app',
             dist: 'dist',
-            lib: 'lib'
+            src: 'src'
         },
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             js: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.{js,jsx}'],
+                files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
                 tasks: ['jshint'] ,
                 options: {
                     livereload: true
@@ -127,18 +127,28 @@ module.exports = function (grunt) {
             ]
         },
 
-        // browserify: {
-        //     basic: {
-        //         src: [
-        //             '<%= yeoman.lib %>/js/tesuji/**/*.{js,jsx}',
-        //         ],
-        //         options: {
-        //             transform: ['reactify'],
-        //             require: ['<%= yeoman.lib %>/js/tesuji/components/TesujiApp.jsx']
-        //             // external: ['react']
-        //         },
-        //         dest: '<%= yeoman.app %>/scripts/app.js'
-        //     },
+        browserify: {
+            app: {
+                src: [
+                    '<%= yeoman.src %>/**/*.{js,jsx}',
+                ],
+                options: {
+                    transform: ['reactify'],
+                    external: ['react', 'underscore'],
+                    alias: ['./src/components/tesuji_app.js:tesuji_app'],
+                },
+                dest: '<%= yeoman.app %>/scripts/app.js'
+            },
+            vendor: {
+                src: [],
+                dest: '<%= yeoman.app %>/scripts/vendor.js',
+                options: {
+                    require: [
+                        'react',
+                        'underscore'
+                    ]
+                }
+            }
             // dist: {
             //     files: {
             //         'dist/scripts/app.js': [
@@ -150,7 +160,7 @@ module.exports = function (grunt) {
             //         transform: ['reactify']
             //     }
             // }
-        // },
+        },
 
         // Mocha testing framework configuration options
         mocha: {

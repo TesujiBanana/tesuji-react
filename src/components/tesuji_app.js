@@ -6,8 +6,9 @@
  
 'use strict';
 
-// var React = require('react');
-// var Board = require('./Board.jsx');
+var React = require('react');
+var _ = require('underscore');
+var Board = require('./Board.jsx');
 
 var TesujiApp = React.createClass({
 
@@ -38,21 +39,6 @@ var TesujiApp = React.createClass({
     
     // new board state with the proposed stone placed ...
     new_game_state.board[x][y] = this.state.game_state.current_player;
-    // check north group
-    // if (
-    //   x > 0 && 
-    //   new_game_state.board[x][y-1] !== undefined &&
-    //   new_game_state.board[x][y-1] == this.game_state.current_player
-    // ) {
-    //   
-    // }
-    
-    // new board state with captures removed ... 
-    
-    
-    // check for suicide ...
-    
-    // check for ko ... 
     
     // if we made it this far, set new game state ...     
     this.setState({game_state: new_game_state});
@@ -60,14 +46,11 @@ var TesujiApp = React.createClass({
   
   render: function() {
     return (
-      <BoardView boardSize="19" stones={this.state.game_state.board} onClick={this.handleClick}/>
+      <Board boardSize="19" stones={this.state.game_state.board} onClick={this.handleClick}/>
     );
   }
 });
 
-var app = TesujiApp();
-React.renderComponent(app, document.getElementById('tesuji_app'));
+// React.renderComponent(TesujiApp(), document.getElementById('tesuji_app'));
 
-
-
-// module.exports = TesujiApp;
+module.exports = TesujiApp;

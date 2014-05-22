@@ -5,9 +5,10 @@
  */
  
 'use strict';
- 
-// var React = require('react');
-// var Intersection = require('./Intersection.jsx');
+
+var React = require('react');
+var _ = require('underscore');
+var Intersection = require('./intersection.jsx');
  
 var Grid = React.createClass({
   getDefaultProps: function() {
@@ -66,4 +67,4 @@ var Grid = React.createClass({
   }
 });
 
-// module.exports = Grid
+module.exports = Grid
