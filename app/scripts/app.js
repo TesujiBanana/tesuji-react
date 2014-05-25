@@ -221,7 +221,7 @@ var IntersectionView = React.createClass({displayName: 'IntersectionView',
   render: function() {
     var contents = []
     if (this._dot()) contents.push(React.DOM.div( {className:"dot"}));
-    if (this.props.stone !== null) contents.push(StoneView( {color:this.props.stone === Stone.BLACK ? 'black' : 'white'} ));
+    if (this.props.stone !== null) contents.push(StoneView( {stone:this.props.stone} ));
     
     return(
       React.DOM.div( {className:'intersection intersection-' + this.props.x + '-' + this.props.y,
@@ -233,9 +233,17 @@ var IntersectionView = React.createClass({displayName: 'IntersectionView',
 
 
 var StoneView = React.createClass({displayName: 'StoneView',
+  propTypes: {
+    stone: React.PropTypes.instanceOf(Stone).isRequired
+  },
+  color: function() {
+    console.log(this.props.stone.color);
+    if (this.props.stone.color === Stone.BLACK) { return 'black' }
+    if (this.props.stone.color === Stone.WHITE) { return 'white' }
+  },
   render: function() {
     return (
-      React.DOM.div( {className:'stone ' + this.props.color})
+      React.DOM.div( {className:'stone ' + this.color() })
     );
   }
 });
@@ -333,7 +341,7 @@ module.exports = TesujiApp;
  * THE SOFTWARE.
  */
  
-var Stone = ('./stone');
+var Stone = require('./stone');
 var _ = require('underscore');
 
 var Board = function(board_size, grid) {
@@ -348,36 +356,96 @@ var Board = function(board_size, grid) {
 };
 
 Board.prototype.stoneAt = function(x, y) {
-  if (this._coordinatesOutOfBounds(x, y)) { return null }
+  if (this.coordinatesOutOfBounds(x, y)) { return undefined }
   return this.grid[this._coordinatesToIndex(x, y)];
 };
 
-Board.prototype.placeStone = function(x, y, new_stone) {
-  if (this._coordinatesOutOfBounds(x, y)) { return null }
+Board.prototype.neighbors = function(x, y) {
+  return _.compact([
+    this.stoneAt(x-1, y),
+    this.stoneAt(x, y+1),
+    this.stoneAt(x+1, y),
+    this.stoneAt(x, y-1),
+  ]);
+};
+
+Board.prototype.liberty = function(x, y) {
+  return (
+    this.stoneAt(x-1, y) === null ||
+    this.stoneAt(x, y+1) === null ||
+    this.stoneAt(x+1, y) === null ||
+    this.stoneAt(x, y-1) === null
+  );
+};
+
+Board.prototype.findDeadStones = function(seed_stones) {
+  var cache = {};
+  
+  var dead_groups = seed_stones.forEach(function(seed_stone) {
+    var group = [seed_stone];
+    var i = 0;
+    while (group.length > 0) {
+      var this_stone = group[i];
+      if (this.liberty(this_stone.x, this_stone.y)) { return [] }
+      group.push(this.neighbors(this_stone.x, this_stone.y).filter(function(neighbor_stone) {
+        return (this_stone.color === neighbor_stone.color);
+      })); 
+      
+      i = i + 1;
+    }
+  }.bind(this));
+  
+  return _.flatten(_.compact(dead_groups));
+}
+
+Board.prototype.placeStone = function(x, y, color) {
+  if (this.coordinatesOutOfBounds(x, y)) { return null }
   if (this.stoneAt(x, y)) { return null }
   
   // create new group from the new stone. liberty list is empty adjacent 
   // intersections.
+  var new_board = new Board(
+    this.board_size, 
+    this.grid.map(function(stone, i) {
+      return (i === this._coordinatesToIndex(x,y)) ? 
+        new Stone(x, y, color) : 
+        stone;
+    }.bind(this))
+  );
+
+  // find dead stones
+  var dead_stones = this.findDeadStones(this.neighbors(x,y));
   
+  if (dead_stones.length > 0) {
+    var dead_stone_overlay = dead_stones.reduce(function(overlay, dead_stone) {
+       overlay[this._coordinatesToIndex(dead_stone.x, dead_stone.y)] = true;
+       return overlay;
+    }.bind(this), {});
+    
+    new_board = new Board(
+      this.board_size,
+      this.grid.filter(function(stone, i) {
+          return !dead_stone_overlay[i];
+      }.bind(this))
+    );
+  }
+  
+  // bleh ... 
+
   // groups for which the current location was a liberty and decrement liberty 
   // count.
 
   // remove enemy groups with zero liberties, updating liberty count for their
-  // neighbors. (??? the 2nd part may be hard)
+  // neighbors. (??? the 2nd part may be hard ... maybe we have to track 
+  // neighboring enemy stones? or track/determine all neighboring spaces and 
+  // this.stoneAt(...) to determine liberties)
   
   // check to make sure the new group is not in suicide.
     
-  return new Board(
-    this.board_size, 
-    this.grid.map(function(stone, i) {
-      return (i === this._coordinatesToIndex(x,y)) ? 
-        new_stone : 
-        stone;
-    }.bind(this))
-  );
+  return new_board;
 };
 
-Board.prototype._coordinatesOutOfBounds = function(x, y) {
+Board.prototype.coordinatesOutOfBounds = function(x, y) {
   return (x < 0 || 
     x >= this.board_size || 
     y < 0 || 
@@ -390,7 +458,7 @@ Board.prototype._coordinatesToIndex = function(x, y) {
 
 module.exports = Board;
 
-},{"underscore":"ZKusGn"}],8:[function(require,module,exports){
+},{"./stone":8,"underscore":"ZKusGn"}],8:[function(require,module,exports){
 /*******************************************************************************
  * Copyright (c) 2014 Chris Papazian
  * 
@@ -413,12 +481,12 @@ module.exports = Board;
  * THE SOFTWARE.
  */
  
-var Stone = function(board, x, y, color) {
-  this.board = board;
+var _ = require('underscore');
+
+var Stone = function(x, y, color) {
   this.x = x;
   this.y = y;
   this.color = color;
-  return this.freeze();
 };
 
 Stone.BLACK = 0;
@@ -426,4 +494,4 @@ Stone.WHITE = 1;
 
 module.exports = Stone;
 
-},{}]},{},["uovHxG"])
+},{"underscore":"ZKusGn"}]},{},["uovHxG"])

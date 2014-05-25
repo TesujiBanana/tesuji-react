@@ -20,19 +20,12 @@
  * THE SOFTWARE.
  */
  
-var Stone = function(board, x, y, color) {
-  this.board = board;
+var _ = require('underscore');
+
+var Stone = function(x, y, color) {
   this.x = x;
   this.y = y;
   this.color = color;
-  return this.freeze();
-};
-
-var Stone.prototype.neighbors = function() {
-  var left = this.board.stoneAt(x-1, y);
-  var up = this.board.stoneAt(x, y+1);
-  var right = this.board.stoneAt(x+1, y);
-  var down = this.board.stoneAt(x, y-1);
 };
 
 Stone.BLACK = 0;

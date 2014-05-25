@@ -43,7 +43,7 @@ var IntersectionView = React.createClass({
   render: function() {
     var contents = []
     if (this._dot()) contents.push(<div className='dot'></div>);
-    if (this.props.stone !== null) contents.push(<StoneView color={this.props.stone === Stone.BLACK ? 'black' : 'white'} />);
+    if (this.props.stone !== null) contents.push(<StoneView stone={this.props.stone} />);
     
     return(
       <div className={'intersection intersection-' + this.props.x + '-' + this.props.y}
@@ -55,9 +55,16 @@ var IntersectionView = React.createClass({
 
 
 var StoneView = React.createClass({
+  propTypes: {
+    stone: React.PropTypes.instanceOf(Stone).isRequired
+  },
+  color: function() {
+    if (this.props.stone.color === Stone.BLACK) { return 'black' }
+    if (this.props.stone.color === Stone.WHITE) { return 'white' }
+  },
   render: function() {
     return (
-      <div className={'stone ' + this.props.color}></div>
+      <div className={'stone ' + this.color() }></div>
     );
   }
 });
