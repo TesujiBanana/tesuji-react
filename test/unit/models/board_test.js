@@ -20,49 +20,52 @@
  * THE SOFTWARE.
  */
  
-jest.dontMock('../board');
+var expect = require('chai').expect;
 
-var Board = require('../board');
+var Board = require('../../../src/models/board.js'); 
+var Stone = require('../../../src/models/stone.js'); 
 
 describe('new', function() {
-  it('returns an object', function() {
-    var board = new Board();
-    expect(typeof board).toBe('object');
-  });
   it('sets board_size to 19 by default', function() {
     var board = new Board();
-    expect(board.board_size).toBe(19);
+    expect(board.board_size).to.equal(19);
   });
 });
 
 describe('.stoneAt', function() {
   it('returns null for an empty position', function() {
     var board = new Board();
-    expect(board.stoneAt(3, 3)).toBeNull();
+    expect(board.stoneAt(3, 3)).to.be.null;
   });
   
   it('returns the stone, if one has been placed', function() {
     var empty_board = new Board()
-    var board = empty_board.placeStone(3, 3, 0);
-    expect(board.stoneAt(3, 3)).toBe(0);
+    var board = empty_board.placeStone(3, 3, Stone.BLACK);
+    expect(board.stoneAt(3, 3)).to.equal(Stone.BLACK)
   });
 });
 
 describe('.placeStone', function() {
   it('returns null for an out of bounds position', function() {
     var board = new Board();
-    expect(board.placeStone(19, 19, 0)).toBeNull();
+    expect(board.placeStone(19, 19, Stone.BLACK)).to.be.null;
   });
   
   it('returns a new board for a valid move', function() {
     var board = new Board();
-    var new_board = board.placeStone(3, 3, 0);
-    expect(typeof new_board).toBe('object');
-    expect(new_board).not.toBe(board);
+    var new_board = board.placeStone(3, 3, Stone.BLACK);
+    expect(new_board).to.be.an.instanceof(Board);
+    expect(new_board).to.not.equal(board);
   });
-  // 
-  // it('removes a capture', function() {
-  //   var board = new Board();
-  //   var new_board = board.placeStone(3,2,0).placeStone()
-  // })
+  
+  it('removes a capture', function() {
+    var board = new Board();
+    var new_board = board.
+      placeStone(3,2,0).placeStone().
+      placeStone(2,2,1).placeStone().
+      placeStone(3,1,1).placeStone().
+      placeStone(4,2,1).placeStone().
+      placeStone(3,3,1).placeStone();
+    expect(new_board.stoneAt(3,2)).to.be.null;
+  })
 });

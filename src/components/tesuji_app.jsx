@@ -25,7 +25,6 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
 var Board = require('../models/board.js');
 var BoardView = require('./board_view.jsx');
 

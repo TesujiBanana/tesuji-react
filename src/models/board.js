@@ -20,6 +20,9 @@
  * THE SOFTWARE.
  */
  
+var Stone = ('./stone');
+var _ = require('underscore');
+
 var Board = function(board_size, grid) {
   this.board_size = (board_size !== undefined) ? board_size : 19;
   this.grid = (grid !== undefined) ?
@@ -31,6 +34,36 @@ var Board = function(board_size, grid) {
   return this;
 };
 
+Board.prototype.stoneAt = function(x, y) {
+  if (this._coordinatesOutOfBounds(x, y)) { return null }
+  return this.grid[this._coordinatesToIndex(x, y)];
+};
+
+Board.prototype.placeStone = function(x, y, new_stone) {
+  if (this._coordinatesOutOfBounds(x, y)) { return null }
+  if (this.stoneAt(x, y)) { return null }
+  
+  // create new group from the new stone. liberty list is empty adjacent 
+  // intersections.
+  
+  // groups for which the current location was a liberty and decrement liberty 
+  // count.
+
+  // remove enemy groups with zero liberties, updating liberty count for their
+  // neighbors. (??? the 2nd part may be hard)
+  
+  // check to make sure the new group is not in suicide.
+    
+  return new Board(
+    this.board_size, 
+    this.grid.map(function(stone, i) {
+      return (i === this._coordinatesToIndex(x,y)) ? 
+        new_stone : 
+        stone;
+    }.bind(this))
+  );
+};
+
 Board.prototype._coordinatesOutOfBounds = function(x, y) {
   return (x < 0 || 
     x >= this.board_size || 
@@ -40,28 +73,6 @@ Board.prototype._coordinatesOutOfBounds = function(x, y) {
 
 Board.prototype._coordinatesToIndex = function(x, y) {
   return x + (this.board_size * y);
-};
-
-Board.prototype.stoneAt = function(x, y) {
-  if (this._coordinatesOutOfBounds(x, y)) { return null }
-  return this.grid[this._coordinatesToIndex(x, y)];
-};
-
-// TODO: rename this method ... 
-Board.prototype.placeStone = function(x, y, new_stone) {
-  if (this._coordinatesOutOfBounds(x, y)) { return null }
-  if (this.stoneAt(x, y)) { return null }
-  
-  // var dead_stones = this._detectDeadStones
-  
-  return new Board(
-    this.board_size, 
-    this.grid.map(function(stone, i) {
-      return (i === this._coordinatesToIndex(x,y)) ? 
-        new_stone : 
-        stone;
-    }.bind(this))
-  );
 };
 
 module.exports = Board;

@@ -25,7 +25,7 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore'); 
+var _ = require('underscore');
 
 var GridView = React.createClass({
   propTypes: {
@@ -34,12 +34,11 @@ var GridView = React.createClass({
   
   render: function() {
     return (
-      <div className='tesuji-grid'>
         <table><tbody>
-          {_.times(this.props.board_size-1, function(i) {
+          {Array.apply(null, Array(this.props.board_size-1)).map(function(i) {
             return (
               <tr key={i}>
-                {_.times(this.props.board_size-1, function(j) {
+              {Array.apply(null, Array(this.props.board_size-1)).map(function(j) {
                   return(
                     <td key={j}>&nbsp;</td>
                   )
@@ -48,22 +47,7 @@ var GridView = React.createClass({
             );
           }.bind(this))}
         </tbody></table>
-        
-        {_.times(this.props.board_size, function(i) {
-          var label = "ABCDEFGHJKLMNOPQRST".charAt(i);
-          return (<div className={'label-top-' + (i)} key={i}>{label}</div>)
-        })}
-        {_.times(this.props.board_size, function(i) {
-          var label = "ABCDEFGHJKLMNOPQRST".charAt(i);
-          return (<div className={'label-bottom-' + (i)} key={i}>{label}</div>)
-        })}
-        {_.times(this.props.board_size, function(i) {
-          return (<div className={'label-left-' + (i)} key={i}>{i+1}</div>)
-        })}
-        {_.times(this.props.board_size, function(i) {
-          return (<div className={'label-right-' + (i)} key={i}>{i+1}</div>)
-        })}
-      </div>
+
     );
   }
 });

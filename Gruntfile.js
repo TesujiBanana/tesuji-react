@@ -36,7 +36,7 @@ module.exports = function (grunt) {
                 }
             },
             jstest: {
-                files: ['test/spec/{,*/}*.js'],
+                files: ['src/{,*/}*.{js,jsx}'],
                 tasks: ['test:watch']
             },
             gruntfile: {
@@ -149,17 +149,6 @@ module.exports = function (grunt) {
                     ]
                 }
             }
-            // dist: {
-            //     files: {
-            //         'dist/scripts/app.js': [
-            //             '<%= yeoman.app %>/scripts/**/*.js',
-            //             '<%= yeoman.app %>/scripts/**/*.jsx'
-            //         ]
-            //     },
-            //     options: {
-            //         transform: ['reactify']
-            //     }
-            // }
         },
 
         // Mocha testing framework configuration options
@@ -169,7 +158,10 @@ module.exports = function (grunt) {
                     run: true,
                     urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
                 }
-            }
+            },
+            // test: {
+            //     src: ['test/spec/**/*.js']
+            // }
         },
 
 

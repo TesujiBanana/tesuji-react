@@ -22,19 +22,16 @@
  * @jsx React.DOM
  */
  
-'use strict';
-
 var React = require('react');
 var _ = require('underscore');
 
 var Board = require('../models/board.js');
 
 var GridView = require('./grid_view.jsx');
+var BoardLabelView = require('./board_label_view.jsx');
 var IntersectionView = require('./intersection_view.jsx');
 
-
 var BoardView = React.createClass({
-  
   propTypes: {
     onClick: React.PropTypes.func.isRequired,
     board: React.PropTypes.instanceOf(Board).isRequired
@@ -44,7 +41,8 @@ var BoardView = React.createClass({
     return(
       <div className='tesuji-board'>
         <GridView board_size={this.props.board.board_size} />
-
+        <BoardLabelView board_size={this.props.board.board_size} />
+        
         {_.times(this.props.board.board_size * this.props.board.board_size, function(i) {
           var x = i % this.props.board.board_size;
           var y = (i - x) / this.props.board.board_size;
@@ -52,6 +50,8 @@ var BoardView = React.createClass({
             <IntersectionView x={x} y={y} key={i} onClick={this.props.onClick} stone={this.props.board.stoneAt(x,y)} />
           )
         }.bind(this))}
+        
+
       </div>
     );
   }

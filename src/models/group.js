@@ -19,19 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+ 
+var Board = require('./board.js');
+var Stone = require('./stone.js');
 
-var Board = '../models/board.js';
-
-var Rules = {
-  detectDeadStones: function(board, seed_stones) {
-    return [];
-  },
-  
-  checkSuicide: function(game) {
-  },
-  
-  checkKo: function(game) {
-  }
+var Group = function(stones, liberties) {
+  this.stones = stones;
+  this.liberties = liberties;
 };
 
-module.exports = Rules;
+module.exports = Group;

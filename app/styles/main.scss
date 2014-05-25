@@ -37,47 +37,49 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
         }
     }
 
-    .label {
-        position: absolute;
-        z-index: 1;
-        font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
-        font-size: 9px;
-        text-align: center;  
-        color: black;
-        padding: 0px;
-    }
+    .tesuji-labels {
+        .label {
+            position: absolute;
+            z-index: 1;
+            font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+            font-size: 9px;
+            text-align: center;  
+            color: black;
+            padding: 0px;
+        }
 
-    @for $i from 0 through 18 {
-      $offset-x: 555 - (30 * $i) + px;
-      $offset-y: 15 + (30 * $i) + px;
+        @for $i from 0 through 18 {
+            $offset-x: 555 - (30 * $i) + px;
+            $offset-y: 15 + (30 * $i) + px;
 
-      .label-top-#{$i} {
-        @extend .label;
-        height: 15px;
-        width: 30px;
-        padding-top: 2px;
-        @include transform(translate($offset-y, 0px));
-      }
-      .label-bottom-#{$i} {
-        @extend .label;
-        height: 15px;
-        width: 30px;
-        @include transform(translate($offset-y, 585px));
-      }
-      .label-left-#{$i} {
-        @extend .label;
-        height: 30px;
-        width: 15px;
-        padding-top: 10px;
-        @include transform(translate(0px, $offset-x));
-      }
-      .label-right-#{$i} {
-        @extend .label;
-        height: 30px;
-        width: 15px;
-        padding-top: 10px;
-        @include transform(translate(585px, $offset-x));
-      }
+            .label-top-#{$i} {
+              @extend .label;
+              height: 15px;
+              width: 30px;
+              padding-top: 2px;
+              @include transform(translate($offset-y, 0px));
+            }
+            .label-bottom-#{$i} {
+              @extend .label;
+              height: 15px;
+              width: 30px;
+              @include transform(translate($offset-y, 585px));
+            }
+            .label-left-#{$i} {
+              @extend .label;
+              height: 30px;
+              width: 15px;
+              padding-top: 10px;
+              @include transform(translate(0px, $offset-x));
+            }
+            .label-right-#{$i} {
+              @extend .label;
+              height: 30px;
+              width: 15px;
+              padding-top: 10px;
+              @include transform(translate(585px, $offset-x));
+            }
+        }
     }
     
     .intersection {

@@ -6,7 +6,9 @@
     "underscore": "^1.6.0"
   },
   "devDependencies": {
+    "chai": "^1.9.1",
     "envify": "^1.2.1",
+    "expect.js": "^0.3.1",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.5.0",
     "grunt-bower-install": "~0.7.0",
