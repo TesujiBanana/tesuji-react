@@ -19,38 +19,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+ 
+var Stone = function(x, y, color) {
+  this.x = x;
+  this.y = y;
+  this.color = color;
+  return this.freeze();
+};
 
-jest.dontMock('../rules');
-jest.dontMock('../../models/board');
+Stone.BLACK = 0;
+Stone.WHITE = 1;
 
-var Rules = require('../rules');
-var Board = require('../../models/board');
-
-describe('testing', function() {
-  it('does a thing', function() {
-    expect(1+1).toBe(2);
-  });
-});
-
-describe('detectDeadStones', function() {
-  it('does not detect a lone living stone as dead', function() {
-    // TODO: set up fixtures ... 
-    var board = new Board(
-      19, 
-      Array.apply(
-        null, 
-        Array(19 * 19)
-      ).map(function(element, i) { 
-        if (i === 3 + (3 * 19)) {
-          return 0;
-        }
-        else {
-          return null;
-        }
-      })
-    );
-    
-    expect(Rules.detectDeadStones(board, [[3, 3]])).not.toContain([3, 3]);
-    
-  });
-});
+module.exports = Stone;

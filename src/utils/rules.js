@@ -20,18 +20,18 @@
  * THE SOFTWARE.
  */
 
-'use strict';
+var Board = '../models/board.js';
 
-var Rules = (function() {
-  return {
-    foo: function() {
-      return 'bar';
-    },
-    removeDeadGroups: function(board) {
-      
-    };
-  };
-})();
-
+var Rules = {
+  detectDeadStones: function(board, seed_stones) {
+    return [];
+  },
+  
+  checkSuicide: function(game) {
+  },
+  
+  checkKo: function(game) {
+  }
+};
 
 module.exports = Rules;

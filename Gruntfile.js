@@ -130,12 +130,12 @@ module.exports = function (grunt) {
         browserify: {
             app: {
                 src: [
-                    '<%= yeoman.src %>/**/*.{js,jsx}',
+                    '<%= yeoman.src %>/components/tesuji_app.jsx',
                 ],
                 options: {
                     transform: ['reactify'],
                     external: ['react', 'underscore'],
-                    alias: ['./src/components/tesuji_app.js:tesuji_app'],
+                    alias: ['./src/components/tesuji_app.jsx:tesuji_app'],
                 },
                 dest: '<%= yeoman.app %>/scripts/app.js'
             },

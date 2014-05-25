@@ -18,39 +18,48 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
+ *
+ * @jsx React.DOM
  */
 
-jest.dontMock('../rules');
-jest.dontMock('../../models/board');
+'use strict';
 
-var Rules = require('../rules');
-var Board = require('../../models/board');
+var React = require('react');
+var Stone = require('../models/stone.js');
 
-describe('testing', function() {
-  it('does a thing', function() {
-    expect(1+1).toBe(2);
-  });
+var IntersectionView = React.createClass({
+
+  _dot: function() {
+    return (this.props.x % 6 === 3) && (this.props.y % 6 === 3)
+  },
+
+  _onClick: function() {
+    this.props.onClick({
+      x: this.props.x,
+      y: this.props.y
+    });
+  },
+  
+  render: function() {
+    var contents = []
+    if (this._dot()) contents.push(<div className='dot'></div>);
+    if (this.props.stone !== null) contents.push(<StoneView color={this.props.stone === Stone.BLACK ? 'black' : 'white'} />);
+    
+    return(
+      <div className={'intersection intersection-' + this.props.x + '-' + this.props.y}
+        onClick={this._onClick}
+      >{contents}</div>
+    )
+  }
 });
 
-describe('detectDeadStones', function() {
-  it('does not detect a lone living stone as dead', function() {
-    // TODO: set up fixtures ... 
-    var board = new Board(
-      19, 
-      Array.apply(
-        null, 
-        Array(19 * 19)
-      ).map(function(element, i) { 
-        if (i === 3 + (3 * 19)) {
-          return 0;
-        }
-        else {
-          return null;
-        }
-      })
+
+var StoneView = React.createClass({
+  render: function() {
+    return (
+      <div className={'stone ' + this.props.color}></div>
     );
-    
-    expect(Rules.detectDeadStones(board, [[3, 3]])).not.toContain([3, 3]);
-    
-  });
+  }
 });
+
+module.exports = IntersectionView;

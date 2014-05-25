@@ -40,6 +40,12 @@ describe('.stoneAt', function() {
     var board = new Board();
     expect(board.stoneAt(3, 3)).toBeNull();
   });
+  
+  it('returns the stone, if one has been placed', function() {
+    var empty_board = new Board()
+    var board = empty_board.placeStone(3, 3, 0);
+    expect(board.stoneAt(3, 3)).toBe(0);
+  });
 });
 
 describe('.placeStone', function() {
@@ -54,10 +60,9 @@ describe('.placeStone', function() {
     expect(typeof new_board).toBe('object');
     expect(new_board).not.toBe(board);
   });
-  
-  it('sets the right index in the gird', function() {
-    var empty_board = new Board()
-    var board = empty_board.placeStone(3, 3, 0);
-    expect(board.stoneAt(3, 3)).toBe(0);
-  });
+  // 
+  // it('removes a capture', function() {
+  //   var board = new Board();
+  //   var new_board = board.placeStone(3,2,0).placeStone()
+  // })
 });

@@ -8,39 +8,42 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 'use strict';
 
 var React = require('react');
-var Grid = require('./grid.jsx');
+var _ = require('underscore');
 
-var BLACK = 0;
-var WHITE = 1;
+var Board = require('../models/board.js');
 
-var Board = React.createClass({displayName: 'Board',
+var GridView = require('./grid_view.jsx');
+var IntersectionView = require('./intersection_view.jsx');
+
+
+var BoardView = React.createClass({displayName: 'BoardView',
   
   propTypes: {
-    onClick: React.PropTypes.func.isRequired
+    onClick: React.PropTypes.func.isRequired,
+    board: React.PropTypes.instanceOf(Board).isRequired
   },
-  
-  getDefaultProps: function() {
-    return {
-      board_size: 19,
-      stones: []
-    };
-  },
-  
+    
   render: function() {
-    return (
-      React.DOM.div( {className:"tesuji-board"}, 
-        Grid( {board_size:this.props.board_size, stones:this.props.stones, onClick:this.props.onClick})
+    return(
+      React.DOM.div( {className:"tesuji-board", onClick:this.props.onClick}, 
+        GridView( {board_size:this.props.board.board_size} ),
+
+        _.times(this.props.board.board_size * this.props.board.board_size, function(i) {
+          var x = i % this.props.board.board_size;
+          var y = (i - x) / this.props.board.board_size;
+          return (
+            IntersectionView( {x:x, y:y, key:i, onClick:this.props.onClick, stone:this.props.board.stoneAt(x,y)} )
+          )
+        }.bind(this))
       )
     );
   }
 });
 
 
-module.exports = Board
+module.exports = BoardView;
 
-},{"./grid.jsx":3,"react":"M6d2gk"}],2:[function(require,module,exports){
-module.exports=require(1)
-},{"./grid.jsx":3,"react":"M6d2gk"}],3:[function(require,module,exports){
+},{"../models/board.js":6,"./grid_view.jsx":2,"./intersection_view.jsx":3,"react":"M6d2gk","underscore":"ZKusGn"}],2:[function(require,module,exports){
 /**
  * Copyright 2014 Chris Papazian
  * 
@@ -50,25 +53,16 @@ module.exports=require(1)
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
-var Intersection = require('./intersection.jsx');
- 
-var Grid = React.createClass({displayName: 'Grid',
-  getDefaultProps: function() {
-    return {
-      board_size: 19
-    };
+var _ = require('underscore'); 
+
+var GridView = React.createClass({displayName: 'GridView',
+  propTypes: {
+    board_size: React.PropTypes.number.isRequired
   },
   
-  stoneAt: function(x, y) {
-    if (typeof this.props.stones === 'undefined') { return undefined }
-    else if (typeof this.props.stones[x] === 'undefined') { return undefined }
-    else { return this.props.stones[x][y] }
-  },
-
   render: function() {
     return (
-      React.DOM.div( {className:"tesuji-grid", onClick:this.props.onClick}, 
+      React.DOM.div( {className:"tesuji-grid"}, 
         React.DOM.table(null, React.DOM.tbody(null, 
           _.times(this.props.board_size-1, function(i) {
             return (
@@ -82,6 +76,7 @@ var Grid = React.createClass({displayName: 'Grid',
             );
           }.bind(this))
         )),
+        
         _.times(this.props.board_size, function(i) {
           var label = "ABCDEFGHJKLMNOPQRST".charAt(i);
           return (React.DOM.div( {className:'label-top-' + (i), key:i}, label))
@@ -95,24 +90,15 @@ var Grid = React.createClass({displayName: 'Grid',
         }),
         _.times(this.props.board_size, function(i) {
           return (React.DOM.div( {className:'label-right-' + (i), key:i}, i+1))
-        }),
-
-        _.times(this.props.board_size * this.props.board_size, function(i) {
-          var x = i % this.props.board_size;
-          var y = (i - x) / this.props.board_size;
-          return (
-            Intersection( {x:x, y:y, key:i, onClick:this.props.onClick, stone:this.stoneAt(x,y)} )
-          )
-        }.bind(this))
+        })
       )
-
     );
   }
 });
 
-module.exports = Grid
+module.exports = GridView
 
-},{"./intersection.jsx":4,"react":"M6d2gk","underscore":"ZKusGn"}],4:[function(require,module,exports){
+},{"react":"M6d2gk","underscore":"ZKusGn"}],3:[function(require,module,exports){
 /**
  * Copyright 2014 Chris Papazian
  * 
@@ -122,8 +108,9 @@ module.exports = Grid
 'use strict';
 
 var React = require('react');
+var Stone = require('../models/stone.js');
 
-var Intersection = React.createClass({displayName: 'Intersection',
+var IntersectionView = React.createClass({displayName: 'IntersectionView',
 
   _dot: function() {
     return (this.props.x % 6 === 3) && (this.props.y % 6 === 3)
@@ -139,7 +126,7 @@ var Intersection = React.createClass({displayName: 'Intersection',
   render: function() {
     var contents = []
     if (this._dot()) contents.push(React.DOM.div( {className:"dot"}));
-    if (this.props.stone !== undefined) contents.push(Stone( {color:this.props.stone === 0 ? 'black' : 'white'} ));
+    if (this.props.stone !== null) contents.push(StoneView( {color:this.props.stone === Stone.BLACK ? 'black' : 'white'} ));
     
     return(
       React.DOM.div( {className:'intersection intersection-' + this.props.x + '-' + this.props.y,
@@ -150,7 +137,7 @@ var Intersection = React.createClass({displayName: 'Intersection',
 });
 
 
-var Stone = React.createClass({displayName: 'Stone',
+var StoneView = React.createClass({displayName: 'StoneView',
   render: function() {
     return (
       React.DOM.div( {className:'stone ' + this.props.color})
@@ -158,9 +145,11 @@ var Stone = React.createClass({displayName: 'Stone',
   }
 });
 
-module.exports = Intersection;
+module.exports = IntersectionView;
 
-},{"react":"M6d2gk"}],"uu+T3n":[function(require,module,exports){
+},{"../models/stone.js":7,"react":"M6d2gk"}],"tesuji_app":[function(require,module,exports){
+module.exports=require('uovHxG');
+},{}],"uovHxG":[function(require,module,exports){
 /**
  * Copyright 2014 Chris Papazian
  * 
@@ -171,16 +160,15 @@ module.exports = Intersection;
 
 var React = require('react');
 var _ = require('underscore');
-var Board = require('./Board.jsx');
+var Board = require('../models/board.js');
+var BoardView = require('./board_view.jsx');
 
 var TesujiApp = React.createClass({displayName: 'TesujiApp',
 
   getInitialState: function() {
     return {
-      game_state: {
-        board: _.times(19, function() { return [] }),
-        current_player: 0
-      }
+      board: new Board(),
+      current_player: 0
     };
   },
   
@@ -191,33 +179,127 @@ var TesujiApp = React.createClass({displayName: 'TesujiApp',
     // check whether arguments are even present ... 
     if (x === undefined || y === undefined) { return }
   
-    // make sure there isn't already a stone there ... 
-    if (this.state.game_state.board[x][y] !== undefined) { return }
     
-    // we're good ... apparently ... create new game state ... 
-    var new_game_state = {
-      board: this.state.game_state.board.map(function(row) { return row.slice() }),
-      current_player: (this.state.game_state.current_player + 1) % 2
-    };
-    
-    // new board state with the proposed stone placed ...
-    new_game_state.board[x][y] = this.state.game_state.current_player;
-    
-    // if we made it this far, set new game state ...     
-    this.setState({game_state: new_game_state});
+    var new_board = this.state.board.placeStone(x, y, this.state.current_player);
+    if (new_board !== null) {
+      this.setState({
+        board: new_board,
+        current_player: (this.state.current_player + 1) % 2
+      });
+    }
   },
   
   render: function() {
     return (
-      Board( {boardSize:"19", stones:this.state.game_state.board, onClick:this.handleClick})
+      BoardView( {boardSize:"19", board:this.state.board, onClick:this.handleClick})
     );
   }
 });
 
-// React.renderComponent(TesujiApp(), document.getElementById('tesuji_app'));
-
 module.exports = TesujiApp;
 
-},{"./Board.jsx":1,"react":"M6d2gk","underscore":"ZKusGn"}],"tesuji_app":[function(require,module,exports){
-module.exports=require('uu+T3n');
-},{}]},{},[2,3,4,"uu+T3n"])
+},{"../models/board.js":6,"./board_view.jsx":1,"react":"M6d2gk","underscore":"ZKusGn"}],6:[function(require,module,exports){
+/*******************************************************************************
+ * Copyright (c) 2014 Chris Papazian
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+ 
+var Board = function(board_size, grid) {
+  this.board_size = (board_size !== undefined) ? board_size : 19;
+  this.grid = (grid !== undefined) ?
+    grid : 
+    Array.apply(
+      null, 
+      Array(this.board_size * this.board_size)
+    ).map(function() { return null });
+  return this;
+};
+
+Board.prototype._coordinatesOutOfBounds = function(x, y) {
+  return (x < 0 || 
+    x >= this.board_size || 
+    y < 0 || 
+    y >= this.board_size);
+};
+
+Board.prototype._coordinatesToIndex = function(x, y) {
+  return x + (this.board_size * y);
+};
+
+Board.prototype.stoneAt = function(x, y) {
+  if (this._coordinatesOutOfBounds(x, y)) { return null }
+  return this.grid[this._coordinatesToIndex(x, y)];
+};
+
+// TODO: rename this method ... 
+Board.prototype.placeStone = function(x, y, new_stone) {
+  if (this._coordinatesOutOfBounds(x, y)) { return null }
+  if (this.stoneAt(x, y)) { return null }
+  
+  // var dead_stones = this._detectDeadStones
+  
+  return new Board(
+    this.board_size, 
+    this.grid.map(function(stone, i) {
+      return (i === this._coordinatesToIndex(x,y)) ? 
+        new_stone : 
+        stone;
+    }.bind(this))
+  );
+};
+
+module.exports = Board;
+
+},{}],7:[function(require,module,exports){
+/*******************************************************************************
+ * Copyright (c) 2014 Chris Papazian
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+ 
+var Stone = function(x, y, color) {
+  this.x = x;
+  this.y = y;
+  this.color = color;
+  return this.freeze();
+};
+
+Stone.BLACK = 0;
+Stone.WHITE = 1;
+
+module.exports = Stone;
+
+},{}]},{},["uovHxG"])

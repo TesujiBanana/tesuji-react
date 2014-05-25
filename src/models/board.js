@@ -22,9 +22,12 @@
  
 var Board = function(board_size, grid) {
   this.board_size = (board_size !== undefined) ? board_size : 19;
-  this.grid = (grid !== undefined) ? 
+  this.grid = (grid !== undefined) ?
     grid : 
-    Array.apply(null, Array(this.board_size * this.board_size)).map(function() { return null });
+    Array.apply(
+      null, 
+      Array(this.board_size * this.board_size)
+    ).map(function() { return null });
   return this;
 };
 
@@ -44,13 +47,21 @@ Board.prototype.stoneAt = function(x, y) {
   return this.grid[this._coordinatesToIndex(x, y)];
 };
 
+// TODO: rename this method ... 
 Board.prototype.placeStone = function(x, y, new_stone) {
   if (this._coordinatesOutOfBounds(x, y)) { return null }
   if (this.stoneAt(x, y)) { return null }
   
-  return new Board(this.board_size, this.grid.map(function(stone, i) {
-    return (i === this._coordinatesToIndex(x,y)) ? new_stone : stone 
-  }.bind(this)));
+  // var dead_stones = this._detectDeadStones
+  
+  return new Board(
+    this.board_size, 
+    this.grid.map(function(stone, i) {
+      return (i === this._coordinatesToIndex(x,y)) ? 
+        new_stone : 
+        stone;
+    }.bind(this))
+  );
 };
 
 module.exports = Board;

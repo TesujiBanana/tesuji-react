@@ -18,39 +18,44 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
+ *
+ * @jsx React.DOM
  */
+ 
+'use strict';
 
-jest.dontMock('../rules');
-jest.dontMock('../../models/board');
+var React = require('react');
+var _ = require('underscore');
 
-var Rules = require('../rules');
-var Board = require('../../models/board');
+var Board = require('../models/board.js');
 
-describe('testing', function() {
-  it('does a thing', function() {
-    expect(1+1).toBe(2);
-  });
-});
+var GridView = require('./grid_view.jsx');
+var IntersectionView = require('./intersection_view.jsx');
 
-describe('detectDeadStones', function() {
-  it('does not detect a lone living stone as dead', function() {
-    // TODO: set up fixtures ... 
-    var board = new Board(
-      19, 
-      Array.apply(
-        null, 
-        Array(19 * 19)
-      ).map(function(element, i) { 
-        if (i === 3 + (3 * 19)) {
-          return 0;
-        }
-        else {
-          return null;
-        }
-      })
+
+var BoardView = React.createClass({
+  
+  propTypes: {
+    onClick: React.PropTypes.func.isRequired,
+    board: React.PropTypes.instanceOf(Board).isRequired
+  },
+    
+  render: function() {
+    return(
+      <div className='tesuji-board'>
+        <GridView board_size={this.props.board.board_size} />
+
+        {_.times(this.props.board.board_size * this.props.board.board_size, function(i) {
+          var x = i % this.props.board.board_size;
+          var y = (i - x) / this.props.board.board_size;
+          return (
+            <IntersectionView x={x} y={y} key={i} onClick={this.props.onClick} stone={this.props.board.stoneAt(x,y)} />
+          )
+        }.bind(this))}
+      </div>
     );
-    
-    expect(Rules.detectDeadStones(board, [[3, 3]])).not.toContain([3, 3]);
-    
-  });
+  }
 });
+
+
+module.exports = BoardView;
