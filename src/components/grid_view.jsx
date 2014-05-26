@@ -35,10 +35,10 @@ var GridView = React.createClass({
   render: function() {
     return (
         <table><tbody>
-          {Array.apply(null, Array(this.props.board_size-1)).map(function(i) {
+          {_.times(this.props.board_size-1, function(i) {
             return (
               <tr key={i}>
-              {Array.apply(null, Array(this.props.board_size-1)).map(function(j) {
+              {_.times(this.props.board_size-1, function(j) {
                   return(
                     <td key={j}>&nbsp;</td>
                   )

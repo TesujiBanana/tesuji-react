@@ -33,7 +33,7 @@ var IntersectionView = require('./intersection_view.jsx');
 
 var BoardView = React.createClass({
   propTypes: {
-    onClick: React.PropTypes.func.isRequired,
+    onIntersectionClick: React.PropTypes.func.isRequired,
     board: React.PropTypes.instanceOf(Board).isRequired
   },
 
@@ -47,7 +47,7 @@ var BoardView = React.createClass({
           var x = i % this.props.board.board_size;
           var y = (i - x) / this.props.board.board_size;
           return (
-            <IntersectionView x={x} y={y} key={i} onClick={this.props.onClick} stone={this.props.board.stoneAt(x,y)} />
+            <IntersectionView x={x} y={y} key={i} stone={this.props.board.stoneAt(x,y)} onClick={this.props.onIntersectionClick} />
           )
         }.bind(this))}
         

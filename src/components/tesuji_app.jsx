@@ -64,7 +64,7 @@ var TesujiApp = React.createClass({
   
   render: function() {
     return (
-      <BoardView boardSize="19" board={this.state.board} onClick={this.handleClick}/>
+      <BoardView boardSize="19" board={this.state.board} onIntersectionClick={this.handleClick}/>
     );
   }
 });

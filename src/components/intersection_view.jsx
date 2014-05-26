@@ -29,25 +29,25 @@ var Stone = require('../models/stone.js');
 
 var IntersectionView = React.createClass({
 
-  _dot: function() {
+  dot: function() {
     return (this.props.x % 6 === 3) && (this.props.y % 6 === 3)
   },
 
-  _onClick: function() {
+  onClick: function(event) {
     this.props.onClick({
       x: this.props.x,
       y: this.props.y
-    });
+    }, event);
   },
   
   render: function() {
     var contents = []
-    if (this._dot()) contents.push(<div className='dot'></div>);
-    if (this.props.stone !== null) contents.push(<StoneView stone={this.props.stone} />);
+    if (this.dot()) contents.push(<div className='dot' key='dot'></div>);
+    if (this.props.stone !== null) contents.push(<StoneView stone={this.props.stone} key='stone'/>);
     
     return(
       <div className={'intersection intersection-' + this.props.x + '-' + this.props.y}
-        onClick={this._onClick}
+        onClick={this.onClick}
       >{contents}</div>
     )
   }
