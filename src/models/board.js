@@ -39,7 +39,7 @@ Board.prototype.stoneAt = function(x, y) {
   return this.grid[this._coordinatesToIndex(x, y)];
 };
 
-Board.prototype.neighbors = function(x, y) {
+Board.prototype.neighbors = function(x, y, filter) {
   return _.compact([
     this.stoneAt(x-1, y),
     this.stoneAt(x, y+1),
@@ -57,73 +57,6 @@ Board.prototype.liberty = function(x, y) {
   );
 };
 
-Board.prototype.findDeadStones = function(seed_stones) {
-  var cache = {};
-  
-  var dead_groups = seed_stones.forEach(function(seed_stone) {
-    var group = [seed_stone];
-    var i = 0;
-    while (group.length > 0) {
-      var this_stone = group[i];
-      if (this.liberty(this_stone.x, this_stone.y)) { return [] }
-      group.push(this.neighbors(this_stone.x, this_stone.y).filter(function(neighbor_stone) {
-        return (this_stone.color === neighbor_stone.color);
-      })); 
-      
-      i = i + 1;
-    }
-  }.bind(this));
-  
-  return _.flatten(_.compact(dead_groups));
-}
-
-Board.prototype.placeStone = function(x, y, color) {
-  if (this.coordinatesOutOfBounds(x, y)) { return null }
-  if (this.stoneAt(x, y)) { return null }
-  
-  // create new group from the new stone. liberty list is empty adjacent 
-  // intersections.
-  var new_board = new Board(
-    this.board_size, 
-    this.grid.map(function(stone, i) {
-      return (i === this._coordinatesToIndex(x,y)) ? 
-        new Stone(x, y, color) : 
-        stone;
-    }.bind(this))
-  );
-
-  // find dead stones
-  var dead_stones = this.findDeadStones(this.neighbors(x,y));
-  
-  if (dead_stones.length > 0) {
-    var dead_stone_overlay = dead_stones.reduce(function(overlay, dead_stone) {
-       overlay[this._coordinatesToIndex(dead_stone.x, dead_stone.y)] = true;
-       return overlay;
-    }.bind(this), {});
-    
-    new_board = new Board(
-      this.board_size,
-      this.grid.filter(function(stone, i) {
-          return !dead_stone_overlay[i];
-      }.bind(this))
-    );
-  }
-  
-  // bleh ... 
-
-  // groups for which the current location was a liberty and decrement liberty 
-  // count.
-
-  // remove enemy groups with zero liberties, updating liberty count for their
-  // neighbors. (??? the 2nd part may be hard ... maybe we have to track 
-  // neighboring enemy stones? or track/determine all neighboring spaces and 
-  // this.stoneAt(...) to determine liberties)
-  
-  // check to make sure the new group is not in suicide.
-    
-  return new_board;
-};
-
 Board.prototype.coordinatesOutOfBounds = function(x, y) {
   return (x < 0 || 
     x >= this.board_size || 
@@ -133,6 +66,72 @@ Board.prototype.coordinatesOutOfBounds = function(x, y) {
 
 Board.prototype._coordinatesToIndex = function(x, y) {
   return x + (this.board_size * y);
+};
+
+Board.placeStone = function(board, new_stone) {
+  if (board === null || new_stone === null) { return null }
+  if (board.coordinatesOutOfBounds(new_stone.x, new_stone.y)) { return null }
+  if (board.stoneAt(new_stone.x, new_stone.y)) { 
+    return null;
+  }
+
+  return new Board(
+    board.board_size,
+    board.grid.map(function(stone, i) {
+      return (i === board._coordinatesToIndex(new_stone.x, new_stone.y)) ? 
+        new_stone :
+        stone;
+    }.bind(this))
+  );
+};
+
+Board.findDeadStones = function(board, seed_stones) {
+  var dead_groups = seed_stones.map(function(seed_stone) {
+    var group = [seed_stone];
+    var i = 0;
+
+    while (group.length > i && (board.board_size * board.board_size) > group.length) {
+      var this_stone = group[i];
+      if (board.liberty(this_stone.x, this_stone.y)) { return [] }
+      
+      var friendly_neighbors = board.neighbors(this_stone.x, this_stone.y).filter(function(neighbor_stone) {
+        return (
+          this_stone.color === neighbor_stone.color &&
+          !_.contains(group, neighbor_stone)
+        );
+      });
+      group = group.concat(friendly_neighbors);      
+      i = i + 1;
+    }
+    
+    return group;
+  })
+  return _.compact(_.flatten(dead_groups));
+}
+
+Board.removeCaptures = function(board, new_stone) {
+  if (board === null || new_stone === null) { return null }
+
+  // find neighboring stones that had liberty reduced ...
+  var enemy_neighbors = board.neighbors(new_stone.x, new_stone.y).filter(function(neighbor_stone) {
+    return (new_stone.color !== neighbor_stone.color);
+  });  
+  if (enemy_neighbors.length === 0) { return board }
+  
+  var dead_stones = Board.findDeadStones(board, enemy_neighbors);
+  if (dead_stones.length === 0) { return board }
+    
+  var dead_stone_overlay = dead_stones.reduce(function(overlay, dead_stone) {
+     overlay[board._coordinatesToIndex(dead_stone.x, dead_stone.y)] = true;
+     return overlay;
+  }, {});
+    
+  return new Board(
+    board.board_size,
+    board.grid.map(function(stone, i) {
+      return (dead_stone_overlay[i]) ? null : stone;
+    })
+  );
 };
 
 module.exports = Board;

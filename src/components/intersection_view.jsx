@@ -53,7 +53,6 @@ var IntersectionView = React.createClass({
   }
 });
 
-
 var StoneView = React.createClass({
   propTypes: {
     stone: React.PropTypes.instanceOf(Stone).isRequired

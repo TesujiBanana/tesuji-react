@@ -22,8 +22,16 @@
  
 var expect = require('chai').expect;
 
+var _ = require('underscore');
+
 var Board = require('../../../src/models/board.js'); 
 var Stone = require('../../../src/models/stone.js'); 
+
+var placeManyStones = function(board, stones) {
+  return _.compose.apply(null, stones.map(function(stone) {
+    return _.partial(Board.placeStone, _, stone);
+  }))(board);
+}
 
 describe('new', function() {
   it('sets board_size to 19 by default', function() {
@@ -40,32 +48,97 @@ describe('.stoneAt', function() {
   
   it('returns the stone, if one has been placed', function() {
     var empty_board = new Board()
-    var board = empty_board.placeStone(3, 3, Stone.BLACK);
-    expect(board.stoneAt(3, 3)).to.equal(Stone.BLACK)
+    var board = Board.placeStone(empty_board, new Stone(3, 3, Stone.BLACK));
+    expect(board.stoneAt(3, 3).color).to.equal(Stone.BLACK)
   });
 });
 
 describe('.placeStone', function() {
-  it('returns null for an out of bounds position', function() {
+  it('returns old board for an out of bounds position', function() {
     var board = new Board();
-    expect(board.placeStone(19, 19, Stone.BLACK)).to.be.null;
+    expect(Board.placeStone(board, new Stone(19, 19, Stone.BLACK))).to.be.null;
   });
   
   it('returns a new board for a valid move', function() {
     var board = new Board();
-    var new_board = board.placeStone(3, 3, Stone.BLACK);
+    var new_board = Board.placeStone(board, new Stone(3, 3, Stone.BLACK));
     expect(new_board).to.be.an.instanceof(Board);
     expect(new_board).to.not.equal(board);
   });
+
+});
+
+describe('.liberty', function() {
+  it('returns true for a lone stone in the center of the board', function() {
+    var board = Board.placeStone(new Board(19), new Stone(3, 3, Stone.BLACK));
+    expect(board.liberty(3,3)).to.be.true;
+  });
+
+  it('returns false if a stone in the center is surrounded', function() {
+    var board = placeManyStones(new Board(19), [
+      new Stone(3, 2, Stone.BLACK),
+      new Stone(2, 2, Stone.WHITE),
+      new Stone(3, 1, Stone.WHITE),
+      new Stone(4, 2, Stone.WHITE),
+      new Stone(3, 3, Stone.WHITE)
+    ]);
+    expect(board.liberty(3,2)).to.be.false;
+  });
+
+  it('returns false if a stone on the edge is surrounded', function() {
+    var board = placeManyStones(new Board(19), [
+      new Stone(5,0,0),
+      new Stone(4,0,1),
+      new Stone(6,0,1),
+      new Stone(5,1,1)
+    ]);
+    expect(board.liberty(5,0)).to.be.false;
+  });
   
-  it('removes a capture', function() {
-    var board = new Board();
-    var new_board = board.
-      placeStone(3,2,0).placeStone().
-      placeStone(2,2,1).placeStone().
-      placeStone(3,1,1).placeStone().
-      placeStone(4,2,1).placeStone().
-      placeStone(3,3,1).placeStone();
-    expect(new_board.stoneAt(3,2)).to.be.null;
-  })
+  it('returns false if a stone at the corner is surrounded', function() {
+    var board = placeManyStones(new Board(19), [
+      new Stone(18,18,0),
+      new Stone(17,18,1),
+      new Stone(18,17,1)
+    ]);
+    expect(board.liberty(18,18)).to.be.false;
+  });
+});
+
+describe('.findDeadStones', function() {
+  it('returns nothing for a lone stone in the center of the board', function() {
+    var stone = new Stone(3, 3, Stone.BLACK);
+    var board = Board.placeStone(new Board(19), stone);
+    expect(Board.findDeadStones(board, [stone])).to.eql([]);
+  });
+  
+  it('for a lone surrounded stone, returns a list with the dead stone', function() {
+    var dead_stone = new Stone(3, 2, Stone.BLACK);
+    var board = placeManyStones(new Board(19), [
+      dead_stone, 
+      new Stone(2, 2, Stone.WHITE),
+      new Stone(3, 1, Stone.WHITE),
+      new Stone(4, 2, Stone.WHITE),
+      new Stone(3, 3, Stone.WHITE)
+    ]);
+    expect(Board.findDeadStones(board, [dead_stone])).to.eql([dead_stone]); 
+  });
+
+  it('for a surrounded group, returns a list with all the dead stones', function() {
+    var dead_stone = new Stone(3, 2, Stone.BLACK);
+    var other_dead_stone = new Stone(3, 3, Stone.BLACK)
+    var dead_group = [dead_stone, other_dead_stone];
+    var board = placeManyStones(new Board(19), [
+      dead_stone, 
+      other_dead_stone,
+      new Stone(2, 2, Stone.WHITE),
+      new Stone(3, 1, Stone.WHITE),
+      new Stone(4, 2, Stone.WHITE),
+      new Stone(4, 3, Stone.WHITE),
+      new Stone(3, 4, Stone.WHITE),
+      new Stone(2, 3, Stone.WHITE),
+    ]);
+    expect(Board.findDeadStones(board, [other_dead_stone])).to.have.members(dead_group);
+  });
+
 });

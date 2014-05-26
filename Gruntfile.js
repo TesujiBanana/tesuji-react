@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
-
+    
     // Define the configuration for all the tasks
     grunt.initConfig({
 
@@ -23,14 +23,18 @@ module.exports = function (grunt) {
             // Configurable paths
             app: 'app',
             dist: 'dist',
-            src: 'src'
+            src: 'src',
+            test: 'test'
         },
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             js: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-                tasks: ['jshint'] ,
+                files: [
+                  '<%= yeoman.app %>/scripts/{,*/}*.js',
+                  '<%= yeoman.test %>/unit/{,*/}*_test.js'
+                ],
+                tasks: [] , //'jshint'] ,
                 options: {
                     livereload: true
                 }
@@ -129,15 +133,16 @@ module.exports = function (grunt) {
 
         browserify: {
             app: {
-                src: [
-                    '<%= yeoman.src %>/components/tesuji_app.jsx',
-                ],
+                src: ['<%= yeoman.src %>/components/tesuji_app.jsx'],
                 options: {
                     transform: ['reactify'],
                     external: ['react', 'underscore'],
                     alias: ['./src/components/tesuji_app.jsx:tesuji_app'],
+                    watch: true,
+                    keepAlive: true,
+                    bundleOptions: { debug: true }
                 },
-                dest: '<%= yeoman.app %>/scripts/app.js'
+                dest: '<%= yeoman.app %>/scripts/app.js',
             },
             vendor: {
                 src: [],
@@ -146,25 +151,46 @@ module.exports = function (grunt) {
                     require: [
                         'react',
                         'underscore'
-                    ]
-                }
-            }
-        },
-
-        // Mocha testing framework configuration options
-        mocha: {
-            all: {
-                options: {
-                    run: true,
-                    urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-                }
+                    ],
+                    // watch: true,
+                    // keepAlive: true,
+                    bundleOptions: { debug: true }
+                },
+                
             },
-            // test: {
-            //     src: ['test/spec/**/*.js']
+            // test: { 
+            //     src: ['<%= yeoman.test %>/unit/**/*.js'],
+            //     options: { 
+            //         transform: ['reactify'],
+            //         // external: ['react', 'underscore'],
+            //         // watch: true,
+            //         // keepAlive: true,
+            //         bundleOptions: { debug: true }
+            //     },
+            //     dest: '<%= yeoman.test %>/spec/bundle.js',
             // }
         },
 
-
+        // Mocha testing framework configuration options
+        // mocha: {
+        //     all: {
+        //         options: {
+        //             run: true,
+        //             urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
+        //         }
+        //     },
+        //     // test: {
+        //     //     src: ['test/spec/**/*.js']
+        //     // }
+        // },
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'spec'
+                },
+                src: ['test/unit/**/*_test.js']
+            }
+        },
 
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
@@ -408,8 +434,9 @@ module.exports = function (grunt) {
         }
 
         grunt.task.run([
-            'connect:test',
-            'mocha'
+            // 'connect:test',
+            // 'mocha'
+            'mochaTest'
         ]);
     });
 

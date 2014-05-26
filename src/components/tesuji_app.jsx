@@ -25,7 +25,10 @@
 'use strict';
 
 var React = require('react');
+var _ = require('underscore');
+
 var Board = require('../models/board.js');
+var Stone = require('../models/stone.js');
 var BoardView = require('./board_view.jsx');
 
 var TesujiApp = React.createClass({
@@ -38,14 +41,18 @@ var TesujiApp = React.createClass({
   },
   
   handleClick: function(payload) {
+    if (!payload) { return }
+    
     var x = payload.x;
     var y = payload.y;
-  
-    // check whether arguments are even present ... 
     if (x === undefined || y === undefined) { return }
   
-    
-    var new_board = this.state.board.placeStone(x, y, this.state.current_player);
+    var new_stone = new Stone(x, y, this.state.current_player);
+    var new_board = _.compose(
+      _.partial(Board.removeCaptures, _, new_stone),
+      _.partial(Board.placeStone, _, new_stone)
+    )(this.state.board);
+
     if (new_board !== null) {
       this.setState({
         board: new_board,
