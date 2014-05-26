@@ -36,7 +36,7 @@ var BoardView = React.createClass({
     onClick: React.PropTypes.func.isRequired,
     board: React.PropTypes.instanceOf(Board).isRequired
   },
-    
+
   render: function() {
     return(
       <div className='tesuji-board'>
@@ -56,6 +56,5 @@ var BoardView = React.createClass({
     );
   }
 });
-
 
 module.exports = BoardView;

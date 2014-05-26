@@ -29,19 +29,25 @@ module.exports = function (grunt) {
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
-            js: {
-                files: [
-                  '<%= yeoman.app %>/scripts/{,*/}*.js',
-                  '<%= yeoman.test %>/unit/{,*/}*_test.js'
-                ],
-                tasks: [] , //'jshint'] ,
-                options: {
-                    livereload: true
-                }
+            jshint: {
+                files: ['src/{,*/}*.{js,jsx}', 'test/**/*_test.js'],
+                tasks: ['jshint']
             },
             jstest: {
                 files: ['src/{,*/}*.{js,jsx}'],
                 tasks: ['test:watch']
+            },
+            browserify: {
+                files: ['src/{,*/}*.{js,jsx}'],
+                tasks: ['browserify:dev']
+            },
+            jsapp: {
+                files: [
+                  '<%= yeoman.app %>/scripts/{,*/}*.js',
+                ],
+                options: {
+                    livereload: true
+                }
             },
             gruntfile: {
                 files: ['Gruntfile.js']
@@ -125,21 +131,18 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                '<%= yeoman.app %>/scripts/{,*/}*.js',
-                '!<%= yeoman.app %>/scripts/vendor/*',
-                'test/spec/{,*/}*.js'
+                '<%= yeoman.src %>/scripts/{,*/}*.{js,jsx}',
+                'test/unit/**/{,*/}*.js'
             ]
         },
 
         browserify: {
-            app: {
+            dev: {
                 src: ['<%= yeoman.src %>/components/tesuji_app.jsx'],
                 options: {
                     transform: ['reactify'],
                     external: ['react', 'underscore'],
                     alias: ['./src/components/tesuji_app.jsx:tesuji_app'],
-                    watch: true,
-                    keepAlive: true,
                     bundleOptions: { debug: true }
                 },
                 dest: '<%= yeoman.app %>/scripts/app.js',
@@ -152,37 +155,11 @@ module.exports = function (grunt) {
                         'react',
                         'underscore'
                     ],
-                    // watch: true,
-                    // keepAlive: true,
                     bundleOptions: { debug: true }
                 },
-                
             },
-            // test: { 
-            //     src: ['<%= yeoman.test %>/unit/**/*.js'],
-            //     options: { 
-            //         transform: ['reactify'],
-            //         // external: ['react', 'underscore'],
-            //         // watch: true,
-            //         // keepAlive: true,
-            //         bundleOptions: { debug: true }
-            //     },
-            //     dest: '<%= yeoman.test %>/spec/bundle.js',
-            // }
         },
 
-        // Mocha testing framework configuration options
-        // mocha: {
-        //     all: {
-        //         options: {
-        //             run: true,
-        //             urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-        //         }
-        //     },
-        //     // test: {
-        //     //     src: ['test/spec/**/*.js']
-        //     // }
-        // },
         mochaTest: {
             test: {
                 options: {
@@ -390,7 +367,6 @@ module.exports = function (grunt) {
             server: [
                 'compass:server',
                 'copy:styles',
-                // 'browserify'
             ],
             test: [
                 'copy:styles'

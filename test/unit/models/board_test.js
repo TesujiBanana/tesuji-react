@@ -19,7 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
- 
+
+/*jshint -W030 */
+/*global describe */
+/*global it */ 
+
 var expect = require('chai').expect;
 
 var _ = require('underscore');
@@ -31,7 +35,7 @@ var placeManyStones = function(board, stones) {
   return _.compose.apply(null, stones.map(function(stone) {
     return _.partial(Board.placeStone, _, stone);
   }))(board);
-}
+};
 
 describe('new', function() {
   it('sets board_size to 19 by default', function() {
@@ -47,9 +51,9 @@ describe('.stoneAt', function() {
   });
   
   it('returns the stone, if one has been placed', function() {
-    var empty_board = new Board()
+    var empty_board = new Board();
     var board = Board.placeStone(empty_board, new Stone(3, 3, Stone.BLACK));
-    expect(board.stoneAt(3, 3).color).to.equal(Stone.BLACK)
+    expect(board.stoneAt(3, 3).color).to.equal(Stone.BLACK);
   });
 });
 
@@ -126,7 +130,7 @@ describe('.findDeadStones', function() {
 
   it('for a surrounded group, returns a list with all the dead stones', function() {
     var dead_stone = new Stone(3, 2, Stone.BLACK);
-    var other_dead_stone = new Stone(3, 3, Stone.BLACK)
+    var other_dead_stone = new Stone(3, 3, Stone.BLACK);
     var dead_group = [dead_stone, other_dead_stone];
     var board = placeManyStones(new Board(19), [
       dead_stone, 

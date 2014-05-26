@@ -49,6 +49,7 @@ var TesujiApp = React.createClass({
   
     var new_stone = new Stone(x, y, this.state.current_player);
     var new_board = _.compose(
+      _.partial(Board.checkSuicide, _, new_stone),
       _.partial(Board.removeCaptures, _, new_stone),
       _.partial(Board.placeStone, _, new_stone)
     )(this.state.board);

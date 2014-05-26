@@ -23,7 +23,7 @@
 var Stone = require('./stone');
 var _ = require('underscore');
 
-var Board = function(board_size, grid) {
+var Board = function(board_size, grid, stones) {
   this.board_size = (board_size !== undefined) ? board_size : 19;
   this.grid = (grid !== undefined) ?
     grid : 
@@ -32,6 +32,7 @@ var Board = function(board_size, grid) {
       Array(this.board_size * this.board_size)
     ).map(function() { return null });
   return this;
+  // this.stones = (stones !== undefined) ? stones : [];
 };
 
 Board.prototype.stoneAt = function(x, y) {
@@ -132,6 +133,12 @@ Board.removeCaptures = function(board, new_stone) {
       return (dead_stone_overlay[i]) ? null : stone;
     })
   );
+};
+
+Board.checkSuicide = function(board, new_stone) {
+  if (board === null || new_stone === null) { return null }
+  if (!board.liberty(new_stone.x, new_stone.y)) { return null }
+  return board;
 };
 
 module.exports = Board;
