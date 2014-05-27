@@ -46,20 +46,33 @@ var TesujiApp = React.createClass({
     var x = payload.x;
     var y = payload.y;
     if (x === undefined || y === undefined) { return }
-  
+      
+    // create new stone and place it.
     var new_stone = new Stone(x, y, this.state.current_player);
-    var new_board = _.compose(
-      _.partial(Board.checkSuicide, _, new_stone),
-      _.partial(Board.removeCaptures, _, new_stone),
-      _.partial(Board.placeStone, _, new_stone)
-    )(this.state.board);
-
-    if (new_board !== null) {
-      this.setState({
-        board: new_board,
-        current_player: (this.state.current_player + 1) % 2
-      });
-    }
+    var new_board = this.state.board.placeStones(new_stone);
+    if (new_board === null) { return }
+    
+    // find dead stones and remove them
+    var dead_stones = _.flatten(
+      new_board.neighbors(new_stone).filter(function(neighbor_stone) {
+        return neighbor_stone && (new_stone.color !== neighbor_stone.color);
+      }).map(
+      function(seed_stone) {
+        if (_.contains(dead_stones, seed_stone)) { return dead_stones }
+        return new_board.findDeadStones(seed_stone);
+      })
+      // []
+    );
+    var new_board_w_captures = new_board.removeStones(dead_stones);
+    
+    // check for suicide
+    if (new_board_w_captures.findDeadStones(new_stone) > 0) { return }
+    
+    // set the new board
+    this.setState({
+      board: new_board_w_captures,
+      current_player: (this.state.current_player + 1) % 2
+    });
   },
   
   render: function() {
