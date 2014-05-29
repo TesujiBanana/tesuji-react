@@ -31,12 +31,12 @@ module.exports = function (grunt) {
         watch: {
             jshint: {
                 files: ['src/{,*/}*.{js,jsx}', 'test/**/*_test.js'],
-                tasks: ['jshint']
+                tasks: ['jshint', 'test']
             },
-            jstest: {
-                files: ['src/{,*/}*.{js,jsx}'],
-                tasks: ['test:watch']
-            },
+            // jstest: {
+            //     files: ['src/{,*/}*.{js,jsx}', 'test/**/*_test.js'],
+            //     tasks: ['test:watch']
+            // },
             browserify: {
                 files: ['src/{,*/}*.{js,jsx}'],
                 tasks: ['browserify:dev']
@@ -400,14 +400,14 @@ module.exports = function (grunt) {
         grunt.task.run(['serve']);
     });
 
-    grunt.registerTask('test', function(target) {
-        if (target !== 'watch') {
-            grunt.task.run([
-                'clean:server',
-                'concurrent:test',
-                'autoprefixer',
-            ]);
-        }
+    grunt.registerTask('test', function() { //target) {
+        // if (target !== 'watch') {
+        //     grunt.task.run([
+        //         'clean:server',
+        //         'concurrent:test',
+        //         'autoprefixer',
+        //     ]);
+        // }
 
         grunt.task.run([
             // 'connect:test',

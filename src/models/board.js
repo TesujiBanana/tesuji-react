@@ -109,13 +109,16 @@ Board.prototype.removeStones = function() {
 
 Board.prototype.findDeadStones = function(stone) {
   return (function _findDeadStones(board, queue, group) {
+    // if there is nothing left to check, we are dead.
     if (queue.length === 0) { return group }
     
     var stone = queue[0];
     var neighbors = board.neighbors(stone);
 
+    // if we find a null (empty) neighbor, we are alive.
     if (neighbors.indexOf(null) >= 0) { return [] }
 
+    // enqueue friendly neighbors, add stone to group, and call self.
     return _findDeadStones(board, 
       queue.slice(1).concat(neighbors.filter(function(neighbor_stone) {
         return (

@@ -47,6 +47,8 @@ var TesujiApp = React.createClass({
     var y = payload.y;
     if (x === undefined || y === undefined) { return }
       
+    // TODO: all of this needs to go in a GameManger or Rules module ...   
+    
     // create new stone and place it.
     var new_stone = new Stone(x, y, this.state.current_player);
     var new_board = this.state.board.placeStones(new_stone);
@@ -61,12 +63,11 @@ var TesujiApp = React.createClass({
         if (_.contains(dead_stones, seed_stone)) { return dead_stones }
         return new_board.findDeadStones(seed_stone);
       })
-      // []
     );
     var new_board_w_captures = new_board.removeStones(dead_stones);
     
     // check for suicide
-    if (new_board_w_captures.findDeadStones(new_stone) > 0) { return }
+    if (new_board_w_captures.findDeadStones(new_stone).length > 0) { return }
     
     // set the new board
     this.setState({
