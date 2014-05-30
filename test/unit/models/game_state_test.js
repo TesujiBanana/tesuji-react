@@ -44,6 +44,16 @@ describe.only('GameState', function() {
       expect(game_state).to.not.equal(initial_game_state);
     });
     
+    it('sets previous_game_state', function() {
+      var initial_game_state = new GameState({
+        board: new Board(), 
+        current_turn: Stone.BLACK
+      });
+      
+      var game_state = initial_game_state.playMove(2, 3);
+      expect(game_state.previous_game_state).to.eql(initial_game_state);
+    });
+    
     it('places a stone on the board', function() {
       var initial_game_state = new GameState({
         board: new Board(), 
