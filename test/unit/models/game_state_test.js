@@ -31,7 +31,7 @@ var GameState = require('../../../src/models/game_state.js');
 var Stone = require('../../../src/models/stone.js'); 
 var Board = require('../../../src/models/board.js');
 
-describe.only('GameState', function() {
+describe('GameState', function() {
   describe('playMove', function() {  
     it('creates a new GameState record', function() {
       var initial_game_state = new GameState({

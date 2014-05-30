@@ -28,32 +28,36 @@ var Board = require('./board.js');
 var Stone = require('./stone.js');
 
 var GameState = Model.extend({
-  properties: ['board', 'kills', 'current_turn', 'previous_game_state']
-});
-
-GameState.prototype.playMove = function(x, y) {
-  var new_stone = new Stone(x, y, this.current_turn);
-  var new_board = this.board.placeStones(new_stone);
-  if (!new_board) { return null }
+  properties: ['board', 'kills', 'current_turn', 'previous_game_state'],
   
-  // find dead stones and remove them
-  var dead_stones = _.flatten(
-    new_board.neighbors(new_stone).filter(function(neighbor_stone) {
-      return neighbor_stone && (new_stone.color !== neighbor_stone.color);
-    }).map(
-    function(seed_stone) {
-      if (_.contains(dead_stones, seed_stone)) { return dead_stones }
-      return new_board.findDeadStones(seed_stone);
-    })
-  );
-  var new_board_w_captures = new_board.removeStones(dead_stones);
+  playMove: function(x, y) {
+    // create and place the new stone
+    var new_stone = new Stone(x, y, this.current_turn);
+    var new_board = this.board.placeStones(new_stone);
+    if (!new_board) { return null }
+    
+    // find dead stones and remove them
+    var dead_stones = _.flatten(
+      new_board.neighbors(new_stone).filter(function(neighbor_stone) {
+        return neighbor_stone && (new_stone.color !== neighbor_stone.color);
+      }).map(
+      function(seed_stone) {
+        if (_.contains(dead_stones, seed_stone)) { return dead_stones }
+        return new_board.findDeadStones(seed_stone);
+      })
+    );
+    var new_board_w_captures = new_board.removeStones(dead_stones);
 
-  return new GameState({
-    board: new_board_w_captures,
-    kills: this.kills,
-    current_turn: (this.current_turn + 1) % 2,
-    previous_game_state: this
-  });
-};
+    // create a new game state with the new board and the turn set
+    return new GameState({
+      board: new_board_w_captures,
+      kills: this.kills,
+      current_turn: (this.current_turn + 1) % 2,
+      previous_game_state: this
+    });
+  },
+
+  valid: function() { return true; }
+});
 
 module.exports = GameState;

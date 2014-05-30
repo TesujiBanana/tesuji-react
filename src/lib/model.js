@@ -31,7 +31,7 @@ Model.extend = function(definition) {
   
   Object.defineProperties(model.prototype, _.defaults(
     _.object(
-      _.map(_.pairs(definition), function(pair) {
+      _.map(_.pairs(_.omit(definition, 'properties')), function(pair) {
         return [pair[0], { value: pair[1]} ]
       })
     ),

@@ -29,14 +29,17 @@ var _ = require('underscore');
 
 var Board = require('../models/board.js');
 var Stone = require('../models/stone.js');
+var GameState = require('../models/game_state.js');
 var BoardView = require('./board_view.jsx');
 
 var TesujiApp = React.createClass({
 
   getInitialState: function() {
     return {
-      board: new Board(),
-      current_player: 0
+      game_state: new GameState({
+        board: new Board(),
+        current_turn: Stone.BLACK
+      })
     };
   },
   
@@ -46,39 +49,17 @@ var TesujiApp = React.createClass({
     var x = payload.x;
     var y = payload.y;
     if (x === undefined || y === undefined) { return }
-      
-    // TODO: all of this needs to go in a GameManger or Rules module ...   
+
+    var new_game_state = this.state.game_state.playMove(x, y);
     
-    // create new stone and place it.
-    var new_stone = new Stone(x, y, this.state.current_player);
-    var new_board = this.state.board.placeStones(new_stone);
-    if (new_board === null) { return }
-    
-    // find dead stones and remove them
-    var dead_stones = _.flatten(
-      new_board.neighbors(new_stone).filter(function(neighbor_stone) {
-        return neighbor_stone && (new_stone.color !== neighbor_stone.color);
-      }).map(
-      function(seed_stone) {
-        if (_.contains(dead_stones, seed_stone)) { return dead_stones }
-        return new_board.findDeadStones(seed_stone);
-      })
-    );
-    var new_board_w_captures = new_board.removeStones(dead_stones);
-    
-    // check for suicide
-    if (new_board_w_captures.findDeadStones(new_stone).length > 0) { return }
-    
-    // set the new board
-    this.setState({
-      board: new_board_w_captures,
-      current_player: (this.state.current_player + 1) % 2
-    });
+    if (new_game_state && new_game_state.valid) {
+      this.setState({game_state: new_game_state});
+    }
   },
   
   render: function() {
     return (
-      <BoardView boardSize="19" board={this.state.board} onIntersectionClick={this.handleClick}/>
+      <BoardView boardSize="19" board={this.state.game_state.board} onIntersectionClick={this.handleClick}/>
     );
   }
 });
