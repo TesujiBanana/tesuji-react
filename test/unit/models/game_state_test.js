@@ -52,9 +52,9 @@ describe('GameState', function() {
     it('places a stone on the board', function() {
       var game_state = initial_game_state.playMove(2, 3);
       expect(
-        game_state.board().stoneAt(2, 3)
+        game_state.board.stoneAt(2, 3)
       ).to.eql(
-        new Stone(2, 3, initial_game_state.current_turn())
+        new Stone(2, 3, initial_game_state.current_turn)
       );
     });
   });

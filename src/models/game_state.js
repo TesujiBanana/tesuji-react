@@ -32,14 +32,14 @@ var GameState = Model.extend({
 });
 
 GameState.prototype.playMove = function(x, y) {
-  var stone = new Stone(x, y, this.current_turn());
-  var new_board = this.board().placeStones(stone);
+  var stone = new Stone(x, y, this.current_turn);
+  var new_board = this.board.placeStones(stone);
   if (!new_board) { return null }
 
   return new GameState({
     board: new_board,
     kills: this.kills,
-    current_turn: (this.current_turn() + 1) % 2,
+    current_turn: (this.current_turn + 1) % 2,
     previous_game_state: this
   });
 };

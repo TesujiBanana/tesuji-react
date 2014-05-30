@@ -34,13 +34,37 @@ describe('Model', function() {
     
     it('can accessed props set on create', function() {
       var foo = new Foo({bar: 'asdf'});
-      expect(foo.bar()).to.equal('asdf');
+      expect(foo.bar).to.equal('asdf');
     });
     
-    it('can set props', function() {
+    it('get sets props correctly', function() {
       var foo = new Foo({bar: 'asdf'});
-      foo.bar('fdas');
-      expect(foo.bar()).to.equal('fdas');
+      foo.bar = 'fdas';
+      expect(foo.properties.bar).to.equal('fdas');
+    });
+    
+    it('can set and get props', function() {
+      var foo = new Foo({bar: 'asdf'});
+      foo.bar = 'fdas';
+      expect(foo.bar).to.equal('fdas');
+    });
+  });
+  
+  describe('methods', function() {
+    var Foo = Model.extend({
+      properties: ['bar', 'baz'],
+      f: function(x) { return x * x; },
+      g: function(x) { return x + this.bar; }
+    });
+    
+    it('can use a method', function() { 
+      var foo = new Foo();
+      expect(foo.f(4)).to.equal(16);
+    });
+    
+    it('can use a method that depends on this', function() {
+      var foo = new Foo({bar: 2});
+      expect(foo.g(4)).to.equal(6);
     });
   });
 });

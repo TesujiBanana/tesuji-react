@@ -26,23 +26,26 @@ var Model = function() {};
 
 Model.extend = function(definition) {
   var model = function(properties) {
-    this._properties = properties;
+    this.properties = properties;
   };
   
-  var getters_and_setters = _.object(
-    definition.properties,
-    _.map(definition.properties, function(property) {
-      return function(value) {
-        if (value !== undefined) {
-          this._properties[property] = value
+  Object.defineProperties(model.prototype, _.defaults(
+    _.object(
+      _.map(_.pairs(definition), function(pair) {
+        return [pair[0], { value: pair[1]} ]
+      })
+    ),
+    _.object(
+      definition.properties,
+      _.map(definition.properties, function(property) {
+        return {
+          get: function() { return this.properties[property] },
+          set: function(value) { this.properties[property] = value }
         }
-        return this._properties[property];
-      };
-    })
-  );
-  
-  model.prototype = _.extend(new Model(), _.defaults(definition, getters_and_setters));
-  
+      })
+    )
+  ));
+
   return model;
 };
 
