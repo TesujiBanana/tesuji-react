@@ -23,7 +23,6 @@
 /*jshint -W030 */
 /*global describe */
 /*global it */ 
-/*global beforeEach */
 
 var expect = require('chai').expect;
 
@@ -32,30 +31,53 @@ var GameState = require('../../../src/models/game_state.js');
 var Stone = require('../../../src/models/stone.js'); 
 var Board = require('../../../src/models/board.js');
 
-describe('GameState', function() {
-  describe('playMove', function() {
-    var initial_game_state;
-    
-    beforeEach(function() {
-      initial_game_state = new GameState({
+describe.only('GameState', function() {
+  describe('playMove', function() {  
+    it('creates a new GameState record', function() {
+      var initial_game_state = new GameState({
         board: new Board(), 
         current_turn: Stone.BLACK
       });
-    });
-    
-    it('creates a new GameState record', function() {
+      
       var game_state = initial_game_state.playMove(2, 3);
       expect(game_state).to.be.an.instanceOf(GameState);
       expect(game_state).to.not.equal(initial_game_state);
     });
     
     it('places a stone on the board', function() {
+      var initial_game_state = new GameState({
+        board: new Board(), 
+        current_turn: Stone.BLACK
+      });
+      
       var game_state = initial_game_state.playMove(2, 3);
       expect(
         game_state.board.stoneAt(2, 3)
       ).to.eql(
         new Stone(2, 3, initial_game_state.current_turn)
       );
+    });
+    
+    it('removes captures from the new board', function() {
+      var board = (new Board(19)).placeStones(
+        new Stone(5, 4, Stone.BLACK),
+        new Stone(3, 2, Stone.BLACK), 
+        new Stone(3, 3, Stone.BLACK),
+        new Stone(2, 2, Stone.WHITE),
+        new Stone(3, 1, Stone.WHITE),
+        new Stone(4, 2, Stone.WHITE),
+        new Stone(4, 3, Stone.WHITE),
+        new Stone(3, 4, Stone.WHITE)
+      );
+      var initial_game_state = new GameState({
+        board: board,
+        current_turn: Stone.WHITE    
+      });
+      
+      var game_state = initial_game_state.playMove(2, 3);
+      expect(game_state.board.stoneAt(5, 4)).to.be.eql(new Stone(5, 4, Stone.BLACK));
+      expect(game_state.board.stoneAt(3, 2)).to.be.null;
+      expect(game_state.board.stoneAt(3, 3)).to.be.null;
     });
   });
 });

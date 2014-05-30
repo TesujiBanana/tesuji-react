@@ -32,12 +32,24 @@ var GameState = Model.extend({
 });
 
 GameState.prototype.playMove = function(x, y) {
-  var stone = new Stone(x, y, this.current_turn);
-  var new_board = this.board.placeStones(stone);
+  var new_stone = new Stone(x, y, this.current_turn);
+  var new_board = this.board.placeStones(new_stone);
   if (!new_board) { return null }
+  
+  // find dead stones and remove them
+  var dead_stones = _.flatten(
+    new_board.neighbors(new_stone).filter(function(neighbor_stone) {
+      return neighbor_stone && (new_stone.color !== neighbor_stone.color);
+    }).map(
+    function(seed_stone) {
+      if (_.contains(dead_stones, seed_stone)) { return dead_stones }
+      return new_board.findDeadStones(seed_stone);
+    })
+  );
+  var new_board_w_captures = new_board.removeStones(dead_stones);
 
   return new GameState({
-    board: new_board,
+    board: new_board_w_captures,
     kills: this.kills,
     current_turn: (this.current_turn + 1) % 2,
     previous_game_state: this
