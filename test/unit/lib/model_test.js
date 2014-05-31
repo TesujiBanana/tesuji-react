@@ -30,7 +30,7 @@ var Model = require('../../../src/lib/model.js');
 
 describe('Model', function() {
   describe('getters and setters', function() {
-    var Foo = Model.extend({properties: ['bar', 'baz']});
+    var Foo = Model.extend({attributes: ['bar', 'baz']});
     
     it('can accessed props set on create', function() {
       var foo = new Foo({bar: 'asdf'});
@@ -40,7 +40,7 @@ describe('Model', function() {
     it('get sets props correctly', function() {
       var foo = new Foo({bar: 'asdf'});
       foo.bar = 'fdas';
-      expect(foo.properties.bar).to.equal('fdas');
+      expect(foo.attributes.bar).to.equal('fdas');
     });
     
     it('can set and get props', function() {
@@ -50,11 +50,44 @@ describe('Model', function() {
     });
   });
   
+  describe('initialize', function() {
+    it('is called by the constructor', function() {
+      var Foo = Model.extend({
+        attributes: ['bar'],
+        methods: {
+          initialize: function() {
+            this.bar = 'baz';
+          }
+        }
+      });
+      
+      var foo = new Foo();
+      expect(foo.bar).to.equal('baz');
+    });
+    
+    it('has access to the attributes hash', function() {
+      var Foo = Model.extend({
+        attributes: ['bar'],
+        methods: {
+          initialize: function(attributes) {
+            attrs = attributes;
+          }
+        }
+      });
+      
+      var attrs;
+      new Foo({bar: 'baz'});
+      expect(attrs).to.eql({bar: 'baz'});
+    });
+  });
+  
   describe('methods', function() {
     var Foo = Model.extend({
-      properties: ['bar', 'baz'],
-      f: function(x) { return x * x; },
-      g: function(x) { return x + this.bar; }
+      attributes: ['bar', 'baz'],
+      methods: {
+        f: function(x) { return x * x; },
+        g: function(x) { return x + this.bar; }
+      }
     });
     
     it('can use a method', function() { 
@@ -65,6 +98,16 @@ describe('Model', function() {
     it('can use a method that depends on this', function() {
       var foo = new Foo({bar: 2});
       expect(foo.g(4)).to.equal(6);
+    });
+  });
+  
+  describe('extend', function() {
+    it('can be extended', function() {
+      var Foo = Model.extend({attributes: ['bar']});
+      var Bar = Foo.extend({attributes: ['baz']});
+      var bar = new Bar({bar: 'bar', baz: 'baz'});
+      expect(bar.bar).to.equal('bar');
+      expect(bar.baz).to.equal('baz');
     });
   });
 });

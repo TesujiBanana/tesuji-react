@@ -121,13 +121,13 @@ describe('Board', function() {
   describe('.findDeadStones', function() {
     it('returns nothing for a lone stone in the center of the board', function() {
       var stone = new Stone(3, 3, Stone.BLACK);
-      var board = (new Board(19)).placeStones(stone);
+      var board = (new Board()).placeStones(stone);
       expect(board.findDeadStones(stone)).to.eql([]);
     });
     
     it('for a lone surrounded stone, returns a list with the dead stone', function() {
       var dead_stone = new Stone(3, 2, Stone.BLACK);
-      var board = (new Board(19)).placeStones(
+      var board = (new Board()).placeStones(
         dead_stone, 
         new Stone(2, 2, Stone.WHITE),
         new Stone(3, 1, Stone.WHITE),
@@ -141,7 +141,7 @@ describe('Board', function() {
       var dead_stone = new Stone(3, 2, Stone.BLACK);
       var other_dead_stone = new Stone(3, 3, Stone.BLACK);
       var dead_group = [dead_stone, other_dead_stone];
-      var board = (new Board(19)).placeStones(
+      var board = (new Board()).placeStones(
         dead_stone, 
         other_dead_stone,
         new Stone(2, 2, Stone.WHITE),
@@ -160,7 +160,7 @@ describe('Board', function() {
         new Stone(18, 9, Stone.BLACK),
         new Stone(18, 10, Stone.BLACK)
       ];
-      var board = (new Board(19)).placeStones(
+      var board = (new Board()).placeStones(
         dead_stones.concat(
           new Stone(18, 7, Stone.WHITE),
           new Stone(17, 8, Stone.WHITE),

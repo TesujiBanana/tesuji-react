@@ -20,115 +20,122 @@
  * THE SOFTWARE.
  */
  
-var Stone = require('./stone');
 var _ = require('underscore');
 
-var Board = function(board_size, grid, stones) {
-  this.board_size = (board_size !== undefined) ? board_size : 19;
-  this.grid = (grid !== undefined) ?
-    grid : 
-    Array.apply(
-      null, 
-      Array(this.board_size * this.board_size)
-    ).map(function() { return null });
-  return this;
-};
+var Model = require('../lib/model.js');
 
-Board.prototype._coordinatesToIndex = function(x, y) {
-  return x + (this.board_size * y);
-};
+var Stone = require('./stone');
 
-Board.prototype.coordinatesOutOfBounds = function(x, y) {
-  return (x < 0 || 
-    x >= this.board_size || 
-    y < 0 || 
-    y >= this.board_size);
-};
-
-Board.prototype.stoneAt = function(x, y) {
-  if (this.coordinatesOutOfBounds(x, y)) { return undefined }
-  return this.grid[this._coordinatesToIndex(x, y)];
-};
-
-Board.prototype.neighbors = function(stone) {
-  return [
-    this.stoneAt(stone.x - 1, stone.y),
-    this.stoneAt(stone.x, stone.y + 1),
-    this.stoneAt(stone.x + 1, stone.y),
-    this.stoneAt(stone.x, stone.y - 1)
-  ];
-};
-
-Board.prototype.placeStones = function() {
-  args = _.flatten(arguments);
-  var valid_stones = _.filter(args, function(stone) {
-    return (
-      !this.coordinatesOutOfBounds(stone.x, stone.y) &&
-      !this.stoneAt(stone.x, stone.y)
-    );
-  }.bind(this));
-  
-  if (valid_stones.length === 0) { return null }
-  
-  var overlay = _.object(
-    valid_stones.map(function(stone) { return this._coordinatesToIndex(stone.x, stone.y) }.bind(this)),
-    valid_stones
-  );
-  
-  return new Board(
-    this.board_size,
-    this.grid.map(function(stone, i) {
-      return (overlay[i]) ? overlay[i] : stone;
-    })
-  );
-};
-
-Board.prototype.removeStones = function() {
-  args = _.flatten(arguments);
-  var valid_stones = _.filter(args, function(stone) {
-    return (
-      !this.coordinatesOutOfBounds(stone.x, stone.y) &&
-      stone === this.stoneAt(stone.x, stone.y)
-    );
-  }.bind(this));
-  
-  if (valid_stones.length === 0) { return this }
-  
-  var overlay = _.object(
-    valid_stones.map(function(stone) { return this._coordinatesToIndex(stone.x, stone.y) }.bind(this)),
-    valid_stones
-  );
-  
-  return new Board(
-    this.board_size,
-    this.grid.map(function(stone, i) {
-      return (overlay[i]) ? null : stone;
-    })
-  );
-};
-
-Board.prototype.findDeadStones = function(stone) {
-  return (function _findDeadStones(board, queue, group) {
-    // if there is nothing left to check, we are dead.
-    if (queue.length === 0) { return group }
+var Board = Model.extend({
+  attributes: ['board_size', 'grid'],
+  methods: {
+    initialize: function(attributes) {
+      if (this.board_size === undefined) { this.board_size = 19 };
+      if (this.grid === undefined) {
+        this.grid = Array.apply(
+          null, 
+          Array(this.board_size * this.board_size)
+        ).map(function() { return null });      
+      }
+    },
     
-    var stone = queue[0];
-    var neighbors = board.neighbors(stone);
+    _coordinatesToIndex: function(x, y) {
+      return x + (this.board_size * y);
+    },
 
-    // if we find a null (empty) neighbor, we are alive.
-    if (neighbors.indexOf(null) >= 0) { return [] }
+    coordinatesOutOfBounds: function(x, y) {
+      return (x < 0 || 
+        x >= this.board_size || 
+        y < 0 || 
+        y >= this.board_size);
+    },
 
-    // enqueue friendly neighbors, add stone to group, and call self.
-    return _findDeadStones(board, 
-      queue.slice(1).concat(neighbors.filter(function(neighbor_stone) {
+    stoneAt: function(x, y) {
+      if (this.coordinatesOutOfBounds(x, y)) { return undefined }
+      return this.grid[this._coordinatesToIndex(x, y)];
+    },
+
+    neighbors: function(stone) {
+      return [
+        this.stoneAt(stone.x - 1, stone.y),
+        this.stoneAt(stone.x, stone.y + 1),
+        this.stoneAt(stone.x + 1, stone.y),
+        this.stoneAt(stone.x, stone.y - 1)
+      ];
+    },
+
+    placeStones: function() {
+      args = _.flatten(arguments);
+      var valid_stones = _.filter(args, function(stone) {
         return (
-          (neighbor_stone && stone.color === neighbor_stone.color) &&
-          !_.contains(group, neighbor_stone)
+          !this.coordinatesOutOfBounds(stone.x, stone.y) &&
+          !this.stoneAt(stone.x, stone.y)
         );
-      })),
-      group.concat(stone)
-    );
-  })(this, [stone], []);
-};
+      }.bind(this));
+      
+      if (valid_stones.length === 0) { return null }
+      
+      var overlay = _.object(
+        valid_stones.map(function(stone) { return this._coordinatesToIndex(stone.x, stone.y) }.bind(this)),
+        valid_stones
+      );
+      
+      return new Board({
+        board_size: this.board_size,
+        grid: this.grid.map(function(stone, i) {
+          return (overlay[i]) ? overlay[i] : stone;
+        })
+      });
+    },
+
+    removeStones: function() {
+      args = _.flatten(arguments);
+      var valid_stones = _.filter(args, function(stone) {
+        return (
+          !this.coordinatesOutOfBounds(stone.x, stone.y) &&
+          stone === this.stoneAt(stone.x, stone.y)
+        );
+      }.bind(this));
+      
+      if (valid_stones.length === 0) { return this }
+      
+      var overlay = _.object(
+        valid_stones.map(function(stone) { return this._coordinatesToIndex(stone.x, stone.y) }.bind(this)),
+        valid_stones
+      );
+      
+      return new Board({
+        board_size: this.board_size,
+        grid: this.grid.map(function(stone, i) {
+          return (overlay[i]) ? null : stone;
+        })
+      });
+    },
+
+    findDeadStones: function(stone) {
+      return (function _findDeadStones(board, queue, group) {
+        // if there is nothing left to check, we are dead.
+        if (queue.length === 0) { return group }
+        
+        var stone = queue[0];
+        var neighbors = board.neighbors(stone);
+
+        // if we find a null (empty) neighbor, we are alive.
+        if (neighbors.indexOf(null) >= 0) { return [] }
+
+        // enqueue friendly neighbors, add stone to group, and call self.
+        return _findDeadStones(board, 
+          queue.slice(1).concat(neighbors.filter(function(neighbor_stone) {
+            return (
+              (neighbor_stone && stone.color === neighbor_stone.color) &&
+              !_.contains(group, neighbor_stone)
+            );
+          })),
+          group.concat(stone)
+        );
+      })(this, [stone], []);
+    }
+  }
+});
 
 module.exports = Board;

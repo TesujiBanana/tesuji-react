@@ -69,7 +69,7 @@ describe('GameState', function() {
     });
     
     it('removes captures from the new board', function() {
-      var board = (new Board(19)).placeStones(
+      var board = (new Board()).placeStones(
         new Stone(5, 4, Stone.BLACK),
         new Stone(3, 2, Stone.BLACK), 
         new Stone(3, 3, Stone.BLACK),
