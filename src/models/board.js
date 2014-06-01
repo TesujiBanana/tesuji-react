@@ -110,6 +110,19 @@ var Board = Model.extend({
       });
     },
 
+    findKills: function(stone) {
+      return _.reduce(
+        this.neighbors(stone).filter(function(neighbor_stone) {
+          return neighbor_stone && (stone.color !== neighbor_stone.color);
+        }),
+        function(dead_stones, seed_stone) {
+          if (_.contains(dead_stones, seed_stone)) { return dead_stones }
+          return dead_stones.concat(this.findDeadStones(seed_stone));
+        }.bind(this),
+        []
+      );
+    },
+    
     findDeadStones: function(stone) {
       return (function _findDeadStones(board, queue, group) {
         // if there is nothing left to check, we are dead.

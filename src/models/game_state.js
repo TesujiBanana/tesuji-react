@@ -35,13 +35,15 @@ var GameState = Model.extend({
       if (this.board.stoneAt(x, y)) {
         return null;
       }
-      
-      // create and place the new stone, removing dead stones
+
+      // create and place the new stone
       var new_stone = new Stone({x: x, y: y, color: this.current_turn});
       var new_board = this.board.placeStones(new_stone)
-      
+
       // find dead stones and remove them
-      new_board = this.removeDeadStones(new_board, new_stone);
+      var kills = new_board.findKills(new_stone);
+      // TODO: record kills      
+      new_board = new_board.removeStones(kills);
 
       // check suicide
       if (this.checkSuicide(new_board, new_stone)) {
@@ -61,20 +63,7 @@ var GameState = Model.extend({
         previous_game_state: this
       });
     },
-      
-    removeDeadStones: function(new_board, new_stone) {
-      var dead_stones = _.flatten(
-        new_board.neighbors(new_stone).filter(function(neighbor_stone) {
-          return neighbor_stone && (new_stone.color !== neighbor_stone.color);
-        }).map(
-        function(seed_stone) {
-          if (_.contains(dead_stones, seed_stone)) { return null }
-          return new_board.findDeadStones(seed_stone);
-        })
-      );
-      return new_board.removeStones(dead_stones);
-    },
-    
+
     checkSuicide: function(new_board, new_stone) {
       return new_board.findDeadStones(new_stone).length > 0
     },

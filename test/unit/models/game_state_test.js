@@ -38,28 +38,28 @@ describe('GameState', function() {
         board: new Board(), 
         current_turn: Stone.BLACK
       });
-      
+
       var game_state = initial_game_state.playMove(2, 3);
       expect(game_state).to.be.an.instanceOf(GameState);
       expect(game_state).to.not.equal(initial_game_state);
     });
-    
+
     it('sets previous_game_state', function() {
       var initial_game_state = new GameState({
         board: new Board(), 
         current_turn: Stone.BLACK
       });
-      
+
       var game_state = initial_game_state.playMove(2, 3);
       expect(game_state.previous_game_state).to.eql(initial_game_state);
     });
-    
+
     it('places a stone on the board', function() {
       var initial_game_state = new GameState({
         board: new Board(), 
         current_turn: Stone.BLACK
       });
-      
+
       var game_state = initial_game_state.playMove(2, 3);
       expect(
         game_state.board.stoneAt(2, 3)
@@ -67,7 +67,7 @@ describe('GameState', function() {
         new Stone({x: 2, y: 3, color: initial_game_state.current_turn})
       );
     });
-    
+
     it('removes captures from the new board', function() {
       var board = (new Board()).placeStones(
         new Stone({x: 5, y: 4, color: Stone.BLACK}),
@@ -83,7 +83,7 @@ describe('GameState', function() {
         board: board,
         current_turn: Stone.WHITE    
       });
-      
+
       var game_state = initial_game_state.playMove(2, 3);
       expect(game_state.board.stoneAt(5, 4)).to.be.eql(new Stone({x: 5, y: 4, color: Stone.BLACK}));
       expect(game_state.board.stoneAt(3, 2)).to.be.null;
@@ -105,14 +105,13 @@ describe('GameState', function() {
         board: board,
         current_turn: Stone.BLACK    
       });
-      
+
       var game_state = initial_game_state.playMove(3, 3);
-      
+
       expect(game_state).to.be.null;
     });
-    
+
     it('fails for repeat board position (ko)', function() {
-      
       /*  0 1 2 3 4 5 6 7
        0
        1        b
