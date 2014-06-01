@@ -69,21 +69,17 @@ var GameState = Model.extend({
     },
 
     checkKo: function(new_board) {
+      var matcher = _.matches(new_board.getOverlay());
       var previous_game_state = this;
       while (previous_game_state) {
-        if (
-          _.all(
-            _.zip(
-              new_board.grid,
-              previous_game_state.board.grid
-            ), 
-            function(stones) {
-              var new_stone = stones[0] ? stones[0].color : null;
-              var old_stone = stones[1] ? stones[1].color : null;
-              return new_stone === old_stone;
-            }
+        if (new_board.stones.length === previous_game_state.board.stones.length &&
+          _.isEqual(
+            new_board.getOverlay(),
+            previous_game_state.board.getOverlay()
           )
-        ) { return true; }
+        ) {
+          return true;
+        }
         previous_game_state = previous_game_state.previous_game_state;
       }
       return false;

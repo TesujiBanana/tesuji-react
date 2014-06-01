@@ -23,11 +23,11 @@
 var _ = require('underscore');
 
 var Model = function(attributes) {
-  this.attributes = (attributes !== undefined) ? attributes : {};;
-  this.initialize.apply(this, arguments);
+  this.attributes = this.initialize.apply(this, [(attributes !== undefined) ? attributes : {}]);
+  // this.initialize.apply(this, arguments);
 };
 
-Model.prototype.initialize = function() {};
+Model.prototype.initialize = function(attributes) { return attributes; };
 
 Model.extend = function(definition) {
   var parent = this;

@@ -26,6 +26,8 @@
 
 var expect = require('chai').expect;
 
+var _ = require('underscore');
+
 var Model = require('../../../src/lib/model.js');
 
 describe('Model', function() {
@@ -55,8 +57,10 @@ describe('Model', function() {
       var Foo = Model.extend({
         attributes: ['bar'],
         methods: {
-          initialize: function() {
-            this.bar = 'baz';
+          initialize: function(attributes) {
+            return _.defaults(attributes, {
+              bar: 'baz'
+            });
           }
         }
       });

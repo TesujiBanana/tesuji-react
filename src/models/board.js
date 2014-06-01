@@ -25,16 +25,13 @@ var _ = require('underscore');
 var Model = require('../lib/model.js');
 
 var Board = Model.extend({
-  attributes: ['board_size', 'grid'],
+  attributes: ['board_size', 'stones'],
   methods: {
     initialize: function(attributes) {
-      if (this.board_size === undefined) { this.board_size = 19 };
-      if (this.grid === undefined) {
-        this.grid = Array.apply(
-          null, 
-          Array(this.board_size * this.board_size)
-        ).map(function() { return null });      
-      }
+      return _.defaults(attributes, {
+        board_size: 19,
+        stones: []
+      })
     },
     
     _coordinatesToIndex: function(x, y) {
@@ -50,7 +47,7 @@ var Board = Model.extend({
 
     stoneAt: function(x, y) {
       if (this.coordinatesOutOfBounds(x, y)) { return undefined }
-      return this.grid[this._coordinatesToIndex(x, y)];
+      return _.first(_.where(this.stones, {x: x, y: y})) || null;
     },
 
     neighbors: function(stone) {
@@ -62,6 +59,16 @@ var Board = Model.extend({
       ];
     },
 
+    getOverlay: function(new_stones) {
+      var stones = (new_stones !== undefined) ? new_stones : this.stones;
+      return _.object(
+        stones.map(function(stone) {
+          return stone.x + (this.board_size * stone.y);
+        }.bind(this)),
+        stones
+      );
+    },
+
     placeStones: function() {
       args = _.flatten(arguments);
       var valid_stones = _.filter(args, function(stone) {
@@ -70,19 +77,12 @@ var Board = Model.extend({
           !this.stoneAt(stone.x, stone.y)
         );
       }.bind(this));
-      
+
       if (valid_stones.length === 0) { return null }
-      
-      var overlay = _.object(
-        valid_stones.map(function(stone) { return this._coordinatesToIndex(stone.x, stone.y) }.bind(this)),
-        valid_stones
-      );
-      
+
       return new Board({
         board_size: this.board_size,
-        grid: this.grid.map(function(stone, i) {
-          return (overlay[i]) ? overlay[i] : stone;
-        })
+        stones: _.values(_.extend({}, this.getOverlay(), this.getOverlay(valid_stones)))
       });
     },
 
@@ -94,19 +94,12 @@ var Board = Model.extend({
           stone === this.stoneAt(stone.x, stone.y)
         );
       }.bind(this));
-      
+
       if (valid_stones.length === 0) { return this }
-      
-      var overlay = _.object(
-        valid_stones.map(function(stone) { return this._coordinatesToIndex(stone.x, stone.y) }.bind(this)),
-        valid_stones
-      );
-      
+  
       return new Board({
         board_size: this.board_size,
-        grid: this.grid.map(function(stone, i) {
-          return (overlay[i]) ? null : stone;
-        })
+        stones: _.values(_.omit(this.getOverlay(), _.keys(this.getOverlay(valid_stones))))
       });
     },
 
