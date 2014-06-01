@@ -31,32 +31,75 @@ var GameState = Model.extend({
   attributes: ['board', 'kills', 'current_turn', 'previous_game_state'],
   methods: {
     playMove: function(x, y) {
-      // create and place the new stone
+      // make sure there isn't a stone already there
+      if (this.board.stoneAt(x, y)) {
+        return null;
+      }
+      
+      // create and place the new stone, removing dead stones
       var new_stone = new Stone({x: x, y: y, color: this.current_turn});
-      var new_board = this.board.placeStones(new_stone);
-      if (!new_board) { return null }
+      var new_board = this.board.placeStones(new_stone)
       
       // find dead stones and remove them
-      var dead_stones = _.flatten(
-        new_board.neighbors(new_stone).filter(function(neighbor_stone) {
-          return neighbor_stone && (new_stone.color !== neighbor_stone.color);
-        }).map(
-        function(seed_stone) {
-          if (_.contains(dead_stones, seed_stone)) { return [] }
-          return new_board.findDeadStones(seed_stone);
-        })
-      );
-      var new_board_w_captures = new_board.removeStones(dead_stones);
+      new_board = this.removeDeadStones(new_board, new_stone);
+
+      // check suicide
+      if (this.checkSuicide(new_board, new_stone)) {
+        return null;
+      }
+
+      // check ko
+      if (this.checkKo(new_board)) { 
+        return null;
+      }
 
       // create a new game state with the new board and the turn set
       return new GameState({
-        board: new_board_w_captures,
+        board: new_board,
         kills: this.kills,
         current_turn: (this.current_turn + 1) % 2,
         previous_game_state: this
       });
     },
+      
+    removeDeadStones: function(new_board, new_stone) {
+      var dead_stones = _.flatten(
+        new_board.neighbors(new_stone).filter(function(neighbor_stone) {
+          return neighbor_stone && (new_stone.color !== neighbor_stone.color);
+        }).map(
+        function(seed_stone) {
+          if (_.contains(dead_stones, seed_stone)) { return null }
+          return new_board.findDeadStones(seed_stone);
+        })
+      );
+      return new_board.removeStones(dead_stones);
+    },
+    
+    checkSuicide: function(new_board, new_stone) {
+      return new_board.findDeadStones(new_stone).length > 0
+    },
 
+    checkKo: function(new_board) {
+      var previous_game_state = this;
+      while (previous_game_state) {
+        if (
+          _.all(
+            _.zip(
+              new_board.grid,
+              previous_game_state.board.grid
+            ), 
+            function(stones) {
+              var new_stone = stones[0] ? stones[0].color : null;
+              var old_stone = stones[1] ? stones[1].color : null;
+              return new_stone === old_stone;
+            }
+          )
+        ) { return true; }
+        previous_game_state = previous_game_state.previous_game_state;
+      }
+      return false;
+    },
+    
     valid: function() { return true; }
   }
 });

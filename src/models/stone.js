@@ -24,7 +24,13 @@ var _ = require('underscore');
 
 var Model = require('../lib/model.js');
 
-var Stone = Model.extend({ attributes: ['x', 'y', 'color'] });
+var Stone = Model.extend({
+  attributes: ['x', 'y', 'color']
+  // constants: {
+  //   BLACK: 0,
+  //   WHITE: 1
+  // }
+});
 
 Stone.BLACK = 0;
 Stone.WHITE = 1;

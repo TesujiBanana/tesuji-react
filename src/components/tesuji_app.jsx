@@ -51,7 +51,7 @@ var TesujiApp = React.createClass({
     if (x === undefined || y === undefined) { return }
 
     var new_game_state = this.state.game_state.playMove(x, y);
-    
+        
     if (new_game_state && new_game_state.valid) {
       this.setState({game_state: new_game_state});
     }

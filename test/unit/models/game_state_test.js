@@ -89,5 +89,55 @@ describe('GameState', function() {
       expect(game_state.board.stoneAt(3, 2)).to.be.null;
       expect(game_state.board.stoneAt(3, 3)).to.be.null;
     });
+    
+    it('fails for suicide', function() {
+      var board = (new Board()).placeStones(
+        new Stone({x: 5, y: 4, color: Stone.BLACK}),
+        new Stone({x: 3, y: 2, color: Stone.BLACK}),
+        new Stone({x: 2, y: 2, color: Stone.WHITE}),
+        new Stone({x: 3, y: 1, color: Stone.WHITE}),
+        new Stone({x: 4, y: 2, color: Stone.WHITE}),
+        new Stone({x: 4, y: 3, color: Stone.WHITE}),
+        new Stone({x: 3, y: 4, color: Stone.WHITE}),
+        new Stone({x: 2, y: 3, color: Stone.WHITE})
+      );
+      var initial_game_state = new GameState({
+        board: board,
+        current_turn: Stone.BLACK    
+      });
+      
+      var game_state = initial_game_state.playMove(3, 3);
+      
+      expect(game_state).to.be.null;
+    });
+    
+    it('fails for repeat board position (ko)', function() {
+      
+      /*  0 1 2 3 4 5 6 7
+       0
+       1        b
+       2      b w b
+       3      w   w
+       4        w
+       5 */
+      var board = (new Board()).placeStones(
+        new Stone({x: 2, y: 2, color: Stone.BLACK}),
+        new Stone({x: 3, y: 1, color: Stone.BLACK}),
+        new Stone({x: 4, y: 2, color: Stone.BLACK}),
+        new Stone({x: 2, y: 3, color: Stone.WHITE}),
+        new Stone({x: 3, y: 2, color: Stone.WHITE}),
+        new Stone({x: 4, y: 3, color: Stone.WHITE}),
+        new Stone({x: 3, y: 4, color: Stone.WHITE})
+      );
+      var initial_game_state = new GameState({
+        board: board,
+        current_turn: Stone.BLACK    
+      });
+      
+      var game_state = initial_game_state.playMove(3, 3);
+      var ko = game_state.playMove(3, 2);
+      
+      expect(ko).to.be.null;
+    });
   });
 });
