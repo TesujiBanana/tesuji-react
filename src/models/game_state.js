@@ -32,7 +32,7 @@ var GameState = Model.extend({
   methods: {
     playMove: function(x, y) {
       // create and place the new stone
-      var new_stone = new Stone(x, y, this.current_turn);
+      var new_stone = new Stone({x: x, y: y, color: this.current_turn});
       var new_board = this.board.placeStones(new_stone);
       if (!new_board) { return null }
       

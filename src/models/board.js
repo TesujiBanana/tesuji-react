@@ -24,8 +24,6 @@ var _ = require('underscore');
 
 var Model = require('../lib/model.js');
 
-var Stone = require('./stone');
-
 var Board = Model.extend({
   attributes: ['board_size', 'grid'],
   methods: {

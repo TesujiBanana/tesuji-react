@@ -22,11 +22,9 @@
  
 var _ = require('underscore');
 
-var Stone = function(x, y, color) {
-  this.x = x;
-  this.y = y;
-  this.color = color;
-};
+var Model = require('../lib/model.js');
+
+var Stone = Model.extend({ attributes: ['x', 'y', 'color'] });
 
 Stone.BLACK = 0;
 Stone.WHITE = 1;

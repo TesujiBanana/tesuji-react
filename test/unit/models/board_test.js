@@ -46,7 +46,7 @@ describe('Board', function() {
     
     it('returns the stone, if one has been placed', function() {
       var empty_board = new Board();
-      var board = empty_board.placeStones(new Stone(3, 3, Stone.BLACK));
+      var board = empty_board.placeStones(new Stone({x: 3, y: 3, color: Stone.BLACK}));
       expect(board.stoneAt(3, 3).color).to.equal(Stone.BLACK);
     });
   });
@@ -55,25 +55,25 @@ describe('Board', function() {
   describe('.placeStones', function() {
     it('returns null if attempting to place a stone out of bounds', function() {
       var board = new Board();
-      expect(board.placeStones(new Stone(19, 19, Stone.BLACK))).to.be.null;
+      expect(board.placeStones(new Stone({x: 19, y: 19, color: Stone.BLACK}))).to.be.null;
     });
     
     it('returns a new board for a valid move', function() {
       var board = new Board();
-      var new_board = board.placeStones(new Stone(3, 3, Stone.BLACK));
+      var new_board = board.placeStones(new Stone({x: 3, y: 3, color: Stone.BLACK}));
       expect(new_board).to.be.an.instanceOf(Board);
       expect(new_board).to.not.equal(board);
     });
     
     it('can place a single stone', function() {
-      var stone = new Stone(3, 3, Stone.BLACK);
+      var stone = new Stone({x: 3, y: 3, color: Stone.BLACK});
       var board = (new Board()).placeStones(stone);
       expect(board.stoneAt(3, 3)).to.eql(stone);
     });
 
     it('can place two stones', function() {
-      var stone = new Stone(3, 3, Stone.BLACK);
-      var another_stone = new Stone(2, 5, Stone.BLACK);
+      var stone = new Stone({x: 3, y: 3, color: Stone.BLACK});
+      var another_stone = new Stone({x: 2, y: 5, color: Stone.BLACK});
       var board = (new Board()).placeStones(stone, another_stone);
       expect(board.stoneAt(3, 3)).to.eql(stone);
       expect(board.stoneAt(2, 5)).to.eql(another_stone);
@@ -83,12 +83,12 @@ describe('Board', function() {
   describe('.removeStones', function() {
     it('does nothing if no stones are being removed', function() {
       var board = new Board();
-      var new_board = board.removeStones(new Stone(3, 3, Stone.BLACK));
+      var new_board = board.removeStones(new Stone({x: 3, y: 3, color: Stone.BLACK}));
       expect(board).to.eql(new_board);
     });
     
     it('returns a new board if stones were removed', function() {
-      var stone = new Stone(3, 3, Stone.BLACK);
+      var stone = new Stone({x: 3, y: 3, color: Stone.BLACK});
       var board = (new Board()).placeStones(stone);
       var new_board = board.removeStones(stone);
       expect(new_board).to.be.instanceOf(Board);
@@ -96,22 +96,22 @@ describe('Board', function() {
     });
     
     it('can remove a single stone', function() {
-      var stone = new Stone(3, 3, Stone.BLACK);
+      var stone = new Stone({x: 3, y: 3, color: Stone.BLACK});
       var board = (new Board()).placeStones(stone).removeStones(stone);
       expect(board.stoneAt(3, 3)).to.be.null;
     });
     
     it('can remove a single stone from a board with 2 stones', function() {
-      var stone = new Stone(3, 3, Stone.BLACK);
-      var dead_stone = new Stone(2, 3, Stone.WHITE);
+      var stone = new Stone({x: 3, y: 3, color: Stone.BLACK});
+      var dead_stone = new Stone({x: 2, y: 3, color: Stone.WHITE});
       var board = (new Board()).placeStones(stone, dead_stone).removeStones(dead_stone);
       expect(board.stoneAt(3, 3)).to.eql(stone);
       expect(board.stoneAt(2, 3)).to.be.null;
     });
     
     it('can take an array as well as an args list', function() {
-      var stone = new Stone(3, 3, Stone.BLACK);
-      var dead_stone = new Stone(2, 3, Stone.WHITE);
+      var stone = new Stone({x: 3, y: 3, color: Stone.BLACK});
+      var dead_stone = new Stone({x: 2, y: 3, color: Stone.WHITE});
       var board = (new Board()).placeStones(stone, dead_stone).removeStones([dead_stone]);
       expect(board.stoneAt(3, 3)).to.eql(stone);
       expect(board.stoneAt(2, 3)).to.be.null;
@@ -120,53 +120,53 @@ describe('Board', function() {
 
   describe('.findDeadStones', function() {
     it('returns nothing for a lone stone in the center of the board', function() {
-      var stone = new Stone(3, 3, Stone.BLACK);
+      var stone = new Stone({x: 3, y: 3, color: Stone.BLACK});
       var board = (new Board()).placeStones(stone);
       expect(board.findDeadStones(stone)).to.eql([]);
     });
     
     it('for a lone surrounded stone, returns a list with the dead stone', function() {
-      var dead_stone = new Stone(3, 2, Stone.BLACK);
+      var dead_stone = new Stone({x: 3, y: 2, color: Stone.BLACK});
       var board = (new Board()).placeStones(
         dead_stone, 
-        new Stone(2, 2, Stone.WHITE),
-        new Stone(3, 1, Stone.WHITE),
-        new Stone(4, 2, Stone.WHITE),
-        new Stone(3, 3, Stone.WHITE)
+        new Stone({x: 2, y: 2, color: Stone.WHITE}),
+        new Stone({x: 3, y: 1, color: Stone.WHITE}),
+        new Stone({x: 4, y: 2, color: Stone.WHITE}),
+        new Stone({x: 3, y: 3, color: Stone.WHITE})
       );
       expect(board.findDeadStones(dead_stone)).to.eql([dead_stone]); 
     });
 
     it('for a surrounded group, returns a list with all the dead stones', function() {
-      var dead_stone = new Stone(3, 2, Stone.BLACK);
-      var other_dead_stone = new Stone(3, 3, Stone.BLACK);
+      var dead_stone = new Stone({x: 3, y: 2, color: Stone.BLACK});
+      var other_dead_stone = new Stone({x: 3, y: 3, color: Stone.BLACK});
       var dead_group = [dead_stone, other_dead_stone];
       var board = (new Board()).placeStones(
         dead_stone, 
         other_dead_stone,
-        new Stone(2, 2, Stone.WHITE),
-        new Stone(3, 1, Stone.WHITE),
-        new Stone(4, 2, Stone.WHITE),
-        new Stone(4, 3, Stone.WHITE),
-        new Stone(3, 4, Stone.WHITE),
-        new Stone(2, 3, Stone.WHITE)
+        new Stone({x: 2, y: 2, color: Stone.WHITE}),
+        new Stone({x: 3, y: 1, color: Stone.WHITE}),
+        new Stone({x: 4, y: 2, color: Stone.WHITE}),
+        new Stone({x: 4, y: 3, color: Stone.WHITE}),
+        new Stone({x: 3, y: 4, color: Stone.WHITE}),
+        new Stone({x: 2, y: 3, color: Stone.WHITE})
       );
       expect(board.findDeadStones(other_dead_stone)).to.have.members(dead_group);
     });
     
     it('can find dead stones on the edge', function() {
       var dead_stones = [
-        new Stone(18, 8, Stone.BLACK),
-        new Stone(18, 9, Stone.BLACK),
-        new Stone(18, 10, Stone.BLACK)
+        new Stone({x: 18, y: 8, color: Stone.BLACK}),
+        new Stone({x: 18, y: 9, color: Stone.BLACK}),
+        new Stone({x: 18, y: 10, color: Stone.BLACK})
       ];
       var board = (new Board()).placeStones(
         dead_stones.concat(
-          new Stone(18, 7, Stone.WHITE),
-          new Stone(17, 8, Stone.WHITE),
-          new Stone(17, 9, Stone.WHITE),
-          new Stone(17, 10, Stone.WHITE),
-          new Stone(18, 11, Stone.WHITE)
+          new Stone({x: 18, y: 7, color: Stone.WHITE}),
+          new Stone({x: 17, y: 8, color: Stone.WHITE}),
+          new Stone({x: 17, y: 9, color: Stone.WHITE}),
+          new Stone({x: 17, y: 10, color: Stone.WHITE}),
+          new Stone({x: 18, y: 11, color: Stone.WHITE})
         )
       );
       expect(board.findDeadStones(dead_stones[0])).to.have.members(dead_stones);
