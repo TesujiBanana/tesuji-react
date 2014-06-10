@@ -22,46 +22,24 @@
  * @jsx React.DOM
  */
 
-'use strict';
-
 var React = require('react');
 var _ = require('underscore');
 
-var Board = require('../models/board.js');
 var Stone = require('../models/stone.js');
-var GameState = require('../models/game_state.js');
-var BoardView = require('./board_view.jsx');
 
-var TesujiApp = React.createClass({
-
-  getInitialState: function() {
-    return {
-      game_state: new GameState({
-        board: new Board(),
-        current_turn: Stone.BLACK
-      })
-    };
+var StoneView = React.createClass({
+  propTypes: {
+    stone: React.PropTypes.instanceOf(Stone).isRequired
   },
-
-  handleClick: function(payload) {
-    if (!payload) { return }
-
-    var x = payload.x;
-    var y = payload.y;
-    if (x === undefined || y === undefined) { return }
-
-    var new_game_state = this.state.game_state.playMove(x, y);
-
-    if (new_game_state && new_game_state.valid) {
-      this.setState({game_state: new_game_state});
-    }
+  color: function() {
+    if (this.props.stone.color === Stone.BLACK) { return 'black' }
+    if (this.props.stone.color === Stone.WHITE) { return 'white' }
   },
-
   render: function() {
     return (
-      <BoardView boardSize="19" game_state={this.state.game_state} onIntersectionClick={this.handleClick}/>
+      <div className={'stone ' + this.color() }></div>
     );
   }
 });
 
-module.exports = TesujiApp;
+module.exports = StoneView;

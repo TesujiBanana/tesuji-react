@@ -1,0 +1,2466 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff'); }
+
+.tesuji-board {
+  position: relative;
+  margin: 12px;
+  background-color: #ffcc66;
+  height: 600px;
+  width: 600px; }
+  .tesuji-board .tesuji-grid {
+    position: absolute;
+    margin: 15px;
+    height: 570px;
+    width: 570px;
+    z-index: 2; }
+    .tesuji-board .tesuji-grid table {
+      position: absolute;
+      z-index: 0;
+      left: 15px;
+      top: 15px;
+      border: 1px solid black;
+      border-collapse: collapse;
+      border-spacing: 0; }
+    .tesuji-board .tesuji-grid td {
+      height: 29px;
+      width: 29px;
+      border: 1px solid black;
+      padding: 0px; }
+    .tesuji-board .tesuji-grid .label, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-0, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-0, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-0, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-0, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-0, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-0, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-0, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-0, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-1, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-1, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-1, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-1, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-1, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-1, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-1, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-1, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-2, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-2, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-2, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-2, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-2, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-2, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-2, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-2, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-3, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-3, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-3, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-3, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-3, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-3, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-3, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-3, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-4, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-4, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-4, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-4, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-4, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-4, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-4, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-4, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-5, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-5, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-5, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-5, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-5, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-5, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-5, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-5, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-6, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-6, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-6, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-6, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-6, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-6, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-6, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-6, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-7, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-7, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-7, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-7, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-7, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-7, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-7, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-7, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-8, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-8, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-8, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-8, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-8, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-8, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-8, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-8, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-9, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-9, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-9, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-9, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-9, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-9, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-9, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-9, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-10, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-10, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-10, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-10, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-10, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-10, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-10, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-10, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-11, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-11, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-11, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-11, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-11, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-11, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-11, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-11, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-12, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-12, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-12, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-12, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-12, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-12, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-12, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-12, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-13, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-13, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-13, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-13, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-13, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-13, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-13, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-13, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-14, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-14, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-14, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-14, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-14, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-14, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-14, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-14, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-15, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-15, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-15, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-15, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-15, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-15, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-15, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-15, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-16, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-16, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-16, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-16, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-16, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-16, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-16, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-16, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-17, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-17, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-17, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-17, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-17, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-17, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-17, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-17, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-18, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-top-18, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-18, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-bottom-18, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-18, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-left-18, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-18, .tesuji-board .tesuji-grid .tesuji-board .tesuji-grid .label-right-18 {
+      position: absolute;
+      z-index: 1;
+      font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+      font-size: 9px;
+      text-align: center;
+      color: black;
+      padding: 0px; }
+    .tesuji-board .tesuji-grid .label-top-0 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(0px, -15px);
+      -moz-transform: translate(0px, -15px);
+      -o-transform: translate(0px, -15px);
+      transform: translate(0px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-0 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(0px, 570px);
+      -moz-transform: translate(0px, 570px);
+      -o-transform: translate(0px, 570px);
+      transform: translate(0px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-0 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 540px);
+      -moz-transform: translate(-15px, 540px);
+      -o-transform: translate(-15px, 540px);
+      transform: translate(-15px, 540px); }
+    .tesuji-board .tesuji-grid .label-right-0 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 540px);
+      -moz-transform: translate(570px, 540px);
+      -o-transform: translate(570px, 540px);
+      transform: translate(570px, 540px); }
+    .tesuji-board .tesuji-grid .label-top-1 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(30px, -15px);
+      -moz-transform: translate(30px, -15px);
+      -o-transform: translate(30px, -15px);
+      transform: translate(30px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-1 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(30px, 570px);
+      -moz-transform: translate(30px, 570px);
+      -o-transform: translate(30px, 570px);
+      transform: translate(30px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-1 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 510px);
+      -moz-transform: translate(-15px, 510px);
+      -o-transform: translate(-15px, 510px);
+      transform: translate(-15px, 510px); }
+    .tesuji-board .tesuji-grid .label-right-1 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 510px);
+      -moz-transform: translate(570px, 510px);
+      -o-transform: translate(570px, 510px);
+      transform: translate(570px, 510px); }
+    .tesuji-board .tesuji-grid .label-top-2 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(60px, -15px);
+      -moz-transform: translate(60px, -15px);
+      -o-transform: translate(60px, -15px);
+      transform: translate(60px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-2 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(60px, 570px);
+      -moz-transform: translate(60px, 570px);
+      -o-transform: translate(60px, 570px);
+      transform: translate(60px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-2 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 480px);
+      -moz-transform: translate(-15px, 480px);
+      -o-transform: translate(-15px, 480px);
+      transform: translate(-15px, 480px); }
+    .tesuji-board .tesuji-grid .label-right-2 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 480px);
+      -moz-transform: translate(570px, 480px);
+      -o-transform: translate(570px, 480px);
+      transform: translate(570px, 480px); }
+    .tesuji-board .tesuji-grid .label-top-3 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(90px, -15px);
+      -moz-transform: translate(90px, -15px);
+      -o-transform: translate(90px, -15px);
+      transform: translate(90px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-3 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(90px, 570px);
+      -moz-transform: translate(90px, 570px);
+      -o-transform: translate(90px, 570px);
+      transform: translate(90px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-3 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 450px);
+      -moz-transform: translate(-15px, 450px);
+      -o-transform: translate(-15px, 450px);
+      transform: translate(-15px, 450px); }
+    .tesuji-board .tesuji-grid .label-right-3 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 450px);
+      -moz-transform: translate(570px, 450px);
+      -o-transform: translate(570px, 450px);
+      transform: translate(570px, 450px); }
+    .tesuji-board .tesuji-grid .label-top-4 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(120px, -15px);
+      -moz-transform: translate(120px, -15px);
+      -o-transform: translate(120px, -15px);
+      transform: translate(120px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-4 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(120px, 570px);
+      -moz-transform: translate(120px, 570px);
+      -o-transform: translate(120px, 570px);
+      transform: translate(120px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-4 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 420px);
+      -moz-transform: translate(-15px, 420px);
+      -o-transform: translate(-15px, 420px);
+      transform: translate(-15px, 420px); }
+    .tesuji-board .tesuji-grid .label-right-4 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 420px);
+      -moz-transform: translate(570px, 420px);
+      -o-transform: translate(570px, 420px);
+      transform: translate(570px, 420px); }
+    .tesuji-board .tesuji-grid .label-top-5 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(150px, -15px);
+      -moz-transform: translate(150px, -15px);
+      -o-transform: translate(150px, -15px);
+      transform: translate(150px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-5 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(150px, 570px);
+      -moz-transform: translate(150px, 570px);
+      -o-transform: translate(150px, 570px);
+      transform: translate(150px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-5 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 390px);
+      -moz-transform: translate(-15px, 390px);
+      -o-transform: translate(-15px, 390px);
+      transform: translate(-15px, 390px); }
+    .tesuji-board .tesuji-grid .label-right-5 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 390px);
+      -moz-transform: translate(570px, 390px);
+      -o-transform: translate(570px, 390px);
+      transform: translate(570px, 390px); }
+    .tesuji-board .tesuji-grid .label-top-6 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(180px, -15px);
+      -moz-transform: translate(180px, -15px);
+      -o-transform: translate(180px, -15px);
+      transform: translate(180px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-6 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(180px, 570px);
+      -moz-transform: translate(180px, 570px);
+      -o-transform: translate(180px, 570px);
+      transform: translate(180px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-6 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 360px);
+      -moz-transform: translate(-15px, 360px);
+      -o-transform: translate(-15px, 360px);
+      transform: translate(-15px, 360px); }
+    .tesuji-board .tesuji-grid .label-right-6 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 360px);
+      -moz-transform: translate(570px, 360px);
+      -o-transform: translate(570px, 360px);
+      transform: translate(570px, 360px); }
+    .tesuji-board .tesuji-grid .label-top-7 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(210px, -15px);
+      -moz-transform: translate(210px, -15px);
+      -o-transform: translate(210px, -15px);
+      transform: translate(210px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-7 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(210px, 570px);
+      -moz-transform: translate(210px, 570px);
+      -o-transform: translate(210px, 570px);
+      transform: translate(210px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-7 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 330px);
+      -moz-transform: translate(-15px, 330px);
+      -o-transform: translate(-15px, 330px);
+      transform: translate(-15px, 330px); }
+    .tesuji-board .tesuji-grid .label-right-7 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 330px);
+      -moz-transform: translate(570px, 330px);
+      -o-transform: translate(570px, 330px);
+      transform: translate(570px, 330px); }
+    .tesuji-board .tesuji-grid .label-top-8 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(240px, -15px);
+      -moz-transform: translate(240px, -15px);
+      -o-transform: translate(240px, -15px);
+      transform: translate(240px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-8 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(240px, 570px);
+      -moz-transform: translate(240px, 570px);
+      -o-transform: translate(240px, 570px);
+      transform: translate(240px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-8 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 300px);
+      -moz-transform: translate(-15px, 300px);
+      -o-transform: translate(-15px, 300px);
+      transform: translate(-15px, 300px); }
+    .tesuji-board .tesuji-grid .label-right-8 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 300px);
+      -moz-transform: translate(570px, 300px);
+      -o-transform: translate(570px, 300px);
+      transform: translate(570px, 300px); }
+    .tesuji-board .tesuji-grid .label-top-9 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(270px, -15px);
+      -moz-transform: translate(270px, -15px);
+      -o-transform: translate(270px, -15px);
+      transform: translate(270px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-9 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(270px, 570px);
+      -moz-transform: translate(270px, 570px);
+      -o-transform: translate(270px, 570px);
+      transform: translate(270px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-9 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 270px);
+      -moz-transform: translate(-15px, 270px);
+      -o-transform: translate(-15px, 270px);
+      transform: translate(-15px, 270px); }
+    .tesuji-board .tesuji-grid .label-right-9 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 270px);
+      -moz-transform: translate(570px, 270px);
+      -o-transform: translate(570px, 270px);
+      transform: translate(570px, 270px); }
+    .tesuji-board .tesuji-grid .label-top-10 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(300px, -15px);
+      -moz-transform: translate(300px, -15px);
+      -o-transform: translate(300px, -15px);
+      transform: translate(300px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-10 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(300px, 570px);
+      -moz-transform: translate(300px, 570px);
+      -o-transform: translate(300px, 570px);
+      transform: translate(300px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-10 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 240px);
+      -moz-transform: translate(-15px, 240px);
+      -o-transform: translate(-15px, 240px);
+      transform: translate(-15px, 240px); }
+    .tesuji-board .tesuji-grid .label-right-10 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 240px);
+      -moz-transform: translate(570px, 240px);
+      -o-transform: translate(570px, 240px);
+      transform: translate(570px, 240px); }
+    .tesuji-board .tesuji-grid .label-top-11 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(330px, -15px);
+      -moz-transform: translate(330px, -15px);
+      -o-transform: translate(330px, -15px);
+      transform: translate(330px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-11 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(330px, 570px);
+      -moz-transform: translate(330px, 570px);
+      -o-transform: translate(330px, 570px);
+      transform: translate(330px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-11 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 210px);
+      -moz-transform: translate(-15px, 210px);
+      -o-transform: translate(-15px, 210px);
+      transform: translate(-15px, 210px); }
+    .tesuji-board .tesuji-grid .label-right-11 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 210px);
+      -moz-transform: translate(570px, 210px);
+      -o-transform: translate(570px, 210px);
+      transform: translate(570px, 210px); }
+    .tesuji-board .tesuji-grid .label-top-12 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(360px, -15px);
+      -moz-transform: translate(360px, -15px);
+      -o-transform: translate(360px, -15px);
+      transform: translate(360px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-12 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(360px, 570px);
+      -moz-transform: translate(360px, 570px);
+      -o-transform: translate(360px, 570px);
+      transform: translate(360px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-12 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 180px);
+      -moz-transform: translate(-15px, 180px);
+      -o-transform: translate(-15px, 180px);
+      transform: translate(-15px, 180px); }
+    .tesuji-board .tesuji-grid .label-right-12 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 180px);
+      -moz-transform: translate(570px, 180px);
+      -o-transform: translate(570px, 180px);
+      transform: translate(570px, 180px); }
+    .tesuji-board .tesuji-grid .label-top-13 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(390px, -15px);
+      -moz-transform: translate(390px, -15px);
+      -o-transform: translate(390px, -15px);
+      transform: translate(390px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-13 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(390px, 570px);
+      -moz-transform: translate(390px, 570px);
+      -o-transform: translate(390px, 570px);
+      transform: translate(390px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-13 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 150px);
+      -moz-transform: translate(-15px, 150px);
+      -o-transform: translate(-15px, 150px);
+      transform: translate(-15px, 150px); }
+    .tesuji-board .tesuji-grid .label-right-13 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 150px);
+      -moz-transform: translate(570px, 150px);
+      -o-transform: translate(570px, 150px);
+      transform: translate(570px, 150px); }
+    .tesuji-board .tesuji-grid .label-top-14 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(420px, -15px);
+      -moz-transform: translate(420px, -15px);
+      -o-transform: translate(420px, -15px);
+      transform: translate(420px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-14 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(420px, 570px);
+      -moz-transform: translate(420px, 570px);
+      -o-transform: translate(420px, 570px);
+      transform: translate(420px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-14 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 120px);
+      -moz-transform: translate(-15px, 120px);
+      -o-transform: translate(-15px, 120px);
+      transform: translate(-15px, 120px); }
+    .tesuji-board .tesuji-grid .label-right-14 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 120px);
+      -moz-transform: translate(570px, 120px);
+      -o-transform: translate(570px, 120px);
+      transform: translate(570px, 120px); }
+    .tesuji-board .tesuji-grid .label-top-15 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(450px, -15px);
+      -moz-transform: translate(450px, -15px);
+      -o-transform: translate(450px, -15px);
+      transform: translate(450px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-15 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(450px, 570px);
+      -moz-transform: translate(450px, 570px);
+      -o-transform: translate(450px, 570px);
+      transform: translate(450px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-15 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 90px);
+      -moz-transform: translate(-15px, 90px);
+      -o-transform: translate(-15px, 90px);
+      transform: translate(-15px, 90px); }
+    .tesuji-board .tesuji-grid .label-right-15 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 90px);
+      -moz-transform: translate(570px, 90px);
+      -o-transform: translate(570px, 90px);
+      transform: translate(570px, 90px); }
+    .tesuji-board .tesuji-grid .label-top-16 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(480px, -15px);
+      -moz-transform: translate(480px, -15px);
+      -o-transform: translate(480px, -15px);
+      transform: translate(480px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-16 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(480px, 570px);
+      -moz-transform: translate(480px, 570px);
+      -o-transform: translate(480px, 570px);
+      transform: translate(480px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-16 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 60px);
+      -moz-transform: translate(-15px, 60px);
+      -o-transform: translate(-15px, 60px);
+      transform: translate(-15px, 60px); }
+    .tesuji-board .tesuji-grid .label-right-16 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 60px);
+      -moz-transform: translate(570px, 60px);
+      -o-transform: translate(570px, 60px);
+      transform: translate(570px, 60px); }
+    .tesuji-board .tesuji-grid .label-top-17 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(510px, -15px);
+      -moz-transform: translate(510px, -15px);
+      -o-transform: translate(510px, -15px);
+      transform: translate(510px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-17 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(510px, 570px);
+      -moz-transform: translate(510px, 570px);
+      -o-transform: translate(510px, 570px);
+      transform: translate(510px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-17 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 30px);
+      -moz-transform: translate(-15px, 30px);
+      -o-transform: translate(-15px, 30px);
+      transform: translate(-15px, 30px); }
+    .tesuji-board .tesuji-grid .label-right-17 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 30px);
+      -moz-transform: translate(570px, 30px);
+      -o-transform: translate(570px, 30px);
+      transform: translate(570px, 30px); }
+    .tesuji-board .tesuji-grid .label-top-18 {
+      height: 15px;
+      width: 30px;
+      padding-top: 2px;
+      -webkit-transform: translate(540px, -15px);
+      -moz-transform: translate(540px, -15px);
+      -o-transform: translate(540px, -15px);
+      transform: translate(540px, -15px); }
+    .tesuji-board .tesuji-grid .label-bottom-18 {
+      height: 15px;
+      width: 30px;
+      -webkit-transform: translate(540px, 570px);
+      -moz-transform: translate(540px, 570px);
+      -o-transform: translate(540px, 570px);
+      transform: translate(540px, 570px); }
+    .tesuji-board .tesuji-grid .label-left-18 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(-15px, 0px);
+      -moz-transform: translate(-15px, 0px);
+      -o-transform: translate(-15px, 0px);
+      transform: translate(-15px, 0px); }
+    .tesuji-board .tesuji-grid .label-right-18 {
+      height: 30px;
+      width: 15px;
+      padding-top: 10px;
+      -webkit-transform: translate(570px, 0px);
+      -moz-transform: translate(570px, 0px);
+      -o-transform: translate(570px, 0px);
+      transform: translate(570px, 0px); }
+    .tesuji-board .tesuji-grid .dot {
+      position: absolute;
+      top: 13px;
+      left: 13px;
+      height: 5px;
+      width: 5px;
+      background-color: black; }
+  .tesuji-board .intersections {
+    position: absolute;
+    margin: 15px;
+    height: 570px;
+    width: 570px;
+    z-index: 3; }
+    .tesuji-board .intersections .intersection {
+      position: absolute;
+      z-index: 3;
+      height: 30px;
+      width: 30px; }
+      .tesuji-board .intersections .intersection .stone {
+        position: absolute;
+        z-index: 2;
+        top: 3px;
+        left: 3px;
+        height: 25px;
+        width: 25px;
+        border-radius: 50%; }
+        .tesuji-board .intersections .intersection .stone.preview {
+          opacity: 0.4; }
+        .tesuji-board .intersections .intersection .stone.black {
+          background-color: black; }
+        .tesuji-board .intersections .intersection .stone.white {
+          border: 1px solid black;
+          background-color: white; }
+  .tesuji-board .intersection-0-0 {
+    -webkit-transform: translate(0px, 540px);
+    -moz-transform: translate(0px, 540px);
+    -o-transform: translate(0px, 540px);
+    transform: translate(0px, 540px); }
+  .tesuji-board .intersection-0-1 {
+    -webkit-transform: translate(0px, 510px);
+    -moz-transform: translate(0px, 510px);
+    -o-transform: translate(0px, 510px);
+    transform: translate(0px, 510px); }
+  .tesuji-board .intersection-0-2 {
+    -webkit-transform: translate(0px, 480px);
+    -moz-transform: translate(0px, 480px);
+    -o-transform: translate(0px, 480px);
+    transform: translate(0px, 480px); }
+  .tesuji-board .intersection-0-3 {
+    -webkit-transform: translate(0px, 450px);
+    -moz-transform: translate(0px, 450px);
+    -o-transform: translate(0px, 450px);
+    transform: translate(0px, 450px); }
+  .tesuji-board .intersection-0-4 {
+    -webkit-transform: translate(0px, 420px);
+    -moz-transform: translate(0px, 420px);
+    -o-transform: translate(0px, 420px);
+    transform: translate(0px, 420px); }
+  .tesuji-board .intersection-0-5 {
+    -webkit-transform: translate(0px, 390px);
+    -moz-transform: translate(0px, 390px);
+    -o-transform: translate(0px, 390px);
+    transform: translate(0px, 390px); }
+  .tesuji-board .intersection-0-6 {
+    -webkit-transform: translate(0px, 360px);
+    -moz-transform: translate(0px, 360px);
+    -o-transform: translate(0px, 360px);
+    transform: translate(0px, 360px); }
+  .tesuji-board .intersection-0-7 {
+    -webkit-transform: translate(0px, 330px);
+    -moz-transform: translate(0px, 330px);
+    -o-transform: translate(0px, 330px);
+    transform: translate(0px, 330px); }
+  .tesuji-board .intersection-0-8 {
+    -webkit-transform: translate(0px, 300px);
+    -moz-transform: translate(0px, 300px);
+    -o-transform: translate(0px, 300px);
+    transform: translate(0px, 300px); }
+  .tesuji-board .intersection-0-9 {
+    -webkit-transform: translate(0px, 270px);
+    -moz-transform: translate(0px, 270px);
+    -o-transform: translate(0px, 270px);
+    transform: translate(0px, 270px); }
+  .tesuji-board .intersection-0-10 {
+    -webkit-transform: translate(0px, 240px);
+    -moz-transform: translate(0px, 240px);
+    -o-transform: translate(0px, 240px);
+    transform: translate(0px, 240px); }
+  .tesuji-board .intersection-0-11 {
+    -webkit-transform: translate(0px, 210px);
+    -moz-transform: translate(0px, 210px);
+    -o-transform: translate(0px, 210px);
+    transform: translate(0px, 210px); }
+  .tesuji-board .intersection-0-12 {
+    -webkit-transform: translate(0px, 180px);
+    -moz-transform: translate(0px, 180px);
+    -o-transform: translate(0px, 180px);
+    transform: translate(0px, 180px); }
+  .tesuji-board .intersection-0-13 {
+    -webkit-transform: translate(0px, 150px);
+    -moz-transform: translate(0px, 150px);
+    -o-transform: translate(0px, 150px);
+    transform: translate(0px, 150px); }
+  .tesuji-board .intersection-0-14 {
+    -webkit-transform: translate(0px, 120px);
+    -moz-transform: translate(0px, 120px);
+    -o-transform: translate(0px, 120px);
+    transform: translate(0px, 120px); }
+  .tesuji-board .intersection-0-15 {
+    -webkit-transform: translate(0px, 90px);
+    -moz-transform: translate(0px, 90px);
+    -o-transform: translate(0px, 90px);
+    transform: translate(0px, 90px); }
+  .tesuji-board .intersection-0-16 {
+    -webkit-transform: translate(0px, 60px);
+    -moz-transform: translate(0px, 60px);
+    -o-transform: translate(0px, 60px);
+    transform: translate(0px, 60px); }
+  .tesuji-board .intersection-0-17 {
+    -webkit-transform: translate(0px, 30px);
+    -moz-transform: translate(0px, 30px);
+    -o-transform: translate(0px, 30px);
+    transform: translate(0px, 30px); }
+  .tesuji-board .intersection-0-18 {
+    -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
+    transform: translate(0px, 0px); }
+  .tesuji-board .intersection-1-0 {
+    -webkit-transform: translate(30px, 540px);
+    -moz-transform: translate(30px, 540px);
+    -o-transform: translate(30px, 540px);
+    transform: translate(30px, 540px); }
+  .tesuji-board .intersection-1-1 {
+    -webkit-transform: translate(30px, 510px);
+    -moz-transform: translate(30px, 510px);
+    -o-transform: translate(30px, 510px);
+    transform: translate(30px, 510px); }
+  .tesuji-board .intersection-1-2 {
+    -webkit-transform: translate(30px, 480px);
+    -moz-transform: translate(30px, 480px);
+    -o-transform: translate(30px, 480px);
+    transform: translate(30px, 480px); }
+  .tesuji-board .intersection-1-3 {
+    -webkit-transform: translate(30px, 450px);
+    -moz-transform: translate(30px, 450px);
+    -o-transform: translate(30px, 450px);
+    transform: translate(30px, 450px); }
+  .tesuji-board .intersection-1-4 {
+    -webkit-transform: translate(30px, 420px);
+    -moz-transform: translate(30px, 420px);
+    -o-transform: translate(30px, 420px);
+    transform: translate(30px, 420px); }
+  .tesuji-board .intersection-1-5 {
+    -webkit-transform: translate(30px, 390px);
+    -moz-transform: translate(30px, 390px);
+    -o-transform: translate(30px, 390px);
+    transform: translate(30px, 390px); }
+  .tesuji-board .intersection-1-6 {
+    -webkit-transform: translate(30px, 360px);
+    -moz-transform: translate(30px, 360px);
+    -o-transform: translate(30px, 360px);
+    transform: translate(30px, 360px); }
+  .tesuji-board .intersection-1-7 {
+    -webkit-transform: translate(30px, 330px);
+    -moz-transform: translate(30px, 330px);
+    -o-transform: translate(30px, 330px);
+    transform: translate(30px, 330px); }
+  .tesuji-board .intersection-1-8 {
+    -webkit-transform: translate(30px, 300px);
+    -moz-transform: translate(30px, 300px);
+    -o-transform: translate(30px, 300px);
+    transform: translate(30px, 300px); }
+  .tesuji-board .intersection-1-9 {
+    -webkit-transform: translate(30px, 270px);
+    -moz-transform: translate(30px, 270px);
+    -o-transform: translate(30px, 270px);
+    transform: translate(30px, 270px); }
+  .tesuji-board .intersection-1-10 {
+    -webkit-transform: translate(30px, 240px);
+    -moz-transform: translate(30px, 240px);
+    -o-transform: translate(30px, 240px);
+    transform: translate(30px, 240px); }
+  .tesuji-board .intersection-1-11 {
+    -webkit-transform: translate(30px, 210px);
+    -moz-transform: translate(30px, 210px);
+    -o-transform: translate(30px, 210px);
+    transform: translate(30px, 210px); }
+  .tesuji-board .intersection-1-12 {
+    -webkit-transform: translate(30px, 180px);
+    -moz-transform: translate(30px, 180px);
+    -o-transform: translate(30px, 180px);
+    transform: translate(30px, 180px); }
+  .tesuji-board .intersection-1-13 {
+    -webkit-transform: translate(30px, 150px);
+    -moz-transform: translate(30px, 150px);
+    -o-transform: translate(30px, 150px);
+    transform: translate(30px, 150px); }
+  .tesuji-board .intersection-1-14 {
+    -webkit-transform: translate(30px, 120px);
+    -moz-transform: translate(30px, 120px);
+    -o-transform: translate(30px, 120px);
+    transform: translate(30px, 120px); }
+  .tesuji-board .intersection-1-15 {
+    -webkit-transform: translate(30px, 90px);
+    -moz-transform: translate(30px, 90px);
+    -o-transform: translate(30px, 90px);
+    transform: translate(30px, 90px); }
+  .tesuji-board .intersection-1-16 {
+    -webkit-transform: translate(30px, 60px);
+    -moz-transform: translate(30px, 60px);
+    -o-transform: translate(30px, 60px);
+    transform: translate(30px, 60px); }
+  .tesuji-board .intersection-1-17 {
+    -webkit-transform: translate(30px, 30px);
+    -moz-transform: translate(30px, 30px);
+    -o-transform: translate(30px, 30px);
+    transform: translate(30px, 30px); }
+  .tesuji-board .intersection-1-18 {
+    -webkit-transform: translate(30px, 0px);
+    -moz-transform: translate(30px, 0px);
+    -o-transform: translate(30px, 0px);
+    transform: translate(30px, 0px); }
+  .tesuji-board .intersection-2-0 {
+    -webkit-transform: translate(60px, 540px);
+    -moz-transform: translate(60px, 540px);
+    -o-transform: translate(60px, 540px);
+    transform: translate(60px, 540px); }
+  .tesuji-board .intersection-2-1 {
+    -webkit-transform: translate(60px, 510px);
+    -moz-transform: translate(60px, 510px);
+    -o-transform: translate(60px, 510px);
+    transform: translate(60px, 510px); }
+  .tesuji-board .intersection-2-2 {
+    -webkit-transform: translate(60px, 480px);
+    -moz-transform: translate(60px, 480px);
+    -o-transform: translate(60px, 480px);
+    transform: translate(60px, 480px); }
+  .tesuji-board .intersection-2-3 {
+    -webkit-transform: translate(60px, 450px);
+    -moz-transform: translate(60px, 450px);
+    -o-transform: translate(60px, 450px);
+    transform: translate(60px, 450px); }
+  .tesuji-board .intersection-2-4 {
+    -webkit-transform: translate(60px, 420px);
+    -moz-transform: translate(60px, 420px);
+    -o-transform: translate(60px, 420px);
+    transform: translate(60px, 420px); }
+  .tesuji-board .intersection-2-5 {
+    -webkit-transform: translate(60px, 390px);
+    -moz-transform: translate(60px, 390px);
+    -o-transform: translate(60px, 390px);
+    transform: translate(60px, 390px); }
+  .tesuji-board .intersection-2-6 {
+    -webkit-transform: translate(60px, 360px);
+    -moz-transform: translate(60px, 360px);
+    -o-transform: translate(60px, 360px);
+    transform: translate(60px, 360px); }
+  .tesuji-board .intersection-2-7 {
+    -webkit-transform: translate(60px, 330px);
+    -moz-transform: translate(60px, 330px);
+    -o-transform: translate(60px, 330px);
+    transform: translate(60px, 330px); }
+  .tesuji-board .intersection-2-8 {
+    -webkit-transform: translate(60px, 300px);
+    -moz-transform: translate(60px, 300px);
+    -o-transform: translate(60px, 300px);
+    transform: translate(60px, 300px); }
+  .tesuji-board .intersection-2-9 {
+    -webkit-transform: translate(60px, 270px);
+    -moz-transform: translate(60px, 270px);
+    -o-transform: translate(60px, 270px);
+    transform: translate(60px, 270px); }
+  .tesuji-board .intersection-2-10 {
+    -webkit-transform: translate(60px, 240px);
+    -moz-transform: translate(60px, 240px);
+    -o-transform: translate(60px, 240px);
+    transform: translate(60px, 240px); }
+  .tesuji-board .intersection-2-11 {
+    -webkit-transform: translate(60px, 210px);
+    -moz-transform: translate(60px, 210px);
+    -o-transform: translate(60px, 210px);
+    transform: translate(60px, 210px); }
+  .tesuji-board .intersection-2-12 {
+    -webkit-transform: translate(60px, 180px);
+    -moz-transform: translate(60px, 180px);
+    -o-transform: translate(60px, 180px);
+    transform: translate(60px, 180px); }
+  .tesuji-board .intersection-2-13 {
+    -webkit-transform: translate(60px, 150px);
+    -moz-transform: translate(60px, 150px);
+    -o-transform: translate(60px, 150px);
+    transform: translate(60px, 150px); }
+  .tesuji-board .intersection-2-14 {
+    -webkit-transform: translate(60px, 120px);
+    -moz-transform: translate(60px, 120px);
+    -o-transform: translate(60px, 120px);
+    transform: translate(60px, 120px); }
+  .tesuji-board .intersection-2-15 {
+    -webkit-transform: translate(60px, 90px);
+    -moz-transform: translate(60px, 90px);
+    -o-transform: translate(60px, 90px);
+    transform: translate(60px, 90px); }
+  .tesuji-board .intersection-2-16 {
+    -webkit-transform: translate(60px, 60px);
+    -moz-transform: translate(60px, 60px);
+    -o-transform: translate(60px, 60px);
+    transform: translate(60px, 60px); }
+  .tesuji-board .intersection-2-17 {
+    -webkit-transform: translate(60px, 30px);
+    -moz-transform: translate(60px, 30px);
+    -o-transform: translate(60px, 30px);
+    transform: translate(60px, 30px); }
+  .tesuji-board .intersection-2-18 {
+    -webkit-transform: translate(60px, 0px);
+    -moz-transform: translate(60px, 0px);
+    -o-transform: translate(60px, 0px);
+    transform: translate(60px, 0px); }
+  .tesuji-board .intersection-3-0 {
+    -webkit-transform: translate(90px, 540px);
+    -moz-transform: translate(90px, 540px);
+    -o-transform: translate(90px, 540px);
+    transform: translate(90px, 540px); }
+  .tesuji-board .intersection-3-1 {
+    -webkit-transform: translate(90px, 510px);
+    -moz-transform: translate(90px, 510px);
+    -o-transform: translate(90px, 510px);
+    transform: translate(90px, 510px); }
+  .tesuji-board .intersection-3-2 {
+    -webkit-transform: translate(90px, 480px);
+    -moz-transform: translate(90px, 480px);
+    -o-transform: translate(90px, 480px);
+    transform: translate(90px, 480px); }
+  .tesuji-board .intersection-3-3 {
+    -webkit-transform: translate(90px, 450px);
+    -moz-transform: translate(90px, 450px);
+    -o-transform: translate(90px, 450px);
+    transform: translate(90px, 450px); }
+  .tesuji-board .intersection-3-4 {
+    -webkit-transform: translate(90px, 420px);
+    -moz-transform: translate(90px, 420px);
+    -o-transform: translate(90px, 420px);
+    transform: translate(90px, 420px); }
+  .tesuji-board .intersection-3-5 {
+    -webkit-transform: translate(90px, 390px);
+    -moz-transform: translate(90px, 390px);
+    -o-transform: translate(90px, 390px);
+    transform: translate(90px, 390px); }
+  .tesuji-board .intersection-3-6 {
+    -webkit-transform: translate(90px, 360px);
+    -moz-transform: translate(90px, 360px);
+    -o-transform: translate(90px, 360px);
+    transform: translate(90px, 360px); }
+  .tesuji-board .intersection-3-7 {
+    -webkit-transform: translate(90px, 330px);
+    -moz-transform: translate(90px, 330px);
+    -o-transform: translate(90px, 330px);
+    transform: translate(90px, 330px); }
+  .tesuji-board .intersection-3-8 {
+    -webkit-transform: translate(90px, 300px);
+    -moz-transform: translate(90px, 300px);
+    -o-transform: translate(90px, 300px);
+    transform: translate(90px, 300px); }
+  .tesuji-board .intersection-3-9 {
+    -webkit-transform: translate(90px, 270px);
+    -moz-transform: translate(90px, 270px);
+    -o-transform: translate(90px, 270px);
+    transform: translate(90px, 270px); }
+  .tesuji-board .intersection-3-10 {
+    -webkit-transform: translate(90px, 240px);
+    -moz-transform: translate(90px, 240px);
+    -o-transform: translate(90px, 240px);
+    transform: translate(90px, 240px); }
+  .tesuji-board .intersection-3-11 {
+    -webkit-transform: translate(90px, 210px);
+    -moz-transform: translate(90px, 210px);
+    -o-transform: translate(90px, 210px);
+    transform: translate(90px, 210px); }
+  .tesuji-board .intersection-3-12 {
+    -webkit-transform: translate(90px, 180px);
+    -moz-transform: translate(90px, 180px);
+    -o-transform: translate(90px, 180px);
+    transform: translate(90px, 180px); }
+  .tesuji-board .intersection-3-13 {
+    -webkit-transform: translate(90px, 150px);
+    -moz-transform: translate(90px, 150px);
+    -o-transform: translate(90px, 150px);
+    transform: translate(90px, 150px); }
+  .tesuji-board .intersection-3-14 {
+    -webkit-transform: translate(90px, 120px);
+    -moz-transform: translate(90px, 120px);
+    -o-transform: translate(90px, 120px);
+    transform: translate(90px, 120px); }
+  .tesuji-board .intersection-3-15 {
+    -webkit-transform: translate(90px, 90px);
+    -moz-transform: translate(90px, 90px);
+    -o-transform: translate(90px, 90px);
+    transform: translate(90px, 90px); }
+  .tesuji-board .intersection-3-16 {
+    -webkit-transform: translate(90px, 60px);
+    -moz-transform: translate(90px, 60px);
+    -o-transform: translate(90px, 60px);
+    transform: translate(90px, 60px); }
+  .tesuji-board .intersection-3-17 {
+    -webkit-transform: translate(90px, 30px);
+    -moz-transform: translate(90px, 30px);
+    -o-transform: translate(90px, 30px);
+    transform: translate(90px, 30px); }
+  .tesuji-board .intersection-3-18 {
+    -webkit-transform: translate(90px, 0px);
+    -moz-transform: translate(90px, 0px);
+    -o-transform: translate(90px, 0px);
+    transform: translate(90px, 0px); }
+  .tesuji-board .intersection-4-0 {
+    -webkit-transform: translate(120px, 540px);
+    -moz-transform: translate(120px, 540px);
+    -o-transform: translate(120px, 540px);
+    transform: translate(120px, 540px); }
+  .tesuji-board .intersection-4-1 {
+    -webkit-transform: translate(120px, 510px);
+    -moz-transform: translate(120px, 510px);
+    -o-transform: translate(120px, 510px);
+    transform: translate(120px, 510px); }
+  .tesuji-board .intersection-4-2 {
+    -webkit-transform: translate(120px, 480px);
+    -moz-transform: translate(120px, 480px);
+    -o-transform: translate(120px, 480px);
+    transform: translate(120px, 480px); }
+  .tesuji-board .intersection-4-3 {
+    -webkit-transform: translate(120px, 450px);
+    -moz-transform: translate(120px, 450px);
+    -o-transform: translate(120px, 450px);
+    transform: translate(120px, 450px); }
+  .tesuji-board .intersection-4-4 {
+    -webkit-transform: translate(120px, 420px);
+    -moz-transform: translate(120px, 420px);
+    -o-transform: translate(120px, 420px);
+    transform: translate(120px, 420px); }
+  .tesuji-board .intersection-4-5 {
+    -webkit-transform: translate(120px, 390px);
+    -moz-transform: translate(120px, 390px);
+    -o-transform: translate(120px, 390px);
+    transform: translate(120px, 390px); }
+  .tesuji-board .intersection-4-6 {
+    -webkit-transform: translate(120px, 360px);
+    -moz-transform: translate(120px, 360px);
+    -o-transform: translate(120px, 360px);
+    transform: translate(120px, 360px); }
+  .tesuji-board .intersection-4-7 {
+    -webkit-transform: translate(120px, 330px);
+    -moz-transform: translate(120px, 330px);
+    -o-transform: translate(120px, 330px);
+    transform: translate(120px, 330px); }
+  .tesuji-board .intersection-4-8 {
+    -webkit-transform: translate(120px, 300px);
+    -moz-transform: translate(120px, 300px);
+    -o-transform: translate(120px, 300px);
+    transform: translate(120px, 300px); }
+  .tesuji-board .intersection-4-9 {
+    -webkit-transform: translate(120px, 270px);
+    -moz-transform: translate(120px, 270px);
+    -o-transform: translate(120px, 270px);
+    transform: translate(120px, 270px); }
+  .tesuji-board .intersection-4-10 {
+    -webkit-transform: translate(120px, 240px);
+    -moz-transform: translate(120px, 240px);
+    -o-transform: translate(120px, 240px);
+    transform: translate(120px, 240px); }
+  .tesuji-board .intersection-4-11 {
+    -webkit-transform: translate(120px, 210px);
+    -moz-transform: translate(120px, 210px);
+    -o-transform: translate(120px, 210px);
+    transform: translate(120px, 210px); }
+  .tesuji-board .intersection-4-12 {
+    -webkit-transform: translate(120px, 180px);
+    -moz-transform: translate(120px, 180px);
+    -o-transform: translate(120px, 180px);
+    transform: translate(120px, 180px); }
+  .tesuji-board .intersection-4-13 {
+    -webkit-transform: translate(120px, 150px);
+    -moz-transform: translate(120px, 150px);
+    -o-transform: translate(120px, 150px);
+    transform: translate(120px, 150px); }
+  .tesuji-board .intersection-4-14 {
+    -webkit-transform: translate(120px, 120px);
+    -moz-transform: translate(120px, 120px);
+    -o-transform: translate(120px, 120px);
+    transform: translate(120px, 120px); }
+  .tesuji-board .intersection-4-15 {
+    -webkit-transform: translate(120px, 90px);
+    -moz-transform: translate(120px, 90px);
+    -o-transform: translate(120px, 90px);
+    transform: translate(120px, 90px); }
+  .tesuji-board .intersection-4-16 {
+    -webkit-transform: translate(120px, 60px);
+    -moz-transform: translate(120px, 60px);
+    -o-transform: translate(120px, 60px);
+    transform: translate(120px, 60px); }
+  .tesuji-board .intersection-4-17 {
+    -webkit-transform: translate(120px, 30px);
+    -moz-transform: translate(120px, 30px);
+    -o-transform: translate(120px, 30px);
+    transform: translate(120px, 30px); }
+  .tesuji-board .intersection-4-18 {
+    -webkit-transform: translate(120px, 0px);
+    -moz-transform: translate(120px, 0px);
+    -o-transform: translate(120px, 0px);
+    transform: translate(120px, 0px); }
+  .tesuji-board .intersection-5-0 {
+    -webkit-transform: translate(150px, 540px);
+    -moz-transform: translate(150px, 540px);
+    -o-transform: translate(150px, 540px);
+    transform: translate(150px, 540px); }
+  .tesuji-board .intersection-5-1 {
+    -webkit-transform: translate(150px, 510px);
+    -moz-transform: translate(150px, 510px);
+    -o-transform: translate(150px, 510px);
+    transform: translate(150px, 510px); }
+  .tesuji-board .intersection-5-2 {
+    -webkit-transform: translate(150px, 480px);
+    -moz-transform: translate(150px, 480px);
+    -o-transform: translate(150px, 480px);
+    transform: translate(150px, 480px); }
+  .tesuji-board .intersection-5-3 {
+    -webkit-transform: translate(150px, 450px);
+    -moz-transform: translate(150px, 450px);
+    -o-transform: translate(150px, 450px);
+    transform: translate(150px, 450px); }
+  .tesuji-board .intersection-5-4 {
+    -webkit-transform: translate(150px, 420px);
+    -moz-transform: translate(150px, 420px);
+    -o-transform: translate(150px, 420px);
+    transform: translate(150px, 420px); }
+  .tesuji-board .intersection-5-5 {
+    -webkit-transform: translate(150px, 390px);
+    -moz-transform: translate(150px, 390px);
+    -o-transform: translate(150px, 390px);
+    transform: translate(150px, 390px); }
+  .tesuji-board .intersection-5-6 {
+    -webkit-transform: translate(150px, 360px);
+    -moz-transform: translate(150px, 360px);
+    -o-transform: translate(150px, 360px);
+    transform: translate(150px, 360px); }
+  .tesuji-board .intersection-5-7 {
+    -webkit-transform: translate(150px, 330px);
+    -moz-transform: translate(150px, 330px);
+    -o-transform: translate(150px, 330px);
+    transform: translate(150px, 330px); }
+  .tesuji-board .intersection-5-8 {
+    -webkit-transform: translate(150px, 300px);
+    -moz-transform: translate(150px, 300px);
+    -o-transform: translate(150px, 300px);
+    transform: translate(150px, 300px); }
+  .tesuji-board .intersection-5-9 {
+    -webkit-transform: translate(150px, 270px);
+    -moz-transform: translate(150px, 270px);
+    -o-transform: translate(150px, 270px);
+    transform: translate(150px, 270px); }
+  .tesuji-board .intersection-5-10 {
+    -webkit-transform: translate(150px, 240px);
+    -moz-transform: translate(150px, 240px);
+    -o-transform: translate(150px, 240px);
+    transform: translate(150px, 240px); }
+  .tesuji-board .intersection-5-11 {
+    -webkit-transform: translate(150px, 210px);
+    -moz-transform: translate(150px, 210px);
+    -o-transform: translate(150px, 210px);
+    transform: translate(150px, 210px); }
+  .tesuji-board .intersection-5-12 {
+    -webkit-transform: translate(150px, 180px);
+    -moz-transform: translate(150px, 180px);
+    -o-transform: translate(150px, 180px);
+    transform: translate(150px, 180px); }
+  .tesuji-board .intersection-5-13 {
+    -webkit-transform: translate(150px, 150px);
+    -moz-transform: translate(150px, 150px);
+    -o-transform: translate(150px, 150px);
+    transform: translate(150px, 150px); }
+  .tesuji-board .intersection-5-14 {
+    -webkit-transform: translate(150px, 120px);
+    -moz-transform: translate(150px, 120px);
+    -o-transform: translate(150px, 120px);
+    transform: translate(150px, 120px); }
+  .tesuji-board .intersection-5-15 {
+    -webkit-transform: translate(150px, 90px);
+    -moz-transform: translate(150px, 90px);
+    -o-transform: translate(150px, 90px);
+    transform: translate(150px, 90px); }
+  .tesuji-board .intersection-5-16 {
+    -webkit-transform: translate(150px, 60px);
+    -moz-transform: translate(150px, 60px);
+    -o-transform: translate(150px, 60px);
+    transform: translate(150px, 60px); }
+  .tesuji-board .intersection-5-17 {
+    -webkit-transform: translate(150px, 30px);
+    -moz-transform: translate(150px, 30px);
+    -o-transform: translate(150px, 30px);
+    transform: translate(150px, 30px); }
+  .tesuji-board .intersection-5-18 {
+    -webkit-transform: translate(150px, 0px);
+    -moz-transform: translate(150px, 0px);
+    -o-transform: translate(150px, 0px);
+    transform: translate(150px, 0px); }
+  .tesuji-board .intersection-6-0 {
+    -webkit-transform: translate(180px, 540px);
+    -moz-transform: translate(180px, 540px);
+    -o-transform: translate(180px, 540px);
+    transform: translate(180px, 540px); }
+  .tesuji-board .intersection-6-1 {
+    -webkit-transform: translate(180px, 510px);
+    -moz-transform: translate(180px, 510px);
+    -o-transform: translate(180px, 510px);
+    transform: translate(180px, 510px); }
+  .tesuji-board .intersection-6-2 {
+    -webkit-transform: translate(180px, 480px);
+    -moz-transform: translate(180px, 480px);
+    -o-transform: translate(180px, 480px);
+    transform: translate(180px, 480px); }
+  .tesuji-board .intersection-6-3 {
+    -webkit-transform: translate(180px, 450px);
+    -moz-transform: translate(180px, 450px);
+    -o-transform: translate(180px, 450px);
+    transform: translate(180px, 450px); }
+  .tesuji-board .intersection-6-4 {
+    -webkit-transform: translate(180px, 420px);
+    -moz-transform: translate(180px, 420px);
+    -o-transform: translate(180px, 420px);
+    transform: translate(180px, 420px); }
+  .tesuji-board .intersection-6-5 {
+    -webkit-transform: translate(180px, 390px);
+    -moz-transform: translate(180px, 390px);
+    -o-transform: translate(180px, 390px);
+    transform: translate(180px, 390px); }
+  .tesuji-board .intersection-6-6 {
+    -webkit-transform: translate(180px, 360px);
+    -moz-transform: translate(180px, 360px);
+    -o-transform: translate(180px, 360px);
+    transform: translate(180px, 360px); }
+  .tesuji-board .intersection-6-7 {
+    -webkit-transform: translate(180px, 330px);
+    -moz-transform: translate(180px, 330px);
+    -o-transform: translate(180px, 330px);
+    transform: translate(180px, 330px); }
+  .tesuji-board .intersection-6-8 {
+    -webkit-transform: translate(180px, 300px);
+    -moz-transform: translate(180px, 300px);
+    -o-transform: translate(180px, 300px);
+    transform: translate(180px, 300px); }
+  .tesuji-board .intersection-6-9 {
+    -webkit-transform: translate(180px, 270px);
+    -moz-transform: translate(180px, 270px);
+    -o-transform: translate(180px, 270px);
+    transform: translate(180px, 270px); }
+  .tesuji-board .intersection-6-10 {
+    -webkit-transform: translate(180px, 240px);
+    -moz-transform: translate(180px, 240px);
+    -o-transform: translate(180px, 240px);
+    transform: translate(180px, 240px); }
+  .tesuji-board .intersection-6-11 {
+    -webkit-transform: translate(180px, 210px);
+    -moz-transform: translate(180px, 210px);
+    -o-transform: translate(180px, 210px);
+    transform: translate(180px, 210px); }
+  .tesuji-board .intersection-6-12 {
+    -webkit-transform: translate(180px, 180px);
+    -moz-transform: translate(180px, 180px);
+    -o-transform: translate(180px, 180px);
+    transform: translate(180px, 180px); }
+  .tesuji-board .intersection-6-13 {
+    -webkit-transform: translate(180px, 150px);
+    -moz-transform: translate(180px, 150px);
+    -o-transform: translate(180px, 150px);
+    transform: translate(180px, 150px); }
+  .tesuji-board .intersection-6-14 {
+    -webkit-transform: translate(180px, 120px);
+    -moz-transform: translate(180px, 120px);
+    -o-transform: translate(180px, 120px);
+    transform: translate(180px, 120px); }
+  .tesuji-board .intersection-6-15 {
+    -webkit-transform: translate(180px, 90px);
+    -moz-transform: translate(180px, 90px);
+    -o-transform: translate(180px, 90px);
+    transform: translate(180px, 90px); }
+  .tesuji-board .intersection-6-16 {
+    -webkit-transform: translate(180px, 60px);
+    -moz-transform: translate(180px, 60px);
+    -o-transform: translate(180px, 60px);
+    transform: translate(180px, 60px); }
+  .tesuji-board .intersection-6-17 {
+    -webkit-transform: translate(180px, 30px);
+    -moz-transform: translate(180px, 30px);
+    -o-transform: translate(180px, 30px);
+    transform: translate(180px, 30px); }
+  .tesuji-board .intersection-6-18 {
+    -webkit-transform: translate(180px, 0px);
+    -moz-transform: translate(180px, 0px);
+    -o-transform: translate(180px, 0px);
+    transform: translate(180px, 0px); }
+  .tesuji-board .intersection-7-0 {
+    -webkit-transform: translate(210px, 540px);
+    -moz-transform: translate(210px, 540px);
+    -o-transform: translate(210px, 540px);
+    transform: translate(210px, 540px); }
+  .tesuji-board .intersection-7-1 {
+    -webkit-transform: translate(210px, 510px);
+    -moz-transform: translate(210px, 510px);
+    -o-transform: translate(210px, 510px);
+    transform: translate(210px, 510px); }
+  .tesuji-board .intersection-7-2 {
+    -webkit-transform: translate(210px, 480px);
+    -moz-transform: translate(210px, 480px);
+    -o-transform: translate(210px, 480px);
+    transform: translate(210px, 480px); }
+  .tesuji-board .intersection-7-3 {
+    -webkit-transform: translate(210px, 450px);
+    -moz-transform: translate(210px, 450px);
+    -o-transform: translate(210px, 450px);
+    transform: translate(210px, 450px); }
+  .tesuji-board .intersection-7-4 {
+    -webkit-transform: translate(210px, 420px);
+    -moz-transform: translate(210px, 420px);
+    -o-transform: translate(210px, 420px);
+    transform: translate(210px, 420px); }
+  .tesuji-board .intersection-7-5 {
+    -webkit-transform: translate(210px, 390px);
+    -moz-transform: translate(210px, 390px);
+    -o-transform: translate(210px, 390px);
+    transform: translate(210px, 390px); }
+  .tesuji-board .intersection-7-6 {
+    -webkit-transform: translate(210px, 360px);
+    -moz-transform: translate(210px, 360px);
+    -o-transform: translate(210px, 360px);
+    transform: translate(210px, 360px); }
+  .tesuji-board .intersection-7-7 {
+    -webkit-transform: translate(210px, 330px);
+    -moz-transform: translate(210px, 330px);
+    -o-transform: translate(210px, 330px);
+    transform: translate(210px, 330px); }
+  .tesuji-board .intersection-7-8 {
+    -webkit-transform: translate(210px, 300px);
+    -moz-transform: translate(210px, 300px);
+    -o-transform: translate(210px, 300px);
+    transform: translate(210px, 300px); }
+  .tesuji-board .intersection-7-9 {
+    -webkit-transform: translate(210px, 270px);
+    -moz-transform: translate(210px, 270px);
+    -o-transform: translate(210px, 270px);
+    transform: translate(210px, 270px); }
+  .tesuji-board .intersection-7-10 {
+    -webkit-transform: translate(210px, 240px);
+    -moz-transform: translate(210px, 240px);
+    -o-transform: translate(210px, 240px);
+    transform: translate(210px, 240px); }
+  .tesuji-board .intersection-7-11 {
+    -webkit-transform: translate(210px, 210px);
+    -moz-transform: translate(210px, 210px);
+    -o-transform: translate(210px, 210px);
+    transform: translate(210px, 210px); }
+  .tesuji-board .intersection-7-12 {
+    -webkit-transform: translate(210px, 180px);
+    -moz-transform: translate(210px, 180px);
+    -o-transform: translate(210px, 180px);
+    transform: translate(210px, 180px); }
+  .tesuji-board .intersection-7-13 {
+    -webkit-transform: translate(210px, 150px);
+    -moz-transform: translate(210px, 150px);
+    -o-transform: translate(210px, 150px);
+    transform: translate(210px, 150px); }
+  .tesuji-board .intersection-7-14 {
+    -webkit-transform: translate(210px, 120px);
+    -moz-transform: translate(210px, 120px);
+    -o-transform: translate(210px, 120px);
+    transform: translate(210px, 120px); }
+  .tesuji-board .intersection-7-15 {
+    -webkit-transform: translate(210px, 90px);
+    -moz-transform: translate(210px, 90px);
+    -o-transform: translate(210px, 90px);
+    transform: translate(210px, 90px); }
+  .tesuji-board .intersection-7-16 {
+    -webkit-transform: translate(210px, 60px);
+    -moz-transform: translate(210px, 60px);
+    -o-transform: translate(210px, 60px);
+    transform: translate(210px, 60px); }
+  .tesuji-board .intersection-7-17 {
+    -webkit-transform: translate(210px, 30px);
+    -moz-transform: translate(210px, 30px);
+    -o-transform: translate(210px, 30px);
+    transform: translate(210px, 30px); }
+  .tesuji-board .intersection-7-18 {
+    -webkit-transform: translate(210px, 0px);
+    -moz-transform: translate(210px, 0px);
+    -o-transform: translate(210px, 0px);
+    transform: translate(210px, 0px); }
+  .tesuji-board .intersection-8-0 {
+    -webkit-transform: translate(240px, 540px);
+    -moz-transform: translate(240px, 540px);
+    -o-transform: translate(240px, 540px);
+    transform: translate(240px, 540px); }
+  .tesuji-board .intersection-8-1 {
+    -webkit-transform: translate(240px, 510px);
+    -moz-transform: translate(240px, 510px);
+    -o-transform: translate(240px, 510px);
+    transform: translate(240px, 510px); }
+  .tesuji-board .intersection-8-2 {
+    -webkit-transform: translate(240px, 480px);
+    -moz-transform: translate(240px, 480px);
+    -o-transform: translate(240px, 480px);
+    transform: translate(240px, 480px); }
+  .tesuji-board .intersection-8-3 {
+    -webkit-transform: translate(240px, 450px);
+    -moz-transform: translate(240px, 450px);
+    -o-transform: translate(240px, 450px);
+    transform: translate(240px, 450px); }
+  .tesuji-board .intersection-8-4 {
+    -webkit-transform: translate(240px, 420px);
+    -moz-transform: translate(240px, 420px);
+    -o-transform: translate(240px, 420px);
+    transform: translate(240px, 420px); }
+  .tesuji-board .intersection-8-5 {
+    -webkit-transform: translate(240px, 390px);
+    -moz-transform: translate(240px, 390px);
+    -o-transform: translate(240px, 390px);
+    transform: translate(240px, 390px); }
+  .tesuji-board .intersection-8-6 {
+    -webkit-transform: translate(240px, 360px);
+    -moz-transform: translate(240px, 360px);
+    -o-transform: translate(240px, 360px);
+    transform: translate(240px, 360px); }
+  .tesuji-board .intersection-8-7 {
+    -webkit-transform: translate(240px, 330px);
+    -moz-transform: translate(240px, 330px);
+    -o-transform: translate(240px, 330px);
+    transform: translate(240px, 330px); }
+  .tesuji-board .intersection-8-8 {
+    -webkit-transform: translate(240px, 300px);
+    -moz-transform: translate(240px, 300px);
+    -o-transform: translate(240px, 300px);
+    transform: translate(240px, 300px); }
+  .tesuji-board .intersection-8-9 {
+    -webkit-transform: translate(240px, 270px);
+    -moz-transform: translate(240px, 270px);
+    -o-transform: translate(240px, 270px);
+    transform: translate(240px, 270px); }
+  .tesuji-board .intersection-8-10 {
+    -webkit-transform: translate(240px, 240px);
+    -moz-transform: translate(240px, 240px);
+    -o-transform: translate(240px, 240px);
+    transform: translate(240px, 240px); }
+  .tesuji-board .intersection-8-11 {
+    -webkit-transform: translate(240px, 210px);
+    -moz-transform: translate(240px, 210px);
+    -o-transform: translate(240px, 210px);
+    transform: translate(240px, 210px); }
+  .tesuji-board .intersection-8-12 {
+    -webkit-transform: translate(240px, 180px);
+    -moz-transform: translate(240px, 180px);
+    -o-transform: translate(240px, 180px);
+    transform: translate(240px, 180px); }
+  .tesuji-board .intersection-8-13 {
+    -webkit-transform: translate(240px, 150px);
+    -moz-transform: translate(240px, 150px);
+    -o-transform: translate(240px, 150px);
+    transform: translate(240px, 150px); }
+  .tesuji-board .intersection-8-14 {
+    -webkit-transform: translate(240px, 120px);
+    -moz-transform: translate(240px, 120px);
+    -o-transform: translate(240px, 120px);
+    transform: translate(240px, 120px); }
+  .tesuji-board .intersection-8-15 {
+    -webkit-transform: translate(240px, 90px);
+    -moz-transform: translate(240px, 90px);
+    -o-transform: translate(240px, 90px);
+    transform: translate(240px, 90px); }
+  .tesuji-board .intersection-8-16 {
+    -webkit-transform: translate(240px, 60px);
+    -moz-transform: translate(240px, 60px);
+    -o-transform: translate(240px, 60px);
+    transform: translate(240px, 60px); }
+  .tesuji-board .intersection-8-17 {
+    -webkit-transform: translate(240px, 30px);
+    -moz-transform: translate(240px, 30px);
+    -o-transform: translate(240px, 30px);
+    transform: translate(240px, 30px); }
+  .tesuji-board .intersection-8-18 {
+    -webkit-transform: translate(240px, 0px);
+    -moz-transform: translate(240px, 0px);
+    -o-transform: translate(240px, 0px);
+    transform: translate(240px, 0px); }
+  .tesuji-board .intersection-9-0 {
+    -webkit-transform: translate(270px, 540px);
+    -moz-transform: translate(270px, 540px);
+    -o-transform: translate(270px, 540px);
+    transform: translate(270px, 540px); }
+  .tesuji-board .intersection-9-1 {
+    -webkit-transform: translate(270px, 510px);
+    -moz-transform: translate(270px, 510px);
+    -o-transform: translate(270px, 510px);
+    transform: translate(270px, 510px); }
+  .tesuji-board .intersection-9-2 {
+    -webkit-transform: translate(270px, 480px);
+    -moz-transform: translate(270px, 480px);
+    -o-transform: translate(270px, 480px);
+    transform: translate(270px, 480px); }
+  .tesuji-board .intersection-9-3 {
+    -webkit-transform: translate(270px, 450px);
+    -moz-transform: translate(270px, 450px);
+    -o-transform: translate(270px, 450px);
+    transform: translate(270px, 450px); }
+  .tesuji-board .intersection-9-4 {
+    -webkit-transform: translate(270px, 420px);
+    -moz-transform: translate(270px, 420px);
+    -o-transform: translate(270px, 420px);
+    transform: translate(270px, 420px); }
+  .tesuji-board .intersection-9-5 {
+    -webkit-transform: translate(270px, 390px);
+    -moz-transform: translate(270px, 390px);
+    -o-transform: translate(270px, 390px);
+    transform: translate(270px, 390px); }
+  .tesuji-board .intersection-9-6 {
+    -webkit-transform: translate(270px, 360px);
+    -moz-transform: translate(270px, 360px);
+    -o-transform: translate(270px, 360px);
+    transform: translate(270px, 360px); }
+  .tesuji-board .intersection-9-7 {
+    -webkit-transform: translate(270px, 330px);
+    -moz-transform: translate(270px, 330px);
+    -o-transform: translate(270px, 330px);
+    transform: translate(270px, 330px); }
+  .tesuji-board .intersection-9-8 {
+    -webkit-transform: translate(270px, 300px);
+    -moz-transform: translate(270px, 300px);
+    -o-transform: translate(270px, 300px);
+    transform: translate(270px, 300px); }
+  .tesuji-board .intersection-9-9 {
+    -webkit-transform: translate(270px, 270px);
+    -moz-transform: translate(270px, 270px);
+    -o-transform: translate(270px, 270px);
+    transform: translate(270px, 270px); }
+  .tesuji-board .intersection-9-10 {
+    -webkit-transform: translate(270px, 240px);
+    -moz-transform: translate(270px, 240px);
+    -o-transform: translate(270px, 240px);
+    transform: translate(270px, 240px); }
+  .tesuji-board .intersection-9-11 {
+    -webkit-transform: translate(270px, 210px);
+    -moz-transform: translate(270px, 210px);
+    -o-transform: translate(270px, 210px);
+    transform: translate(270px, 210px); }
+  .tesuji-board .intersection-9-12 {
+    -webkit-transform: translate(270px, 180px);
+    -moz-transform: translate(270px, 180px);
+    -o-transform: translate(270px, 180px);
+    transform: translate(270px, 180px); }
+  .tesuji-board .intersection-9-13 {
+    -webkit-transform: translate(270px, 150px);
+    -moz-transform: translate(270px, 150px);
+    -o-transform: translate(270px, 150px);
+    transform: translate(270px, 150px); }
+  .tesuji-board .intersection-9-14 {
+    -webkit-transform: translate(270px, 120px);
+    -moz-transform: translate(270px, 120px);
+    -o-transform: translate(270px, 120px);
+    transform: translate(270px, 120px); }
+  .tesuji-board .intersection-9-15 {
+    -webkit-transform: translate(270px, 90px);
+    -moz-transform: translate(270px, 90px);
+    -o-transform: translate(270px, 90px);
+    transform: translate(270px, 90px); }
+  .tesuji-board .intersection-9-16 {
+    -webkit-transform: translate(270px, 60px);
+    -moz-transform: translate(270px, 60px);
+    -o-transform: translate(270px, 60px);
+    transform: translate(270px, 60px); }
+  .tesuji-board .intersection-9-17 {
+    -webkit-transform: translate(270px, 30px);
+    -moz-transform: translate(270px, 30px);
+    -o-transform: translate(270px, 30px);
+    transform: translate(270px, 30px); }
+  .tesuji-board .intersection-9-18 {
+    -webkit-transform: translate(270px, 0px);
+    -moz-transform: translate(270px, 0px);
+    -o-transform: translate(270px, 0px);
+    transform: translate(270px, 0px); }
+  .tesuji-board .intersection-10-0 {
+    -webkit-transform: translate(300px, 540px);
+    -moz-transform: translate(300px, 540px);
+    -o-transform: translate(300px, 540px);
+    transform: translate(300px, 540px); }
+  .tesuji-board .intersection-10-1 {
+    -webkit-transform: translate(300px, 510px);
+    -moz-transform: translate(300px, 510px);
+    -o-transform: translate(300px, 510px);
+    transform: translate(300px, 510px); }
+  .tesuji-board .intersection-10-2 {
+    -webkit-transform: translate(300px, 480px);
+    -moz-transform: translate(300px, 480px);
+    -o-transform: translate(300px, 480px);
+    transform: translate(300px, 480px); }
+  .tesuji-board .intersection-10-3 {
+    -webkit-transform: translate(300px, 450px);
+    -moz-transform: translate(300px, 450px);
+    -o-transform: translate(300px, 450px);
+    transform: translate(300px, 450px); }
+  .tesuji-board .intersection-10-4 {
+    -webkit-transform: translate(300px, 420px);
+    -moz-transform: translate(300px, 420px);
+    -o-transform: translate(300px, 420px);
+    transform: translate(300px, 420px); }
+  .tesuji-board .intersection-10-5 {
+    -webkit-transform: translate(300px, 390px);
+    -moz-transform: translate(300px, 390px);
+    -o-transform: translate(300px, 390px);
+    transform: translate(300px, 390px); }
+  .tesuji-board .intersection-10-6 {
+    -webkit-transform: translate(300px, 360px);
+    -moz-transform: translate(300px, 360px);
+    -o-transform: translate(300px, 360px);
+    transform: translate(300px, 360px); }
+  .tesuji-board .intersection-10-7 {
+    -webkit-transform: translate(300px, 330px);
+    -moz-transform: translate(300px, 330px);
+    -o-transform: translate(300px, 330px);
+    transform: translate(300px, 330px); }
+  .tesuji-board .intersection-10-8 {
+    -webkit-transform: translate(300px, 300px);
+    -moz-transform: translate(300px, 300px);
+    -o-transform: translate(300px, 300px);
+    transform: translate(300px, 300px); }
+  .tesuji-board .intersection-10-9 {
+    -webkit-transform: translate(300px, 270px);
+    -moz-transform: translate(300px, 270px);
+    -o-transform: translate(300px, 270px);
+    transform: translate(300px, 270px); }
+  .tesuji-board .intersection-10-10 {
+    -webkit-transform: translate(300px, 240px);
+    -moz-transform: translate(300px, 240px);
+    -o-transform: translate(300px, 240px);
+    transform: translate(300px, 240px); }
+  .tesuji-board .intersection-10-11 {
+    -webkit-transform: translate(300px, 210px);
+    -moz-transform: translate(300px, 210px);
+    -o-transform: translate(300px, 210px);
+    transform: translate(300px, 210px); }
+  .tesuji-board .intersection-10-12 {
+    -webkit-transform: translate(300px, 180px);
+    -moz-transform: translate(300px, 180px);
+    -o-transform: translate(300px, 180px);
+    transform: translate(300px, 180px); }
+  .tesuji-board .intersection-10-13 {
+    -webkit-transform: translate(300px, 150px);
+    -moz-transform: translate(300px, 150px);
+    -o-transform: translate(300px, 150px);
+    transform: translate(300px, 150px); }
+  .tesuji-board .intersection-10-14 {
+    -webkit-transform: translate(300px, 120px);
+    -moz-transform: translate(300px, 120px);
+    -o-transform: translate(300px, 120px);
+    transform: translate(300px, 120px); }
+  .tesuji-board .intersection-10-15 {
+    -webkit-transform: translate(300px, 90px);
+    -moz-transform: translate(300px, 90px);
+    -o-transform: translate(300px, 90px);
+    transform: translate(300px, 90px); }
+  .tesuji-board .intersection-10-16 {
+    -webkit-transform: translate(300px, 60px);
+    -moz-transform: translate(300px, 60px);
+    -o-transform: translate(300px, 60px);
+    transform: translate(300px, 60px); }
+  .tesuji-board .intersection-10-17 {
+    -webkit-transform: translate(300px, 30px);
+    -moz-transform: translate(300px, 30px);
+    -o-transform: translate(300px, 30px);
+    transform: translate(300px, 30px); }
+  .tesuji-board .intersection-10-18 {
+    -webkit-transform: translate(300px, 0px);
+    -moz-transform: translate(300px, 0px);
+    -o-transform: translate(300px, 0px);
+    transform: translate(300px, 0px); }
+  .tesuji-board .intersection-11-0 {
+    -webkit-transform: translate(330px, 540px);
+    -moz-transform: translate(330px, 540px);
+    -o-transform: translate(330px, 540px);
+    transform: translate(330px, 540px); }
+  .tesuji-board .intersection-11-1 {
+    -webkit-transform: translate(330px, 510px);
+    -moz-transform: translate(330px, 510px);
+    -o-transform: translate(330px, 510px);
+    transform: translate(330px, 510px); }
+  .tesuji-board .intersection-11-2 {
+    -webkit-transform: translate(330px, 480px);
+    -moz-transform: translate(330px, 480px);
+    -o-transform: translate(330px, 480px);
+    transform: translate(330px, 480px); }
+  .tesuji-board .intersection-11-3 {
+    -webkit-transform: translate(330px, 450px);
+    -moz-transform: translate(330px, 450px);
+    -o-transform: translate(330px, 450px);
+    transform: translate(330px, 450px); }
+  .tesuji-board .intersection-11-4 {
+    -webkit-transform: translate(330px, 420px);
+    -moz-transform: translate(330px, 420px);
+    -o-transform: translate(330px, 420px);
+    transform: translate(330px, 420px); }
+  .tesuji-board .intersection-11-5 {
+    -webkit-transform: translate(330px, 390px);
+    -moz-transform: translate(330px, 390px);
+    -o-transform: translate(330px, 390px);
+    transform: translate(330px, 390px); }
+  .tesuji-board .intersection-11-6 {
+    -webkit-transform: translate(330px, 360px);
+    -moz-transform: translate(330px, 360px);
+    -o-transform: translate(330px, 360px);
+    transform: translate(330px, 360px); }
+  .tesuji-board .intersection-11-7 {
+    -webkit-transform: translate(330px, 330px);
+    -moz-transform: translate(330px, 330px);
+    -o-transform: translate(330px, 330px);
+    transform: translate(330px, 330px); }
+  .tesuji-board .intersection-11-8 {
+    -webkit-transform: translate(330px, 300px);
+    -moz-transform: translate(330px, 300px);
+    -o-transform: translate(330px, 300px);
+    transform: translate(330px, 300px); }
+  .tesuji-board .intersection-11-9 {
+    -webkit-transform: translate(330px, 270px);
+    -moz-transform: translate(330px, 270px);
+    -o-transform: translate(330px, 270px);
+    transform: translate(330px, 270px); }
+  .tesuji-board .intersection-11-10 {
+    -webkit-transform: translate(330px, 240px);
+    -moz-transform: translate(330px, 240px);
+    -o-transform: translate(330px, 240px);
+    transform: translate(330px, 240px); }
+  .tesuji-board .intersection-11-11 {
+    -webkit-transform: translate(330px, 210px);
+    -moz-transform: translate(330px, 210px);
+    -o-transform: translate(330px, 210px);
+    transform: translate(330px, 210px); }
+  .tesuji-board .intersection-11-12 {
+    -webkit-transform: translate(330px, 180px);
+    -moz-transform: translate(330px, 180px);
+    -o-transform: translate(330px, 180px);
+    transform: translate(330px, 180px); }
+  .tesuji-board .intersection-11-13 {
+    -webkit-transform: translate(330px, 150px);
+    -moz-transform: translate(330px, 150px);
+    -o-transform: translate(330px, 150px);
+    transform: translate(330px, 150px); }
+  .tesuji-board .intersection-11-14 {
+    -webkit-transform: translate(330px, 120px);
+    -moz-transform: translate(330px, 120px);
+    -o-transform: translate(330px, 120px);
+    transform: translate(330px, 120px); }
+  .tesuji-board .intersection-11-15 {
+    -webkit-transform: translate(330px, 90px);
+    -moz-transform: translate(330px, 90px);
+    -o-transform: translate(330px, 90px);
+    transform: translate(330px, 90px); }
+  .tesuji-board .intersection-11-16 {
+    -webkit-transform: translate(330px, 60px);
+    -moz-transform: translate(330px, 60px);
+    -o-transform: translate(330px, 60px);
+    transform: translate(330px, 60px); }
+  .tesuji-board .intersection-11-17 {
+    -webkit-transform: translate(330px, 30px);
+    -moz-transform: translate(330px, 30px);
+    -o-transform: translate(330px, 30px);
+    transform: translate(330px, 30px); }
+  .tesuji-board .intersection-11-18 {
+    -webkit-transform: translate(330px, 0px);
+    -moz-transform: translate(330px, 0px);
+    -o-transform: translate(330px, 0px);
+    transform: translate(330px, 0px); }
+  .tesuji-board .intersection-12-0 {
+    -webkit-transform: translate(360px, 540px);
+    -moz-transform: translate(360px, 540px);
+    -o-transform: translate(360px, 540px);
+    transform: translate(360px, 540px); }
+  .tesuji-board .intersection-12-1 {
+    -webkit-transform: translate(360px, 510px);
+    -moz-transform: translate(360px, 510px);
+    -o-transform: translate(360px, 510px);
+    transform: translate(360px, 510px); }
+  .tesuji-board .intersection-12-2 {
+    -webkit-transform: translate(360px, 480px);
+    -moz-transform: translate(360px, 480px);
+    -o-transform: translate(360px, 480px);
+    transform: translate(360px, 480px); }
+  .tesuji-board .intersection-12-3 {
+    -webkit-transform: translate(360px, 450px);
+    -moz-transform: translate(360px, 450px);
+    -o-transform: translate(360px, 450px);
+    transform: translate(360px, 450px); }
+  .tesuji-board .intersection-12-4 {
+    -webkit-transform: translate(360px, 420px);
+    -moz-transform: translate(360px, 420px);
+    -o-transform: translate(360px, 420px);
+    transform: translate(360px, 420px); }
+  .tesuji-board .intersection-12-5 {
+    -webkit-transform: translate(360px, 390px);
+    -moz-transform: translate(360px, 390px);
+    -o-transform: translate(360px, 390px);
+    transform: translate(360px, 390px); }
+  .tesuji-board .intersection-12-6 {
+    -webkit-transform: translate(360px, 360px);
+    -moz-transform: translate(360px, 360px);
+    -o-transform: translate(360px, 360px);
+    transform: translate(360px, 360px); }
+  .tesuji-board .intersection-12-7 {
+    -webkit-transform: translate(360px, 330px);
+    -moz-transform: translate(360px, 330px);
+    -o-transform: translate(360px, 330px);
+    transform: translate(360px, 330px); }
+  .tesuji-board .intersection-12-8 {
+    -webkit-transform: translate(360px, 300px);
+    -moz-transform: translate(360px, 300px);
+    -o-transform: translate(360px, 300px);
+    transform: translate(360px, 300px); }
+  .tesuji-board .intersection-12-9 {
+    -webkit-transform: translate(360px, 270px);
+    -moz-transform: translate(360px, 270px);
+    -o-transform: translate(360px, 270px);
+    transform: translate(360px, 270px); }
+  .tesuji-board .intersection-12-10 {
+    -webkit-transform: translate(360px, 240px);
+    -moz-transform: translate(360px, 240px);
+    -o-transform: translate(360px, 240px);
+    transform: translate(360px, 240px); }
+  .tesuji-board .intersection-12-11 {
+    -webkit-transform: translate(360px, 210px);
+    -moz-transform: translate(360px, 210px);
+    -o-transform: translate(360px, 210px);
+    transform: translate(360px, 210px); }
+  .tesuji-board .intersection-12-12 {
+    -webkit-transform: translate(360px, 180px);
+    -moz-transform: translate(360px, 180px);
+    -o-transform: translate(360px, 180px);
+    transform: translate(360px, 180px); }
+  .tesuji-board .intersection-12-13 {
+    -webkit-transform: translate(360px, 150px);
+    -moz-transform: translate(360px, 150px);
+    -o-transform: translate(360px, 150px);
+    transform: translate(360px, 150px); }
+  .tesuji-board .intersection-12-14 {
+    -webkit-transform: translate(360px, 120px);
+    -moz-transform: translate(360px, 120px);
+    -o-transform: translate(360px, 120px);
+    transform: translate(360px, 120px); }
+  .tesuji-board .intersection-12-15 {
+    -webkit-transform: translate(360px, 90px);
+    -moz-transform: translate(360px, 90px);
+    -o-transform: translate(360px, 90px);
+    transform: translate(360px, 90px); }
+  .tesuji-board .intersection-12-16 {
+    -webkit-transform: translate(360px, 60px);
+    -moz-transform: translate(360px, 60px);
+    -o-transform: translate(360px, 60px);
+    transform: translate(360px, 60px); }
+  .tesuji-board .intersection-12-17 {
+    -webkit-transform: translate(360px, 30px);
+    -moz-transform: translate(360px, 30px);
+    -o-transform: translate(360px, 30px);
+    transform: translate(360px, 30px); }
+  .tesuji-board .intersection-12-18 {
+    -webkit-transform: translate(360px, 0px);
+    -moz-transform: translate(360px, 0px);
+    -o-transform: translate(360px, 0px);
+    transform: translate(360px, 0px); }
+  .tesuji-board .intersection-13-0 {
+    -webkit-transform: translate(390px, 540px);
+    -moz-transform: translate(390px, 540px);
+    -o-transform: translate(390px, 540px);
+    transform: translate(390px, 540px); }
+  .tesuji-board .intersection-13-1 {
+    -webkit-transform: translate(390px, 510px);
+    -moz-transform: translate(390px, 510px);
+    -o-transform: translate(390px, 510px);
+    transform: translate(390px, 510px); }
+  .tesuji-board .intersection-13-2 {
+    -webkit-transform: translate(390px, 480px);
+    -moz-transform: translate(390px, 480px);
+    -o-transform: translate(390px, 480px);
+    transform: translate(390px, 480px); }
+  .tesuji-board .intersection-13-3 {
+    -webkit-transform: translate(390px, 450px);
+    -moz-transform: translate(390px, 450px);
+    -o-transform: translate(390px, 450px);
+    transform: translate(390px, 450px); }
+  .tesuji-board .intersection-13-4 {
+    -webkit-transform: translate(390px, 420px);
+    -moz-transform: translate(390px, 420px);
+    -o-transform: translate(390px, 420px);
+    transform: translate(390px, 420px); }
+  .tesuji-board .intersection-13-5 {
+    -webkit-transform: translate(390px, 390px);
+    -moz-transform: translate(390px, 390px);
+    -o-transform: translate(390px, 390px);
+    transform: translate(390px, 390px); }
+  .tesuji-board .intersection-13-6 {
+    -webkit-transform: translate(390px, 360px);
+    -moz-transform: translate(390px, 360px);
+    -o-transform: translate(390px, 360px);
+    transform: translate(390px, 360px); }
+  .tesuji-board .intersection-13-7 {
+    -webkit-transform: translate(390px, 330px);
+    -moz-transform: translate(390px, 330px);
+    -o-transform: translate(390px, 330px);
+    transform: translate(390px, 330px); }
+  .tesuji-board .intersection-13-8 {
+    -webkit-transform: translate(390px, 300px);
+    -moz-transform: translate(390px, 300px);
+    -o-transform: translate(390px, 300px);
+    transform: translate(390px, 300px); }
+  .tesuji-board .intersection-13-9 {
+    -webkit-transform: translate(390px, 270px);
+    -moz-transform: translate(390px, 270px);
+    -o-transform: translate(390px, 270px);
+    transform: translate(390px, 270px); }
+  .tesuji-board .intersection-13-10 {
+    -webkit-transform: translate(390px, 240px);
+    -moz-transform: translate(390px, 240px);
+    -o-transform: translate(390px, 240px);
+    transform: translate(390px, 240px); }
+  .tesuji-board .intersection-13-11 {
+    -webkit-transform: translate(390px, 210px);
+    -moz-transform: translate(390px, 210px);
+    -o-transform: translate(390px, 210px);
+    transform: translate(390px, 210px); }
+  .tesuji-board .intersection-13-12 {
+    -webkit-transform: translate(390px, 180px);
+    -moz-transform: translate(390px, 180px);
+    -o-transform: translate(390px, 180px);
+    transform: translate(390px, 180px); }
+  .tesuji-board .intersection-13-13 {
+    -webkit-transform: translate(390px, 150px);
+    -moz-transform: translate(390px, 150px);
+    -o-transform: translate(390px, 150px);
+    transform: translate(390px, 150px); }
+  .tesuji-board .intersection-13-14 {
+    -webkit-transform: translate(390px, 120px);
+    -moz-transform: translate(390px, 120px);
+    -o-transform: translate(390px, 120px);
+    transform: translate(390px, 120px); }
+  .tesuji-board .intersection-13-15 {
+    -webkit-transform: translate(390px, 90px);
+    -moz-transform: translate(390px, 90px);
+    -o-transform: translate(390px, 90px);
+    transform: translate(390px, 90px); }
+  .tesuji-board .intersection-13-16 {
+    -webkit-transform: translate(390px, 60px);
+    -moz-transform: translate(390px, 60px);
+    -o-transform: translate(390px, 60px);
+    transform: translate(390px, 60px); }
+  .tesuji-board .intersection-13-17 {
+    -webkit-transform: translate(390px, 30px);
+    -moz-transform: translate(390px, 30px);
+    -o-transform: translate(390px, 30px);
+    transform: translate(390px, 30px); }
+  .tesuji-board .intersection-13-18 {
+    -webkit-transform: translate(390px, 0px);
+    -moz-transform: translate(390px, 0px);
+    -o-transform: translate(390px, 0px);
+    transform: translate(390px, 0px); }
+  .tesuji-board .intersection-14-0 {
+    -webkit-transform: translate(420px, 540px);
+    -moz-transform: translate(420px, 540px);
+    -o-transform: translate(420px, 540px);
+    transform: translate(420px, 540px); }
+  .tesuji-board .intersection-14-1 {
+    -webkit-transform: translate(420px, 510px);
+    -moz-transform: translate(420px, 510px);
+    -o-transform: translate(420px, 510px);
+    transform: translate(420px, 510px); }
+  .tesuji-board .intersection-14-2 {
+    -webkit-transform: translate(420px, 480px);
+    -moz-transform: translate(420px, 480px);
+    -o-transform: translate(420px, 480px);
+    transform: translate(420px, 480px); }
+  .tesuji-board .intersection-14-3 {
+    -webkit-transform: translate(420px, 450px);
+    -moz-transform: translate(420px, 450px);
+    -o-transform: translate(420px, 450px);
+    transform: translate(420px, 450px); }
+  .tesuji-board .intersection-14-4 {
+    -webkit-transform: translate(420px, 420px);
+    -moz-transform: translate(420px, 420px);
+    -o-transform: translate(420px, 420px);
+    transform: translate(420px, 420px); }
+  .tesuji-board .intersection-14-5 {
+    -webkit-transform: translate(420px, 390px);
+    -moz-transform: translate(420px, 390px);
+    -o-transform: translate(420px, 390px);
+    transform: translate(420px, 390px); }
+  .tesuji-board .intersection-14-6 {
+    -webkit-transform: translate(420px, 360px);
+    -moz-transform: translate(420px, 360px);
+    -o-transform: translate(420px, 360px);
+    transform: translate(420px, 360px); }
+  .tesuji-board .intersection-14-7 {
+    -webkit-transform: translate(420px, 330px);
+    -moz-transform: translate(420px, 330px);
+    -o-transform: translate(420px, 330px);
+    transform: translate(420px, 330px); }
+  .tesuji-board .intersection-14-8 {
+    -webkit-transform: translate(420px, 300px);
+    -moz-transform: translate(420px, 300px);
+    -o-transform: translate(420px, 300px);
+    transform: translate(420px, 300px); }
+  .tesuji-board .intersection-14-9 {
+    -webkit-transform: translate(420px, 270px);
+    -moz-transform: translate(420px, 270px);
+    -o-transform: translate(420px, 270px);
+    transform: translate(420px, 270px); }
+  .tesuji-board .intersection-14-10 {
+    -webkit-transform: translate(420px, 240px);
+    -moz-transform: translate(420px, 240px);
+    -o-transform: translate(420px, 240px);
+    transform: translate(420px, 240px); }
+  .tesuji-board .intersection-14-11 {
+    -webkit-transform: translate(420px, 210px);
+    -moz-transform: translate(420px, 210px);
+    -o-transform: translate(420px, 210px);
+    transform: translate(420px, 210px); }
+  .tesuji-board .intersection-14-12 {
+    -webkit-transform: translate(420px, 180px);
+    -moz-transform: translate(420px, 180px);
+    -o-transform: translate(420px, 180px);
+    transform: translate(420px, 180px); }
+  .tesuji-board .intersection-14-13 {
+    -webkit-transform: translate(420px, 150px);
+    -moz-transform: translate(420px, 150px);
+    -o-transform: translate(420px, 150px);
+    transform: translate(420px, 150px); }
+  .tesuji-board .intersection-14-14 {
+    -webkit-transform: translate(420px, 120px);
+    -moz-transform: translate(420px, 120px);
+    -o-transform: translate(420px, 120px);
+    transform: translate(420px, 120px); }
+  .tesuji-board .intersection-14-15 {
+    -webkit-transform: translate(420px, 90px);
+    -moz-transform: translate(420px, 90px);
+    -o-transform: translate(420px, 90px);
+    transform: translate(420px, 90px); }
+  .tesuji-board .intersection-14-16 {
+    -webkit-transform: translate(420px, 60px);
+    -moz-transform: translate(420px, 60px);
+    -o-transform: translate(420px, 60px);
+    transform: translate(420px, 60px); }
+  .tesuji-board .intersection-14-17 {
+    -webkit-transform: translate(420px, 30px);
+    -moz-transform: translate(420px, 30px);
+    -o-transform: translate(420px, 30px);
+    transform: translate(420px, 30px); }
+  .tesuji-board .intersection-14-18 {
+    -webkit-transform: translate(420px, 0px);
+    -moz-transform: translate(420px, 0px);
+    -o-transform: translate(420px, 0px);
+    transform: translate(420px, 0px); }
+  .tesuji-board .intersection-15-0 {
+    -webkit-transform: translate(450px, 540px);
+    -moz-transform: translate(450px, 540px);
+    -o-transform: translate(450px, 540px);
+    transform: translate(450px, 540px); }
+  .tesuji-board .intersection-15-1 {
+    -webkit-transform: translate(450px, 510px);
+    -moz-transform: translate(450px, 510px);
+    -o-transform: translate(450px, 510px);
+    transform: translate(450px, 510px); }
+  .tesuji-board .intersection-15-2 {
+    -webkit-transform: translate(450px, 480px);
+    -moz-transform: translate(450px, 480px);
+    -o-transform: translate(450px, 480px);
+    transform: translate(450px, 480px); }
+  .tesuji-board .intersection-15-3 {
+    -webkit-transform: translate(450px, 450px);
+    -moz-transform: translate(450px, 450px);
+    -o-transform: translate(450px, 450px);
+    transform: translate(450px, 450px); }
+  .tesuji-board .intersection-15-4 {
+    -webkit-transform: translate(450px, 420px);
+    -moz-transform: translate(450px, 420px);
+    -o-transform: translate(450px, 420px);
+    transform: translate(450px, 420px); }
+  .tesuji-board .intersection-15-5 {
+    -webkit-transform: translate(450px, 390px);
+    -moz-transform: translate(450px, 390px);
+    -o-transform: translate(450px, 390px);
+    transform: translate(450px, 390px); }
+  .tesuji-board .intersection-15-6 {
+    -webkit-transform: translate(450px, 360px);
+    -moz-transform: translate(450px, 360px);
+    -o-transform: translate(450px, 360px);
+    transform: translate(450px, 360px); }
+  .tesuji-board .intersection-15-7 {
+    -webkit-transform: translate(450px, 330px);
+    -moz-transform: translate(450px, 330px);
+    -o-transform: translate(450px, 330px);
+    transform: translate(450px, 330px); }
+  .tesuji-board .intersection-15-8 {
+    -webkit-transform: translate(450px, 300px);
+    -moz-transform: translate(450px, 300px);
+    -o-transform: translate(450px, 300px);
+    transform: translate(450px, 300px); }
+  .tesuji-board .intersection-15-9 {
+    -webkit-transform: translate(450px, 270px);
+    -moz-transform: translate(450px, 270px);
+    -o-transform: translate(450px, 270px);
+    transform: translate(450px, 270px); }
+  .tesuji-board .intersection-15-10 {
+    -webkit-transform: translate(450px, 240px);
+    -moz-transform: translate(450px, 240px);
+    -o-transform: translate(450px, 240px);
+    transform: translate(450px, 240px); }
+  .tesuji-board .intersection-15-11 {
+    -webkit-transform: translate(450px, 210px);
+    -moz-transform: translate(450px, 210px);
+    -o-transform: translate(450px, 210px);
+    transform: translate(450px, 210px); }
+  .tesuji-board .intersection-15-12 {
+    -webkit-transform: translate(450px, 180px);
+    -moz-transform: translate(450px, 180px);
+    -o-transform: translate(450px, 180px);
+    transform: translate(450px, 180px); }
+  .tesuji-board .intersection-15-13 {
+    -webkit-transform: translate(450px, 150px);
+    -moz-transform: translate(450px, 150px);
+    -o-transform: translate(450px, 150px);
+    transform: translate(450px, 150px); }
+  .tesuji-board .intersection-15-14 {
+    -webkit-transform: translate(450px, 120px);
+    -moz-transform: translate(450px, 120px);
+    -o-transform: translate(450px, 120px);
+    transform: translate(450px, 120px); }
+  .tesuji-board .intersection-15-15 {
+    -webkit-transform: translate(450px, 90px);
+    -moz-transform: translate(450px, 90px);
+    -o-transform: translate(450px, 90px);
+    transform: translate(450px, 90px); }
+  .tesuji-board .intersection-15-16 {
+    -webkit-transform: translate(450px, 60px);
+    -moz-transform: translate(450px, 60px);
+    -o-transform: translate(450px, 60px);
+    transform: translate(450px, 60px); }
+  .tesuji-board .intersection-15-17 {
+    -webkit-transform: translate(450px, 30px);
+    -moz-transform: translate(450px, 30px);
+    -o-transform: translate(450px, 30px);
+    transform: translate(450px, 30px); }
+  .tesuji-board .intersection-15-18 {
+    -webkit-transform: translate(450px, 0px);
+    -moz-transform: translate(450px, 0px);
+    -o-transform: translate(450px, 0px);
+    transform: translate(450px, 0px); }
+  .tesuji-board .intersection-16-0 {
+    -webkit-transform: translate(480px, 540px);
+    -moz-transform: translate(480px, 540px);
+    -o-transform: translate(480px, 540px);
+    transform: translate(480px, 540px); }
+  .tesuji-board .intersection-16-1 {
+    -webkit-transform: translate(480px, 510px);
+    -moz-transform: translate(480px, 510px);
+    -o-transform: translate(480px, 510px);
+    transform: translate(480px, 510px); }
+  .tesuji-board .intersection-16-2 {
+    -webkit-transform: translate(480px, 480px);
+    -moz-transform: translate(480px, 480px);
+    -o-transform: translate(480px, 480px);
+    transform: translate(480px, 480px); }
+  .tesuji-board .intersection-16-3 {
+    -webkit-transform: translate(480px, 450px);
+    -moz-transform: translate(480px, 450px);
+    -o-transform: translate(480px, 450px);
+    transform: translate(480px, 450px); }
+  .tesuji-board .intersection-16-4 {
+    -webkit-transform: translate(480px, 420px);
+    -moz-transform: translate(480px, 420px);
+    -o-transform: translate(480px, 420px);
+    transform: translate(480px, 420px); }
+  .tesuji-board .intersection-16-5 {
+    -webkit-transform: translate(480px, 390px);
+    -moz-transform: translate(480px, 390px);
+    -o-transform: translate(480px, 390px);
+    transform: translate(480px, 390px); }
+  .tesuji-board .intersection-16-6 {
+    -webkit-transform: translate(480px, 360px);
+    -moz-transform: translate(480px, 360px);
+    -o-transform: translate(480px, 360px);
+    transform: translate(480px, 360px); }
+  .tesuji-board .intersection-16-7 {
+    -webkit-transform: translate(480px, 330px);
+    -moz-transform: translate(480px, 330px);
+    -o-transform: translate(480px, 330px);
+    transform: translate(480px, 330px); }
+  .tesuji-board .intersection-16-8 {
+    -webkit-transform: translate(480px, 300px);
+    -moz-transform: translate(480px, 300px);
+    -o-transform: translate(480px, 300px);
+    transform: translate(480px, 300px); }
+  .tesuji-board .intersection-16-9 {
+    -webkit-transform: translate(480px, 270px);
+    -moz-transform: translate(480px, 270px);
+    -o-transform: translate(480px, 270px);
+    transform: translate(480px, 270px); }
+  .tesuji-board .intersection-16-10 {
+    -webkit-transform: translate(480px, 240px);
+    -moz-transform: translate(480px, 240px);
+    -o-transform: translate(480px, 240px);
+    transform: translate(480px, 240px); }
+  .tesuji-board .intersection-16-11 {
+    -webkit-transform: translate(480px, 210px);
+    -moz-transform: translate(480px, 210px);
+    -o-transform: translate(480px, 210px);
+    transform: translate(480px, 210px); }
+  .tesuji-board .intersection-16-12 {
+    -webkit-transform: translate(480px, 180px);
+    -moz-transform: translate(480px, 180px);
+    -o-transform: translate(480px, 180px);
+    transform: translate(480px, 180px); }
+  .tesuji-board .intersection-16-13 {
+    -webkit-transform: translate(480px, 150px);
+    -moz-transform: translate(480px, 150px);
+    -o-transform: translate(480px, 150px);
+    transform: translate(480px, 150px); }
+  .tesuji-board .intersection-16-14 {
+    -webkit-transform: translate(480px, 120px);
+    -moz-transform: translate(480px, 120px);
+    -o-transform: translate(480px, 120px);
+    transform: translate(480px, 120px); }
+  .tesuji-board .intersection-16-15 {
+    -webkit-transform: translate(480px, 90px);
+    -moz-transform: translate(480px, 90px);
+    -o-transform: translate(480px, 90px);
+    transform: translate(480px, 90px); }
+  .tesuji-board .intersection-16-16 {
+    -webkit-transform: translate(480px, 60px);
+    -moz-transform: translate(480px, 60px);
+    -o-transform: translate(480px, 60px);
+    transform: translate(480px, 60px); }
+  .tesuji-board .intersection-16-17 {
+    -webkit-transform: translate(480px, 30px);
+    -moz-transform: translate(480px, 30px);
+    -o-transform: translate(480px, 30px);
+    transform: translate(480px, 30px); }
+  .tesuji-board .intersection-16-18 {
+    -webkit-transform: translate(480px, 0px);
+    -moz-transform: translate(480px, 0px);
+    -o-transform: translate(480px, 0px);
+    transform: translate(480px, 0px); }
+  .tesuji-board .intersection-17-0 {
+    -webkit-transform: translate(510px, 540px);
+    -moz-transform: translate(510px, 540px);
+    -o-transform: translate(510px, 540px);
+    transform: translate(510px, 540px); }
+  .tesuji-board .intersection-17-1 {
+    -webkit-transform: translate(510px, 510px);
+    -moz-transform: translate(510px, 510px);
+    -o-transform: translate(510px, 510px);
+    transform: translate(510px, 510px); }
+  .tesuji-board .intersection-17-2 {
+    -webkit-transform: translate(510px, 480px);
+    -moz-transform: translate(510px, 480px);
+    -o-transform: translate(510px, 480px);
+    transform: translate(510px, 480px); }
+  .tesuji-board .intersection-17-3 {
+    -webkit-transform: translate(510px, 450px);
+    -moz-transform: translate(510px, 450px);
+    -o-transform: translate(510px, 450px);
+    transform: translate(510px, 450px); }
+  .tesuji-board .intersection-17-4 {
+    -webkit-transform: translate(510px, 420px);
+    -moz-transform: translate(510px, 420px);
+    -o-transform: translate(510px, 420px);
+    transform: translate(510px, 420px); }
+  .tesuji-board .intersection-17-5 {
+    -webkit-transform: translate(510px, 390px);
+    -moz-transform: translate(510px, 390px);
+    -o-transform: translate(510px, 390px);
+    transform: translate(510px, 390px); }
+  .tesuji-board .intersection-17-6 {
+    -webkit-transform: translate(510px, 360px);
+    -moz-transform: translate(510px, 360px);
+    -o-transform: translate(510px, 360px);
+    transform: translate(510px, 360px); }
+  .tesuji-board .intersection-17-7 {
+    -webkit-transform: translate(510px, 330px);
+    -moz-transform: translate(510px, 330px);
+    -o-transform: translate(510px, 330px);
+    transform: translate(510px, 330px); }
+  .tesuji-board .intersection-17-8 {
+    -webkit-transform: translate(510px, 300px);
+    -moz-transform: translate(510px, 300px);
+    -o-transform: translate(510px, 300px);
+    transform: translate(510px, 300px); }
+  .tesuji-board .intersection-17-9 {
+    -webkit-transform: translate(510px, 270px);
+    -moz-transform: translate(510px, 270px);
+    -o-transform: translate(510px, 270px);
+    transform: translate(510px, 270px); }
+  .tesuji-board .intersection-17-10 {
+    -webkit-transform: translate(510px, 240px);
+    -moz-transform: translate(510px, 240px);
+    -o-transform: translate(510px, 240px);
+    transform: translate(510px, 240px); }
+  .tesuji-board .intersection-17-11 {
+    -webkit-transform: translate(510px, 210px);
+    -moz-transform: translate(510px, 210px);
+    -o-transform: translate(510px, 210px);
+    transform: translate(510px, 210px); }
+  .tesuji-board .intersection-17-12 {
+    -webkit-transform: translate(510px, 180px);
+    -moz-transform: translate(510px, 180px);
+    -o-transform: translate(510px, 180px);
+    transform: translate(510px, 180px); }
+  .tesuji-board .intersection-17-13 {
+    -webkit-transform: translate(510px, 150px);
+    -moz-transform: translate(510px, 150px);
+    -o-transform: translate(510px, 150px);
+    transform: translate(510px, 150px); }
+  .tesuji-board .intersection-17-14 {
+    -webkit-transform: translate(510px, 120px);
+    -moz-transform: translate(510px, 120px);
+    -o-transform: translate(510px, 120px);
+    transform: translate(510px, 120px); }
+  .tesuji-board .intersection-17-15 {
+    -webkit-transform: translate(510px, 90px);
+    -moz-transform: translate(510px, 90px);
+    -o-transform: translate(510px, 90px);
+    transform: translate(510px, 90px); }
+  .tesuji-board .intersection-17-16 {
+    -webkit-transform: translate(510px, 60px);
+    -moz-transform: translate(510px, 60px);
+    -o-transform: translate(510px, 60px);
+    transform: translate(510px, 60px); }
+  .tesuji-board .intersection-17-17 {
+    -webkit-transform: translate(510px, 30px);
+    -moz-transform: translate(510px, 30px);
+    -o-transform: translate(510px, 30px);
+    transform: translate(510px, 30px); }
+  .tesuji-board .intersection-17-18 {
+    -webkit-transform: translate(510px, 0px);
+    -moz-transform: translate(510px, 0px);
+    -o-transform: translate(510px, 0px);
+    transform: translate(510px, 0px); }
+  .tesuji-board .intersection-18-0 {
+    -webkit-transform: translate(540px, 540px);
+    -moz-transform: translate(540px, 540px);
+    -o-transform: translate(540px, 540px);
+    transform: translate(540px, 540px); }
+  .tesuji-board .intersection-18-1 {
+    -webkit-transform: translate(540px, 510px);
+    -moz-transform: translate(540px, 510px);
+    -o-transform: translate(540px, 510px);
+    transform: translate(540px, 510px); }
+  .tesuji-board .intersection-18-2 {
+    -webkit-transform: translate(540px, 480px);
+    -moz-transform: translate(540px, 480px);
+    -o-transform: translate(540px, 480px);
+    transform: translate(540px, 480px); }
+  .tesuji-board .intersection-18-3 {
+    -webkit-transform: translate(540px, 450px);
+    -moz-transform: translate(540px, 450px);
+    -o-transform: translate(540px, 450px);
+    transform: translate(540px, 450px); }
+  .tesuji-board .intersection-18-4 {
+    -webkit-transform: translate(540px, 420px);
+    -moz-transform: translate(540px, 420px);
+    -o-transform: translate(540px, 420px);
+    transform: translate(540px, 420px); }
+  .tesuji-board .intersection-18-5 {
+    -webkit-transform: translate(540px, 390px);
+    -moz-transform: translate(540px, 390px);
+    -o-transform: translate(540px, 390px);
+    transform: translate(540px, 390px); }
+  .tesuji-board .intersection-18-6 {
+    -webkit-transform: translate(540px, 360px);
+    -moz-transform: translate(540px, 360px);
+    -o-transform: translate(540px, 360px);
+    transform: translate(540px, 360px); }
+  .tesuji-board .intersection-18-7 {
+    -webkit-transform: translate(540px, 330px);
+    -moz-transform: translate(540px, 330px);
+    -o-transform: translate(540px, 330px);
+    transform: translate(540px, 330px); }
+  .tesuji-board .intersection-18-8 {
+    -webkit-transform: translate(540px, 300px);
+    -moz-transform: translate(540px, 300px);
+    -o-transform: translate(540px, 300px);
+    transform: translate(540px, 300px); }
+  .tesuji-board .intersection-18-9 {
+    -webkit-transform: translate(540px, 270px);
+    -moz-transform: translate(540px, 270px);
+    -o-transform: translate(540px, 270px);
+    transform: translate(540px, 270px); }
+  .tesuji-board .intersection-18-10 {
+    -webkit-transform: translate(540px, 240px);
+    -moz-transform: translate(540px, 240px);
+    -o-transform: translate(540px, 240px);
+    transform: translate(540px, 240px); }
+  .tesuji-board .intersection-18-11 {
+    -webkit-transform: translate(540px, 210px);
+    -moz-transform: translate(540px, 210px);
+    -o-transform: translate(540px, 210px);
+    transform: translate(540px, 210px); }
+  .tesuji-board .intersection-18-12 {
+    -webkit-transform: translate(540px, 180px);
+    -moz-transform: translate(540px, 180px);
+    -o-transform: translate(540px, 180px);
+    transform: translate(540px, 180px); }
+  .tesuji-board .intersection-18-13 {
+    -webkit-transform: translate(540px, 150px);
+    -moz-transform: translate(540px, 150px);
+    -o-transform: translate(540px, 150px);
+    transform: translate(540px, 150px); }
+  .tesuji-board .intersection-18-14 {
+    -webkit-transform: translate(540px, 120px);
+    -moz-transform: translate(540px, 120px);
+    -o-transform: translate(540px, 120px);
+    transform: translate(540px, 120px); }
+  .tesuji-board .intersection-18-15 {
+    -webkit-transform: translate(540px, 90px);
+    -moz-transform: translate(540px, 90px);
+    -o-transform: translate(540px, 90px);
+    transform: translate(540px, 90px); }
+  .tesuji-board .intersection-18-16 {
+    -webkit-transform: translate(540px, 60px);
+    -moz-transform: translate(540px, 60px);
+    -o-transform: translate(540px, 60px);
+    transform: translate(540px, 60px); }
+  .tesuji-board .intersection-18-17 {
+    -webkit-transform: translate(540px, 30px);
+    -moz-transform: translate(540px, 30px);
+    -o-transform: translate(540px, 30px);
+    transform: translate(540px, 30px); }
+  .tesuji-board .intersection-18-18 {
+    -webkit-transform: translate(540px, 0px);
+    -moz-transform: translate(540px, 0px);
+    -o-transform: translate(540px, 0px);
+    transform: translate(540px, 0px); }

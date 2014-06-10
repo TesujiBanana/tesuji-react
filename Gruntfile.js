@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
-    
+
     // Define the configuration for all the tasks
     grunt.initConfig({
 
@@ -52,9 +52,13 @@ module.exports = function (grunt) {
             gruntfile: {
                 files: ['Gruntfile.js']
             },
-            compass: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['compass:server', 'autoprefixer']
+            // compass: {
+            //     files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+            //     tasks: ['compass:server', 'autoprefixer']
+            // },
+            sass: {
+                files: ['sass/{,*/}*.{scss,sass}'],
+                tasks: ['sass']
             },
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
@@ -170,31 +174,40 @@ module.exports = function (grunt) {
         },
 
         // Compiles Sass to CSS and generates necessary files if requested
-        compass: {
-            options: {
-                sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
-                generatedImagesDir: '.tmp/images/generated',
-                imagesDir: '<%= yeoman.app %>/images',
-                javascriptsDir: '<%= yeoman.app %>/scripts',
-                fontsDir: '<%= yeoman.app %>/styles/fonts',
-                importPath: '<%= yeoman.app %>/bower_components',
-                httpImagesPath: '/images',
-                httpGeneratedImagesPath: '/images/generated',
-                httpFontsPath: '/styles/fonts',
-                relativeAssets: false,
-                assetCacheBuster: false
+        // compass: {
+        //     options: {
+        //         sassDir: '<%= yeoman.app %>/styles',
+        //         cssDir: '.tmp/styles',
+        //         generatedImagesDir: '.tmp/images/generated',
+        //         imagesDir: '<%= yeoman.app %>/images',
+        //         javascriptsDir: '<%= yeoman.app %>/scripts',
+        //         fontsDir: '<%= yeoman.app %>/styles/fonts',
+        //         importPath: '<%= yeoman.app %>/bower_components',
+        //         httpImagesPath: '/images',
+        //         httpGeneratedImagesPath: '/images/generated',
+        //         httpFontsPath: '/styles/fonts',
+        //         relativeAssets: false,
+        //         assetCacheBuster: false
+        //     },
+        //     dist: {
+        //         options: {
+        //             generatedImagesDir: '<%= yeoman.dist %>/images/generated'
+        //         }
+        //     },
+        //     server: {
+        //         options: {
+        //             debugInfo: true
+        //         }
+        //     }
+        // },
+
+        sass: {
+          dist: {
+            files: {
+              '<%= yeoman.app %>/styles/main.css' : 'sass/main.scss'
             },
-            dist: {
-                options: {
-                    generatedImagesDir: '<%= yeoman.dist %>/images/generated'
-                }
-            },
-            server: {
-                options: {
-                    debugInfo: true
-                }
-            }
+            outputStyle: 'compressed'
+          }
         },
 
         // Add vendor prefixed styles
@@ -365,14 +378,14 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up build process
         concurrent: {
             server: [
-                'compass:server',
+                // 'compass:server',
                 'copy:styles',
             ],
             test: [
                 'copy:styles'
             ],
             dist: [
-                'compass',
+                // 'compass',
                 'copy:styles',
                 'imagemin',
                 'svgmin',
