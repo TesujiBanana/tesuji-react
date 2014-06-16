@@ -30,6 +30,8 @@ var _ = require('underscore');
 var Board = require('../models/board.js');
 var Stone = require('../models/stone.js');
 var GameState = require('../models/game_state.js');
+var Move = require('../models/move.js');
+
 var BoardView = require('./board_view.jsx');
 
 var TesujiApp = React.createClass({
@@ -50,7 +52,7 @@ var TesujiApp = React.createClass({
     var y = payload.y;
     if (x === undefined || y === undefined) { return }
 
-    var new_game_state = this.state.game_state.playMove(x, y);
+    var new_game_state = this.state.game_state.playMove(new Move({x: x, y: y}));
 
     if (new_game_state && new_game_state.valid) {
       this.setState({game_state: new_game_state});
@@ -59,7 +61,10 @@ var TesujiApp = React.createClass({
 
   render: function() {
     return (
-      <BoardView boardSize="19" game_state={this.state.game_state} onIntersectionClick={this.handleClick}/>
+      <BoardView
+        board={this.state.game_state.board}
+        current_turn={this.state.game_state.current_turn}
+        onIntersectionClick={this.handleClick} />
     );
   }
 });

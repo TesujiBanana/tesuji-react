@@ -18,38 +18,12 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
- * @jsx React.DOM
  */
 
-var React = require('react');
-var _ = require('underscore');
+var Model = require('../lib/model.js');
 
-var Board = require('../models/board.js');
-
-var GridView = require('./grid_view.jsx');
-var IntersectionsView = require('./intersections_view.jsx');
-
-var BoardView = React.createClass({
-  propTypes: {
-    onIntersectionClick: React.PropTypes.func.isRequired,
-
-    board: React.PropTypes.instanceOf(Board).isRequired,
-    current_turn: React.PropTypes.number,
-  },
-
-  render: function() {
-    var board_size = this.props.board.board_size;
-    return(
-      <div className='tesuji-board'>
-        <GridView board_size={board_size} />
-        <IntersectionsView
-          board={this.props.board}
-          current_turn={this.props.current_turn}
-          onIntersectionClick={this.props.onIntersectionClick} />
-      </div>
-    );
-  }
+var Move = Model.extend({
+  attributes: ['x', 'y']
 });
 
-module.exports = BoardView;
+module.exports = Move;

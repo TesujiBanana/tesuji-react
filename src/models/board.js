@@ -82,7 +82,7 @@ var Board = Model.extend({
 
       return new Board({
         board_size: this.board_size,
-        stones: _.values(_.extend({}, this.getOverlay(), this.getOverlay(valid_stones)))
+        stones: this.stones.concat(valid_stones)
       });
     },
 
@@ -128,7 +128,7 @@ var Board = Model.extend({
         // if we find a null (empty) neighbor, we are alive.
         if (neighbors.indexOf(null) >= 0) { return [] }
 
-        // enqueue friendly neighbors, add stone to group, and call self.
+        // call self with friendly neighbors added to queue and stone added to group.
         return _findDeadStones(board,
           queue.slice(1).concat(neighbors.filter(function(neighbor_stone) {
             return (
