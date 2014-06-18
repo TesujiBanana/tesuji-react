@@ -23,41 +23,28 @@
 var _ = require('underscore');
 
 var Model = function(attributes) {
-  this.attributes = this.initialize.apply(this, [(attributes !== undefined) ? attributes : {}]);
-  // this.initialize.apply(this, arguments);
+  _.extend(this, 
+    this.initialize.apply(this, [
+      (attributes !== undefined) ? attributes : {}
+    ])
+  );
 };
 
 Model.prototype.initialize = function(attributes) { return attributes; };
 
 Model.extend = function(definition) {
   var parent = this;
-  var child;
-  
+
   var child = function() {
     return parent.apply(this, arguments); 
   };
   
   _.extend(child, parent);
   
-  child.prototype = Object.create(parent.prototype);
-  
-  Object.defineProperties(child.prototype, _.defaults(
-    _.object(
-      _.map(_.pairs(definition.methods), function(pair) {
-        return [pair[0], { value: pair[1], configurable: true }]
-      })
-    ),
-    _.object(
-      definition.attributes,
-      _.map(definition.attributes, function(attribute) {
-        return {
-          get: function() { return this.attributes[attribute] },
-          set: function(value) { this.attributes[attribute] = value },
-          configurable: true
-        }
-      })
-    )
-  ));
+  child.prototype = _.extend(
+    Object.create(parent.prototype),
+    definition.methods
+  );
 
   return child;
 };

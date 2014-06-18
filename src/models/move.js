@@ -23,7 +23,7 @@
 var Model = require('../lib/model.js');
 
 var Move = Model.extend({
-  attributes: ['x', 'y']
+  attributes: ['x', 'y', 'color']
 });
 
 module.exports = Move;

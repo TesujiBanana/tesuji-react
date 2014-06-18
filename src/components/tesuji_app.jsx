@@ -52,19 +52,27 @@ var TesujiApp = React.createClass({
     var y = payload.y;
     if (x === undefined || y === undefined) { return }
 
-    var new_game_state = this.state.game_state.playMove(new Move({x: x, y: y}));
+    var new_game_state = this.state.game_state.playMove(new Move({
+      x: x,
+      y: y,
+      color: this.state.game_state.current_turn
+    }));
 
-    if (new_game_state && new_game_state.valid) {
+    if (new_game_state) {
       this.setState({game_state: new_game_state});
     }
   },
 
   render: function() {
     return (
-      <BoardView
-        board={this.state.game_state.board}
-        current_turn={this.state.game_state.current_turn}
-        onIntersectionClick={this.handleClick} />
+      <div>
+        <BoardView
+          board={this.state.game_state.board}
+          current_turn={this.state.game_state.current_turn}
+          onIntersectionClick={this.handleClick} />
+        <div>{this.state.game_state.to_json()}</div>
+        <div>{btoa(this.state.game_state.to_json())}</div>
+      </div>
     );
   }
 });

@@ -152,7 +152,51 @@ describe('GameState', function() {
     });
   });
 
-  describe('serialize', function() {
 
+  describe('moves', function() {
+    it('is empty array for new game', function() {
+      var game_state = new GameState({
+        board: new Board(),
+        current_turn: Stone.BLACK
+      });
+  
+      expect(game_state.moves()).to.be.empty;
+    });
+    
+    it('contains a move', function() {
+      var initial_game_state = new GameState({
+        board: new Board(),
+        current_turn: Stone.BLACK
+      });
+      
+      var move = new Move({x: 2, y: 3});
+      var game_state = initial_game_state.playMove(move);
+      
+      expect(game_state.moves()).to.include(move);
+    });
+  });
+    
+  describe('serialize', function() {
+    it('prints some stuff', function() {
+      var initial_game_state = new GameState({
+        board: new Board(),
+        current_turn: Stone.BLACK
+      });
+
+      var game_state = initial_game_state.playMove(new Move({x: 2, y: 3}));
+      
+      expect(game_state.serialize()).to.not.be.null;
+    });
+    
+    it('contains moves data', function() {
+      var initial_game_state = new GameState({
+        board: new Board(),
+        current_turn: Stone.BLACK
+      });
+
+      var game_state = initial_game_state.playMove(new Move({x: 2, y: 3}));
+      
+      expect(game_state.serialize()).to.not.be.null;
+    });
   });
 });

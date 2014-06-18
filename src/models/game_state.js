@@ -87,8 +87,26 @@ var GameState = Model.extend({
       }
       return false;
     },
+    
+    moves: function() {
+      return (
+        this.last_move ?
+        (this.previous_game_state ? 
+          this.previous_game_state.moves() : 
+          []).concat(this.last_move) :
+        []
+      );
+    },
 
-    valid: function() { return true; }
+    serialize: function() { 
+      return {
+        moves: this.moves()
+      };
+    },
+    
+    to_json: function() {
+      return JSON.stringify(this.serialize());
+    }
   },
 
 

@@ -39,12 +39,6 @@ describe('Model', function() {
       expect(foo.bar).to.equal('asdf');
     });
     
-    it('get sets props correctly', function() {
-      var foo = new Foo({bar: 'asdf'});
-      foo.bar = 'fdas';
-      expect(foo.attributes.bar).to.equal('fdas');
-    });
-    
     it('can set and get props', function() {
       var foo = new Foo({bar: 'asdf'});
       foo.bar = 'fdas';
