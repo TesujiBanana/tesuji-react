@@ -29,7 +29,13 @@ var Stone = require('./stone.js');
 var Move = require('./move.js');
 
 var GameState = Model.extend({
-  attributes: ['board', 'last_move', 'kills', 'current_turn', 'previous_game_state'],
+  attributes: ['board', 'moves', 'kills', 'current_turn', 'previous_game_state'],
+  defaults: {
+    board: new Board(),
+    moves: [],
+    kills: [],
+    current_turn: Stone.BLACK
+  },
   methods: {
     playMove: function(move) {
       // make sure there isn't a stone already there
@@ -37,8 +43,10 @@ var GameState = Model.extend({
         return null;
       }
 
+      // TODO: validate current player
+
       // create and place the new stone
-      var new_stone = new Stone({x: move.x, y: move.y, color: this.current_turn});
+      var new_stone = new Stone({x: move.x, y: move.y, color: move.color}); //this.current_turn});
       var new_board = this.board.placeStones(new_stone)
 
       // find dead stones and remove them
@@ -59,8 +67,8 @@ var GameState = Model.extend({
       // create a new game state with the new board and the turn set
       return new GameState({
         board: new_board,
-        kills: (this.kills ? this.kills : []).concat(kills),
-        last_move: move,
+        kills: this.kills.concat(kills),
+        moves: this.moves.concat(move),
         current_turn: (this.current_turn + 1) % 2,
         previous_game_state: this
       });
@@ -87,26 +95,26 @@ var GameState = Model.extend({
       }
       return false;
     },
-    
-    moves: function() {
-      return (
-        this.last_move ?
-        (this.previous_game_state ? 
-          this.previous_game_state.moves() : 
-          []).concat(this.last_move) :
-        []
-      );
-    },
-
-    serialize: function() { 
-      return {
-        moves: this.moves()
-      };
-    },
-    
-    to_json: function() {
-      return JSON.stringify(this.serialize());
-    }
+  //
+  //   moves: function() {
+  //     return (
+  //       this.last_move ?
+  //       (this.previous_game_state ?
+  //         this.previous_game_state.moves() :
+  //         []).concat(this.last_move) :
+  //       []
+  //     );
+  //   },
+  //
+  //   serialize: function() {
+  //     return {
+  //       moves: this.moves()
+  //     };
+  //   },
+  //
+  //   to_json: function() {
+  //     return JSON.stringify(this.serialize());
+  //   }
   },
 
 

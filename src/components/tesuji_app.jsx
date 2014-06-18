@@ -70,8 +70,7 @@ var TesujiApp = React.createClass({
           board={this.state.game_state.board}
           current_turn={this.state.game_state.current_turn}
           onIntersectionClick={this.handleClick} />
-        <div>{this.state.game_state.to_json()}</div>
-        <div>{btoa(this.state.game_state.to_json())}</div>
+        <div>{JSON.stringify(this.state.game_state.moves)}</div>
       </div>
     );
   }
