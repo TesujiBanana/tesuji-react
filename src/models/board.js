@@ -116,7 +116,6 @@ var Board = Model.extend({
       );
     },
 
-
     findDeadStones: function(stone) {
       return (function _findDeadStones(board, queue, group) {
         // if there is nothing left to check, we are dead.

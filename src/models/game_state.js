@@ -36,6 +36,7 @@ var GameState = Model.extend({
     kills: [],
     current_turn: Stone.BLACK
   },
+
   methods: {
     playMove: function(move) {
       // make sure there isn't a stone already there
@@ -46,8 +47,8 @@ var GameState = Model.extend({
       // TODO: validate current player
 
       // create and place the new stone
-      var new_stone = new Stone({x: move.x, y: move.y, color: move.color}); //this.current_turn});
-      var new_board = this.board.placeStones(new_stone)
+      var new_stone = new Stone(move);
+      var new_board = this.board.placeStones(new_stone);
 
       // find dead stones and remove them
       var kills = new_board.findKills(new_stone);
@@ -79,7 +80,7 @@ var GameState = Model.extend({
     },
 
     checkKo: function(new_board) {
-      var matcher = _.matches(new_board.getOverlay());
+      // var matcher = _.matches(new_board.getOverlay());
       var previous_game_state = this;
       while (previous_game_state) {
         if (

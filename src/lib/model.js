@@ -31,13 +31,13 @@ Model.extend = function(definition) {
 
 
   var child = function(attributes) {
-    _.extend(this,
-      _.defaults(
-        this.initialize((attributes !== undefined) ? attributes : {}),
-        // this, [
-        //   (attributes !== undefined) ? attributes : {}
-        // ]),
-        definition.defaults
+    _.extend(
+      this,
+      this.initialize(
+        _.defaults(
+          (attributes !== undefined) ? attributes : {},
+          definition.defaults
+        )
       )
     );
   };
