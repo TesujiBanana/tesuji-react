@@ -129,10 +129,8 @@
             &.preview {
               opacity: 0.4;
               z-index: 2;
-              height: 25px;
-              width: 25px;
-              top: 4px;
-              left: 4px;
+              height: ($multiple * .8) + ($multiple/30) + px;
+              width: ($multiple * .8) + ($multiple/30) + px;
             }
             &.black {
               height: ($multiple * .8) + px;
@@ -173,7 +171,7 @@
 }
 
 @media only screen and (max-width: 639px) {
-  @include reactive(20); 
+  @include reactive(24); 
 }
 
 @media only screen and (min-width: 640px) and (max-width: 1279px) {
@@ -181,5 +179,5 @@
 }
 
 @media only screen and (min-width: 1280px) {
-   @include reactive(60);
+   @include reactive(48);
 }
