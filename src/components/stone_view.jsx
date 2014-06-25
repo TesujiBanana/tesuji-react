@@ -37,7 +37,10 @@ var StoneView = React.createClass({
   },
   render: function() {
     return (
-      <div className={'stone ' + this.color() }></div>
+      <div>
+        <div className={'stone ' + this.color() } />
+        <div className='stone shadow' />
+      </div>
     );
   }
 });

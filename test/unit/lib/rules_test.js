@@ -74,9 +74,9 @@ describe('Rules', function() {
         new Stone({x: 2, y: 3, color: Stone.WHITE})
       );
 
-      var new_board = Rules.playMove([board], new Move({x: 3, y: 3, color: Stone.BLACK}));
-
-      expect(new_board).to.be.null;
+      expect(function() { 
+        Rules.playMove([board], new Move({x: 3, y: 3, color: Stone.BLACK}));
+      }).to.throw;
     });
 
     it('fails for repeat board position (ko)', function() {
