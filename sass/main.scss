@@ -23,146 +23,163 @@
   background: linear-gradient($args); /* Standard syntax */
 }
 
-.tesuji-board {
-    position: relative;
-    margin: 12px;
-    background-color: #ffcc66;
-    height: 600px;
-    width: 600px;
+@mixin reactive($multiple) {
+  .tesuji-board {
+      position: relative;
+      margin: 12px;
+      background-color: #ffcc66;
+      height: ($multiple * 20) + px;
+      width: ($multiple * 20) + px;
 
-    .tesuji-grid {
-        position: absolute;
-        margin: 15px;
-        height: 570px;
-        width: 570px;
-        z-index: 2;
-
-        table {
+      .tesuji-grid {
           position: absolute;
-          z-index: 0;
-          left: 15px;
-          top: 15px;
-          // border: 1px dotted black;
-          border-collapse: collapse;
-          border-spacing: 0;
-        }
+          margin: ($multiple/2) + px;
+          height: ($multiple * 19) + px;
+          width: ($multiple * 19) + px;
+          z-index: 2;
 
-        td {
-            height: 29px;
-            width: 29px;
-            border: 1px solid black;
-            padding: 0px;
-        }
-
-        .label {
+          table {
             position: absolute;
-            z-index: 1;
-            font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
-            font-size: 9px;
-            text-align: center;
-            color: black;
-            padding: 0px;
-        }
-
-        @for $i from 0 through 18 {
-            $offset-x: 540 - (30 * $i) + px;
-            $offset-y: (30 * $i) + px;
-
-            .label-top-#{$i} {
-              @extend .label;
-              height: 15px;
-              width: 30px;
-              padding-top: 2px;
-              @include transform(translate($offset-y, -15px));
-            }
-            .label-bottom-#{$i} {
-              @extend .label;
-              height: 15px;
-              width: 30px;
-              @include transform(translate($offset-y, 570px));
-            }
-            .label-left-#{$i} {
-              @extend .label;
-              height: 30px;
-              width: 15px;
-              padding-top: 10px;
-              @include transform(translate(-15px, $offset-x));
-            }
-            .label-right-#{$i} {
-              @extend .label;
-              height: 30px;
-              width: 15px;
-              padding-top: 10px;
-              @include transform(translate(570px, $offset-x));
-            }
-        }
-
-        .dot {
-          position: absolute;
-          top: 13px;
-          left: 13px;
-          height: 5px;
-          width: 5px;
-          background-color: black;
-        }
-    }
-
-    .intersections {
-      position: absolute;
-      margin: 15px;
-      height: 570px;
-      width: 570px;
-      z-index: 3;
-
-      .intersection {
-        position: absolute;
-        z-index: 3;
-        height: 30px;
-        width: 30px;
-
-        .stone {
-          position: absolute;
-          top: 3px;
-          left: 3px;
-          border-radius: 50%;
-          &.preview {
-            opacity: 0.4;
-            z-index: 2;
+            z-index: 0;
+            left: ($multiple/2) + px;
+            top: ($multiple/2) + px;
+            // border: 1px dotted black;
+            border-collapse: collapse;
+            border-spacing: 0;
           }
-          &.black {
-            height: 24px;
-            width: 24px;
-            @include gradient(285deg, black, #505050);
-            z-index: 3;
+
+          td {
+              height: ($multiple - 1) + px;
+              width: ($multiple - 1) + px;
+              border: 1px solid black;
+              padding: 0px;
           }
-          &.white {
-            height: 24px;
-            width: 24px;
-            @include gradient(285deg, #D0D0D0, white);
-            z-index: 3;
+
+          .label {
+              position: absolute;
+              z-index: 1;
+              font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+              font-size: ($multiple/3 - 1) + px;
+              text-align: center;
+              color: black;
+              padding: 0px;
           }
-          &.shadow {
-            height: 24px;
-            width: 24px;
-            top: 4px;
-            left: 4px;
-            opacity: 0.2;
+
+          @for $i from 0 through 18 {
+              $offset-x: $multiple * 18 - ($multiple * $i) + px;
+              $offset-y: ($multiple * $i) + px;
+
+              .label-top-#{$i} {
+                @extend .label;
+                height: ($multiple/2) + px;
+                width: ($multiple) + px;
+                padding-top: ($multiple/10) + px;
+                @include transform(translate($offset-y, (-1 * $multiple/2) + px));
+              }
+              .label-bottom-#{$i} {
+                @extend .label;
+                height: ($multiple/2) + px;
+                width: ($multiple) + px;
+                @include transform(translate($offset-y, ($multiple * 19) + px));
+              }
+              .label-left-#{$i} {
+                @extend .label;
+                height: ($multiple) + px;
+                width: ($multiple/2) + px;
+                padding-top: ($multiple/3) + px;
+                @include transform(translate((-1 * $multiple/2) + px, $offset-x));
+              }
+              .label-right-#{$i} {
+                @extend .label;
+                height: $multiple + px;
+                width: ($multiple/2) + px;
+                padding-top: ($multiple/3) + px;
+                @include transform(translate(($multiple * 19) + px, $offset-x));
+              }
+          }
+
+          .dot {
+            position: absolute;
+            top: ($multiple/2 - 2 ) + px; //13px;
+            left: ($multiple/2 - 2 ) + px;
+            height: 5px;
+            width: 5px;
             background-color: black;
-            z-index: 2;
+          }
+      }
+
+      .intersections {
+        position: absolute;
+        margin: ($multiple/2) + px;
+        height: ($multiple * 19) + px;
+        width: ($multiple * 19) + px;
+        z-index: 3;
+
+        .intersection {
+          position: absolute;
+          z-index: 3;
+          height: $multiple + px;
+          width: $multiple + px;
+
+          .stone {
+            position: absolute;
+            top: ($multiple/10) + px;
+            left: ($multiple/10) + px;
+            border-radius: 50%;
+            &.preview {
+              opacity: 0.4;
+              z-index: 2;
+              height: 25px;
+              width: 25px;
+              top: 4px;
+              left: 4px;
+            }
+            &.black {
+              height: ($multiple * .8) + px;
+              width: ($multiple * .8) + px;
+              @include gradient(285deg, black, #505050);
+              z-index: 3;
+            }
+            &.white {
+              height: ($multiple * .8) + px;
+              width: ($multiple * .8) + px;
+              @include gradient(285deg, #D0D0D0, white);
+              z-index: 3;
+            }
+            &.shadow {
+              height: ($multiple * .8) + px;
+              width: ($multiple * .8) + px;
+              top: ($multiple/10) + ($multiple/20) + px;
+              left: ($multiple/10) + ($multiple/20) + px;
+              opacity: 0.2;
+              background-color: black;
+              z-index: 2;
+            }
           }
         }
       }
-    }
 
-    @for $i from 0 through 18 {
-      @for $j from 0 through 18 {
-        $offset-x: (30 * $i) + px;
-        $offset-y: 540 - (30 * $j) + px;
+      @for $i from 0 through 18 {
+        @for $j from 0 through 18 {
+          $offset-x: ($multiple * $i) + px;
+          $offset-y: $multiple * (18 - $j) + px;
 
-        .intersection-#{$i}-#{$j} {
-          @include transform(translate($offset-x, $offset-y));
+          .intersection-#{$i}-#{$j} {
+            @include transform(translate($offset-x, $offset-y));
+          }
         }
       }
-    }
+  }
+}
 
+@media only screen and (max-width: 639px) {
+  @include reactive(20); 
+}
+
+@media only screen and (min-width: 640px) and (max-width: 1279px) {
+  @include reactive(30); 
+}
+
+@media only screen and (min-width: 1280px) {
+   @include reactive(60);
 }
