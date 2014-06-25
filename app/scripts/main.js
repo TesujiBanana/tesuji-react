@@ -9,6 +9,7 @@
 var React = require('react');
 var TesujiApp = require('tesuji_app');
 var Router = require('director').Router;
+var lz = require('lz-string');
 
 var Game = require('game');
 
@@ -20,10 +21,15 @@ var routes = {
   '/game/.*': function() {
     var game_data;
     try {
-      game_data = JSON.parse(atob(window.location.hash.slice(7)));
+      game_data = JSON.parse(lz.decompressFromBase64(window.location.hash.slice(7)));
     }
     catch(err) {
-      console.log('inavlid game data' + err);
+      try {
+        game_data = JSON.parse(atob(window.location.hash.slice(7)));
+      }
+      catch(err2) {
+        console.log('inavlid game data: ' + err);    
+      }
     }
 
     var game = game_data ? new Game(game_data) : new Game();

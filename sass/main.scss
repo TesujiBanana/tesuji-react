@@ -42,7 +42,7 @@
           z-index: 0;
           left: 15px;
           top: 15px;
-          border: 1px solid black;
+          // border: 1px dotted black;
           border-collapse: collapse;
           border-spacing: 0;
         }
@@ -132,14 +132,12 @@
           &.black {
             height: 24px;
             width: 24px;
-            // background-color: black;
             @include gradient(285deg, black, #505050);
             z-index: 3;
           }
           &.white {
             height: 24px;
             width: 24px;
-            // background-color: #f7f7f7;
             @include gradient(285deg, #D0D0D0, white);
             z-index: 3;
           }

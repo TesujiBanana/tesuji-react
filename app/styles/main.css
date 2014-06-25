@@ -21,7 +21,6 @@
       z-index: 0;
       left: 15px;
       top: 15px;
-      border: 1px solid black;
       border-collapse: collapse;
       border-spacing: 0; }
     .tesuji-board .tesuji-grid td {

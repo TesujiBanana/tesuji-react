@@ -26,6 +26,7 @@
 
 var React = require('react');
 var _ = require('underscore');
+var lz = require('lz-string');
 
 var Board = require('../models/board.js');
 var Stone = require('../models/stone.js');
@@ -52,7 +53,7 @@ var TesujiApp = React.createClass({
     });
 
     if (new_game_state.board()) {
-      window.location.href = '#/game/' + btoa(JSON.stringify(new_game_state));
+      window.location.href = '#/game/' + lz.compressToBase64(JSON.stringify(new_game_state));
     }
   },
 
@@ -64,6 +65,7 @@ var TesujiApp = React.createClass({
           current_turn={this.props.game.current_turn}
           onIntersectionClick={this.handleClick} />
         <div>{JSON.stringify(this.props.game)}</div>
+        <div>{lz.compressToBase64(JSON.stringify(this.props.game))}</div>
       </div>
     );
   }

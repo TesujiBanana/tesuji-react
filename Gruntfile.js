@@ -161,7 +161,8 @@ module.exports = function (grunt) {
                     require: [
                         'react',
                         'underscore',
-                        'director'
+                        'director',
+                        'lz-string'
                     ],
                     bundleOptions: { debug: true }
                 },
