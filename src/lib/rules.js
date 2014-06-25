@@ -25,13 +25,18 @@ var _ = require('underscore');
 var Stone = require('../models/stone.js');
 var Board = require('../models/board.js');
 
+var InvalidMoveException = function InvalidMoveException(message) {
+   this.message = message;
+   this.name = "InvalidMoveException";
+};
+
 var Rules = {
   playMove: function(board_history, move) {
     var old_board = board_history.slice(-1)[0]
 
     // make sure there isn't a stone already there
     if (old_board.stoneAt(move.x, move.y)) {
-      return null;
+      throw new InvalidMoveException('stone already at (' + move.x + ', ' + move.y + ')');
     }
 
     // TODO: validate current player
@@ -46,12 +51,12 @@ var Rules = {
 
     // check suicide
     if (this.checkSuicide(new_board, new_stone)) {
-      return null;
+      throw new InvalidMoveException('stone placed in suicide');
     }
 
     // check ko (note: no need to check ko if there were no kills)
     if (kills && kills.length > 0 && this.checkKo(board_history, new_board)) {
-      return null;
+      throw new InvalidMoveException('move violates rule of ko');
     }
 
     // create a new game state with the new board and the turn set

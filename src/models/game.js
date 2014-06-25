@@ -28,7 +28,6 @@ var Rules = require('../lib/rules.js');
 
 var Board = require('./board.js');
 var Stone = require('./stone.js');
-var GameState = require('./game_state.js');
 var Move = require('./move.js');
 
 var Game = Model.extend({
@@ -39,7 +38,12 @@ var Game = Model.extend({
     current_turn: Stone.BLACK
   },
   methods: {
-    // initialize: function(attributes) {
+    initialize: function(attributes) {
+      if (attributes.moves.length > 0) {
+        attributes.moves = attributes.moves.map(function(m) { return new Move(m) });
+      }
+      return attributes;
+    },
     //   return _.extend(attributes, {
     //     current_turn: attributes.handicap === 0 ?
     //       Stone.BLACK :

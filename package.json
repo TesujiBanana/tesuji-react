@@ -6,8 +6,11 @@
     "underscore": "^1.6.0"
   },
   "devDependencies": {
+    "backbone": "^1.1.2",
     "chai": "^1.9.1",
+    "director": "^1.2.3",
     "envify": "^1.2.1",
+    "flatiron": "^0.3.11",
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "~0.5.0",
     "grunt-bower-install": "~0.7.0",

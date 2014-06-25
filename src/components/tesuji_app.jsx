@@ -35,13 +35,6 @@ var Move = require('../models/move.js');
 var BoardView = require('./board_view.jsx');
 
 var TesujiApp = React.createClass({
-
-  getInitialState: function() {
-    return {
-      game_state: new Game()
-    };
-  },
-
   handleClick: function(payload) {
     if (!payload) { return }
 
@@ -50,17 +43,16 @@ var TesujiApp = React.createClass({
     if (x === undefined || y === undefined) { return }
 
     var new_game_state = new Game({
-      moves: this.state.game_state.moves.concat(new Move({
+      moves: this.props.game.moves.concat(new Move({
         x: x,
         y: y,
-        color: this.state.game_state.current_turn
+        color: this.props.game.current_turn
       })),
-      current_turn: (this.state.game_state.current_turn + 1) % 2
+      current_turn: (this.props.game.current_turn + 1) % 2
     });
 
-    // TODO: use a .valid() method, rather than .board()
     if (new_game_state.board()) {
-      this.setState({game_state: new_game_state});
+      window.location.href = '#/game/' + btoa(JSON.stringify(new_game_state));
     }
   },
 
@@ -68,10 +60,10 @@ var TesujiApp = React.createClass({
     return (
       <div>
         <BoardView
-          board={this.state.game_state.board()}
-          current_turn={this.state.game_state.current_turn}
+          board={this.props.game.board()}
+          current_turn={this.props.game.current_turn}
           onIntersectionClick={this.handleClick} />
-        <div>{JSON.stringify(this.state.game_state.moves)}</div>
+        <div>{JSON.stringify(this.props.game)}</div>
       </div>
     );
   }

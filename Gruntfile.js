@@ -146,7 +146,10 @@ module.exports = function (grunt) {
                 options: {
                     transform: ['reactify'],
                     external: ['react', 'underscore'],
-                    alias: ['./src/components/tesuji_app.jsx:tesuji_app'],
+                    alias: [
+                      './src/components/tesuji_app.jsx:tesuji_app',
+                      './src/models/game.js:game'
+                    ],
                     bundleOptions: { debug: true }
                 },
                 dest: '<%= yeoman.app %>/scripts/app.js',
@@ -157,7 +160,8 @@ module.exports = function (grunt) {
                 options: {
                     require: [
                         'react',
-                        'underscore'
+                        'underscore',
+                        'director'
                     ],
                     bundleOptions: { debug: true }
                 },

@@ -35,8 +35,6 @@ var Move = require('../../../src/models/move.js');
 describe('Rules', function() {
   describe('playMove', function() {
     it('places a stone on the board', function() {
-      // var initial_game_state = new GameState();
-
       var new_board = Rules.playMove(
         [new Board()],
         new Move({x: 2, y: 3, color: Stone.BLACK})
