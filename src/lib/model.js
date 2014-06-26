@@ -42,7 +42,7 @@ Model.extend = function(definition) {
     );
   };
 
-  _.extend(child, parent);
+  _.extend(child, parent, definition.constants);
 
   child.prototype = _.extend(
     Object.create(parent.prototype),

@@ -114,6 +114,19 @@ describe('Model', function() {
       expect(foo.bar).to.eql(-1);
     });
   });
+  
+  describe('constants', function() {
+
+    it('should register constant values', function() {
+      var Foo = Model.extend({
+        constants: {
+          BAR: 'bar'
+        }
+      });
+      
+      expect(Foo.BAR).to.equal('bar');
+    });
+  });
 
   describe('methods', function() {
     var Foo = Model.extend({
