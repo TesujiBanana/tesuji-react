@@ -28,7 +28,6 @@ var Rules = require('../lib/rules.js');
 
 var Board = require('./board.js');
 var Stone = require('./stone.js');
-var Move = require('./move.js');
 
 var Game = Model.extend({
   attributes: ['moves', 'handicap', 'komi', 'black_player', 'white_player', 'current_turn'],
@@ -40,10 +39,11 @@ var Game = Model.extend({
   methods: {
     initialize: function(attributes) {
       if (attributes.moves.length > 0) {
-        attributes.moves = attributes.moves.map(function(m) { return new Move(m) });
+        attributes.moves = attributes.moves.map(function(m) { return new Stone(m) });
       }
       return attributes;
     },
+
     //   return _.extend(attributes, {
     //     current_turn: attributes.handicap === 0 ?
     //       Stone.BLACK :

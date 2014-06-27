@@ -15,7 +15,6 @@ var Game = require('game');
 
 var routes = {
   '/game': function() {
-    console.log('errp!');
     React.renderComponent(TesujiApp({game: new Game()}), document.getElementById('tesuji_app'));
   },
   '/game/.*': function() {
@@ -28,7 +27,7 @@ var routes = {
         game_data = JSON.parse(atob(window.location.hash.slice(7)));
       }
       catch(err2) {
-        console.log('inavlid game data: ' + err);    
+        console.log('inavlid game data: ' + err);
       }
     }
 

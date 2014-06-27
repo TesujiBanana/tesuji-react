@@ -30,14 +30,13 @@ var Rules = require('../../../src/lib/rules.js');
 
 var Stone = require('../../../src/models/stone.js');
 var Board = require('../../../src/models/board.js');
-var Move = require('../../../src/models/move.js');
 
 describe('Rules', function() {
   describe('playMove', function() {
     it('places a stone on the board', function() {
       var new_board = Rules.playMove(
         [new Board()],
-        new Move({x: 2, y: 3, color: Stone.BLACK})
+        new Stone({x: 2, y: 3, color: Stone.BLACK})
       );
       expect(new_board.stoneAt(2, 3)).to.eql(
         new Stone({x: 2, y: 3, color: Stone.BLACK})
@@ -56,7 +55,7 @@ describe('Rules', function() {
         new Stone({x: 3, y: 4, color: Stone.WHITE})
       );
 
-      var new_board = Rules.playMove([board], new Move({x: 2, y: 3, color: Stone.WHITE}));
+      var new_board = Rules.playMove([board], new Stone({x: 2, y: 3, color: Stone.WHITE}));
       expect(new_board.stoneAt(5, 4)).to.be.eql(new Stone({x: 5, y: 4, color: Stone.BLACK}));
       expect(new_board.stoneAt(3, 2)).to.be.null;
       expect(new_board.stoneAt(3, 3)).to.be.null;
@@ -75,7 +74,7 @@ describe('Rules', function() {
       );
 
       expect(function() { 
-        Rules.playMove([board], new Move({x: 3, y: 3, color: Stone.BLACK}));
+        Rules.playMove([board], new Stone({x: 3, y: 3, color: Stone.BLACK}));
       }).to.throw;
     });
 
@@ -97,8 +96,8 @@ describe('Rules', function() {
         new Stone({x: 3, y: 4, color: Stone.WHITE})
       );
 
-      var new_board = Rules.playMove([board], new Move({x: 3, y: 3, color: Stone.BLACK}));
-      var ko_board = Rules.playMove([new_board], new Move({x: 3, y: 2, color: Stone.WHITE}));
+      var new_board = Rules.playMove([board], new Stone({x: 3, y: 3, color: Stone.BLACK}));
+      var ko_board = Rules.playMove([new_board], new Stone({x: 3, y: 2, color: Stone.WHITE}));
 
       var ko = Rules.checkKo([board, new_board], ko_board);
 

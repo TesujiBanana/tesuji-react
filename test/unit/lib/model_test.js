@@ -116,15 +116,50 @@ describe('Model', function() {
   });
   
   describe('constants', function() {
-
     it('should register constant values', function() {
       var Foo = Model.extend({
         constants: {
           BAR: 'bar'
         }
       });
-      
       expect(Foo.BAR).to.equal('bar');
+    });
+  });
+  
+  describe('serialize', function() {
+    it('returns some JSON', function() {
+      var Foo = Model.extend({ attributes: ['bar', 'baz']});
+      var foo = new Foo({bar: 'foobar', baz: 1});
+      expect(foo.serialize()).to.equal('{"bar":"foobar","baz":1}');
+    });
+    
+    it('renders plain-old-javascript-object attributes', function() {
+      var Foo = Model.extend({ attributes: ['bar', 'baz']});
+      var foo = new Foo({bar: 'foobar', baz: {foo: 'bar'}});
+      expect(foo.serialize()).to.equal('{"bar":"foobar","baz":{"foo":"bar"}}');
+    });
+    
+    it('nests model objects', function() {
+      var Foo = Model.extend({ attributes: ['bar', 'baz']});
+      var Bar = Model.extend({ 
+        attributes: ['foo'], 
+        methods: { serialize: function() { return JSON.stringify(this.foo); }}
+      });
+      var foo = new Foo({bar: new Bar({foo: 'bar'}), baz: 1});
+      expect(foo.serialize()).to.equal('{"bar":"bar","baz":1}');
+    });
+    
+    it('nests arrays', function() {
+      var Foo = Model.extend({ attributes: ['bar']});
+      var foo = new Foo({bar: [1, 2, {foo: 'bar'}]});
+      expect(foo.serialize()).to.equal('{"bar":[1,2,{"foo":"bar"}]}');
+    });
+    
+    it('maintains attribute order', function() {
+      var Foo = Model.extend({ attributes: ['bar', 'baz']});
+      var foo1 = new Foo({bar: 'foobar', baz: 1});
+      var foo2 = new Foo({baz: 1, bar: 'foobar'});
+      expect(foo1.serialize()).to.equal(foo2.serialize());
     });
   });
 

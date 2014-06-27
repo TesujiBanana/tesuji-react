@@ -24,11 +24,36 @@ var _ = require('underscore');
 
 var Model = function() {};
 
+Model.isModel = function(model) {
+  // Duck type this ... as long as it quacks a serialize method, we're ducky.
+  return typeof model === 'object' && typeof model.serialize === 'function';
+};
+
 Model.prototype.initialize = function(attributes) { return attributes; };
+
+Model.prototype.serialize = function() {
+  var _serializeAttribute = function _serializeAttribute(attr) { 
+    return (
+      Array.isArray(attr) ? _serializeArray(attr) :
+      Model.isModel(attr) ? attr.serialize() :
+      JSON.stringify(attr)
+    );
+  };
+  
+  var _serializeArray = function _serializeArray(arr) {
+    return '[' + arr.map(function(attr) { 
+      return _serializeAttribute(attr) 
+    }).join(',') + ']';
+  };
+  
+  var obj = this;
+  return '{' + this.attributes.map(function(attr) {
+    return '"' + attr + '"' + ':' + _serializeAttribute(obj[attr]);
+  }).join(',') + '}';
+};
 
 Model.extend = function(definition) {
   var parent = this;
-
 
   var child = function(attributes) {
     _.extend(
@@ -46,7 +71,8 @@ Model.extend = function(definition) {
 
   child.prototype = _.extend(
     Object.create(parent.prototype),
-    definition.methods
+    definition.methods,
+    { attributes: definition.attributes }
   );
 
   return child;

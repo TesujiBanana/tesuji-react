@@ -28,7 +28,6 @@ var expect = require('chai').expect;
 
 var Game = require('../../../src/models/game.js');
 
-var Move = require('../../../src/models/move.js');
 var Board = require('../../../src/models/board.js');
 var Stone = require('../../../src/models/stone.js');
 
@@ -54,8 +53,8 @@ describe('Game', function() {
     it('returns a board with stones for a game with moves', function() {
       var game = new Game({
         moves: [
-          new Move({x: 2, y: 3, color: Stone.BLACK}),
-          new Move({x: 15, y: 15, color: Stone.WHITE})
+          new Stone({x: 2, y: 3, color: Stone.BLACK}),
+          new Stone({x: 15, y: 15, color: Stone.WHITE})
         ]
       });
       expect(game.board()).to.eql((new Board()).placeStones(
@@ -67,20 +66,20 @@ describe('Game', function() {
     it('handles kills', function() {
       var game = new Game({
         moves: [
-          new Move({x: 5, y: 4, color: Stone.WHITE}),
-          new Move({x: 1, y: 2, color: Stone.BLACK}),
-          new Move({x: 3, y: 2, color: Stone.WHITE}),
-          new Move({x: 2, y: 2, color: Stone.BLACK}),
-          new Move({x: 3, y: 3, color: Stone.WHITE}),
-          new Move({x: 3, y: 1, color: Stone.BLACK}),
-          new Move({x: 9, y: 9, color: Stone.WHITE}),
-          new Move({x: 4, y: 2, color: Stone.BLACK}),
-          new Move({x: 9, y: 10, color: Stone.WHITE}),
-          new Move({x: 4, y: 3, color: Stone.BLACK}),
-          new Move({x: 9, y: 11, color: Stone.WHITE}),
-          new Move({x: 3, y: 4, color: Stone.BLACK}),
-          new Move({x: 9, y: 12, color: Stone.WHITE}),
-          new Move({x: 2, y: 3, color: Stone.BLACK})
+          new Stone({x: 5, y: 4, color: Stone.WHITE}),
+          new Stone({x: 1, y: 2, color: Stone.BLACK}),
+          new Stone({x: 3, y: 2, color: Stone.WHITE}),
+          new Stone({x: 2, y: 2, color: Stone.BLACK}),
+          new Stone({x: 3, y: 3, color: Stone.WHITE}),
+          new Stone({x: 3, y: 1, color: Stone.BLACK}),
+          new Stone({x: 9, y: 9, color: Stone.WHITE}),
+          new Stone({x: 4, y: 2, color: Stone.BLACK}),
+          new Stone({x: 9, y: 10, color: Stone.WHITE}),
+          new Stone({x: 4, y: 3, color: Stone.BLACK}),
+          new Stone({x: 9, y: 11, color: Stone.WHITE}),
+          new Stone({x: 3, y: 4, color: Stone.BLACK}),
+          new Stone({x: 9, y: 12, color: Stone.WHITE}),
+          new Stone({x: 2, y: 3, color: Stone.BLACK})
         ]
       });
 

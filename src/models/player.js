@@ -22,8 +22,11 @@
 
 var Model = require('../lib/model.js');
 
-var Move = Model.extend({
-  attributes: ['x', 'y', 'color']
+var Player = Model.extend({
+  attributes: [
+    'name',
+    'email'
+  ]
 });
 
-module.exports = Move;
+module.exports = Player;

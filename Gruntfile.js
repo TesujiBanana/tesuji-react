@@ -162,7 +162,8 @@ module.exports = function (grunt) {
                         'react',
                         'underscore',
                         'director',
-                        'lz-string'
+                        'lz-string',
+                        'sjcl'
                     ],
                     bundleOptions: { debug: true }
                 },

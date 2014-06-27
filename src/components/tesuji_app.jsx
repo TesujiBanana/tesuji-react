@@ -27,11 +27,11 @@
 var React = require('react');
 var _ = require('underscore');
 var lz = require('lz-string');
+var sjcl = require('sjcl');
 
 var Board = require('../models/board.js');
 var Stone = require('../models/stone.js');
 var Game = require('../models/game.js');
-var Move = require('../models/move.js');
 
 var BoardView = require('./board_view.jsx');
 
@@ -44,7 +44,7 @@ var TesujiApp = React.createClass({
     if (x === undefined || y === undefined) { return }
 
     var new_game_state = new Game({
-      moves: this.props.game.moves.concat(new Move({
+      moves: this.props.game.moves.concat(new Stone({
         x: x,
         y: y,
         color: this.props.game.current_turn
@@ -64,8 +64,9 @@ var TesujiApp = React.createClass({
           board={this.props.game.board()}
           current_turn={this.props.game.current_turn}
           onIntersectionClick={this.handleClick} />
-        <div>{JSON.stringify(this.props.game)}</div>
-        <div>{lz.compressToBase64(JSON.stringify(this.props.game))}</div>
+        <div>{this.props.game.serialize()}</div>
+        <div>{lz.compressToBase64(this.props.game.serialize())}</div>
+        <div>{sjcl.hash.sha256.hash(this.props.game.serialize())}</div>
       </div>
     );
   }
